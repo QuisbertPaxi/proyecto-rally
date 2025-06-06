@@ -1,0 +1,34 @@
+<mat-card class="shipping-card foto"> 
+    <div class="overlay"></div>
+      <mat-card-content id="textImagen">
+        <h1>Un espacio diseñado para los creadores de eventos, donde tus ideas toman forma y tus celebraciones cobran vida</h1></mat-card-content> 
+    </mat-card>
+
+   
+
+      <!-- {   "titulo":"Fotografía Urbana",
+    "descripcion": "Caminata fotográfica: Una caminata guiada por la ciudad centrada en técnicas fotográficas. Los participantes deben traer su propia cámara y usar zapatos cómodos. Duración: 2 horas. Se recomienda conocimiento básico de fotografía.",
+    "fecha":"12/06/2024",
+    "ubicacion": "Casco Antiguo",
+    "precio": "15.00", -->
+      @for (a of actividades; track a.id) {
+        <mat-card class="shipping-card back"> 
+        <mat-card-header>
+          <h2>{{a.titulo}}</h2>
+        </mat-card-header> 
+        <mat-card-content>
+          <p><b>Precio: </b>{{a.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+          <p><b>Fecha: </b>{{a.fecha}}</p>
+          <p><b>Descripción: </b>{{a.descripcion}}</p>
+          <p><b>Lugar donde realizarla: </b>{{a.ubicacion}}</p>
+          <p><b>Dirección de correo ha mensajear: </b>{{email}}</p>
+
+          <div class="grip">
+            <button style=" background-color: #023952;" mat-flat-button type="button" routerLink="/ofertante/editActividad/{{a.id}}">Editar</button>
+            <button style=" background-color: #023952;" mat-flat-button type="button" (click) = "eliminar(a.id)">Eliminar</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      }
+
+  

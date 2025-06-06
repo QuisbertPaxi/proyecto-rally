@@ -1,0 +1,67 @@
+.back{
+    background-color: #FE7600;
+    color: #2D232E;
+  }
+  .shipping-card {
+    width: 95%;
+    margin: 20px auto;
+    background-color: blackç;
+    padding: 10;
+  }
+  
+  .foto {
+    position: relative;
+    height: 20em;
+    background-image: url(
+      "https://images.unsplash.com/photo-1517263904808-5dc91e3e7044?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover; // Esta propiedad hace que la imagen se estire para cubrir completamente el área
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 3, 46, 0.67); // Superposición semitransparente
+    border-radius: 10px; // Redondea las esquinas del overlay
+  }
+  
+  #textImagen{
+    /* color: rgb(210, 148, 255);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.5em;
+    line-height: 1.2;
+    text-align: center; */
+  
+    position: absolute;
+    top: 50%;  // Ajusta verticalmente el texto al centro
+    left: 50%; // Ajusta horizontalmente el texto al centro
+    transform: translate(-50%, -50%); // Centra el texto correctamente
+    color:  #FFBE86; // Cambia el color del texto para hacerlo más visible sobre la superposición
+    z-index: 1; // Asegura que el texto esté por encima de la superposición
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.1em;
+    text-align: center;
+    
+  }
+  
+  
+  .grip{
+          
+    display: grid;
+  
+    /* Espaciado entre columnas */
+    grid-column-gap: 0.75rem; /* Equivalente a 3px */
+        
+    /* Espaciado entre filas */
+    grid-row-gap: 0.5rem; /* Equivalente a 2px */
+      
+    /* Número de columnas en la vista pequeña (sm) */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+      
+    /* Espaciado entre filas en la vista pequeña (sm) */
+    grid-row-gap: 0; /* Sin espacio entre filas */
+      
+  }

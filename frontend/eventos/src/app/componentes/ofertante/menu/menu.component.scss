@@ -1,0 +1,52 @@
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .fondo {
+    background-color: #023952;
+    color: rgb(210, 148, 255);
+  }
+  
+  .color{
+    color: rgb(210, 148, 255);
+  }
+  .sidenav {
+    width: 200px;
+  }
+  
+  .sidenav .mat-toolbar {
+    background: inherit;
+  }
+  
+  .mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .all{
+    min-height: 100vh;
+  }
+  
+  .header-title {
+    display: flex;
+    cursor: default;
+    align-items: center;
+    font-size: 20px; /* text-[20px] */
+    font-weight: bold;
+    line-height: 1;
+  }
+  
+  @media (min-width: 1024px) { /* lg */
+    .header-title {
+      font-size: 22px; /* text-[22px] */
+    }
+  }
+  .font-circle {
+    font-size:30px;
+  }
+  
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: rgb(28, 20, 34);
+  }

@@ -1,0 +1,75 @@
+<div class="login-container">
+    <div class="login-left">
+      <h1>
+        Inicia sesión
+        para
+        capturar y
+        compartir la
+        esencia de tu
+        ciudad.
+      </h1>
+    </div>
+    <div class="login-right">
+      <button mat-icon-button class="close-button" routerLink="/">
+        <mat-icon>close</mat-icon>
+      </button>
+      <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+        <mat-card style="background-color: #f57c00;">
+          <mat-card-header class="outer">
+            <mat-card-title class="inner"><h2 id="h2">Iniciar Sesión</h2></mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Nombre de usuario" formControlName="userName"/>
+                  @if (logInForm.controls['userName'].hasError('required')) {
+                    <mat-error class="marginbot">Nombre de usuario es <strong>requerido</strong></mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Email" formControlName="email" type="email"/>
+                  @if (logInForm.controls['email'].hasError('required')) {
+                    <mat-error class="marginbot">Email es <strong>requerido</strong></mat-error>
+                  }
+
+                  @if (logInForm.controls['email'].hasError('email')){
+                    <mat-error class="marginbot">El email no es <strong>válido</strong></mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput #password maxlength="10"  [type]="hide ? 'password' : 'text'" formControlName="password">
+                  <mat-hint align="end">{{password.value.length}} / 10</mat-hint>
+                  <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  @if (logInForm.controls['password'].hasError('required')) {
+                    <mat-error class="marginbot">La contraseña <strong>requerido</strong></mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions class="outer">
+            <button mat-flat-button color="primary" type="submit" class="full-width" [disabled]="!logInForm.valid">
+              Entrar
+            </button>
+          </mat-card-actions>
+        </mat-card>
+        <a href="/"m style="font-size: 0.9em;">¿Olvidaste tu contraseña?</a>
+      </form>
+  </div>
+</div>

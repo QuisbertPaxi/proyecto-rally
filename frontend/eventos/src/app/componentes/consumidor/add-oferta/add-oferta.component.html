@@ -1,0 +1,69 @@
+<form [formGroup]="addOfert" (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card back">
+      <mat-card-header class="outer">
+        <mat-card-title class="inner"><h2 id="h2">Crear nueva actividad</h2></mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Titulo" formControlName="titulo">
+              @if (addOfert.controls['titulo'].hasError('required')) {
+                <mat-error class="marginbot">El titulo es <strong>requerido</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Ubicación" formControlName="ubicacion">
+              @if (addOfert.controls['ubicacion'].hasError('required')) {
+                <mat-error class="marginbot">La ubicación es <strong>requerido</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Descripcion" formControlName="descripcion"/>
+              @if (addOfert.controls['descripcion'].hasError('required')) {
+                <mat-error class="marginbot">La descripción es <strong>requerido</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+
+                <mat-label>Fecha de la actividad</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="fechaSolicitada">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                @if (addOfert.controls['fechaSolicitada'].hasError('required')) {
+                  <mat-error class="marginbot">La fecha es <strong>requerido</strong></mat-error>
+                }
+
+            </mat-form-field>
+          </div>
+        </div>
+
+      </mat-card-content>
+
+      <mat-card-actions class="outer">
+         <div class="inner">
+<<<<<<< Updated upstream
+            <button mat-flat-button type="submit" >añadir</button>
+=======
+            <button mat-flat-button type="submit">añadir</button>
+>>>>>>> Stashed changes
+         </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+

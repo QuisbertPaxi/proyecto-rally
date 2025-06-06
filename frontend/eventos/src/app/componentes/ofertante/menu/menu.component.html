@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container fondo">
+    <mat-sidenav #drawer class="sidenav fondo" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false" >
+      <mat-toolbar>
+        <button mat-icon-button type="button" routerLink="/ofertante/inicio">
+          <mat-icon>home</mat-icon>
+        </button>
+        <a type="button" routerLink="/ofertante/inicio"><h3 class="color"><strong>HOME</strong></h3></a>
+      </mat-toolbar>
+      <mat-nav-list >
+            <a mat-list-item  type="button" routerLink="/ofertante/perfil" ><h4 class="color">Editar Perfil</h4></a>
+            <a mat-list-item type="button" routerLink="/ofertante/listaAct"><h4 class="color">Mis Actividades</h4></a>
+            <a mat-list-item type="button" routerLink="/ofertante/addActividad"><h4 class="color">Añadir Actividad</h4></a>
+            <a mat-list-item type="button" (click)="logout()"><h4 class="color">Salir</h4></a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content class="all">
+      <mat-toolbar class="fondo">
+        @if (isHandset$ | async) {
+          <button
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            (click)="drawer.toggle()">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
+        }
+        <span>
+          <h1>
+            <div class="header-title">
+              <div>DANDELION<span class="font-circle">●</span></div>
+            </div>
+          </h1>
+        </span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    
+    
+  </mat-sidenav-container>
+  

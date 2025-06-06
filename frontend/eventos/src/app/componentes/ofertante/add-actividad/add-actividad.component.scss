@@ -1,0 +1,97 @@
+  .back{
+    background-color: #95C623;
+    color: #023952;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .shipping-card {
+    width: 95%;
+    margin: 20px auto;
+    padding: 10;
+  }
+  
+  #h2{
+    color: antiquewhite;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.5em;
+    line-height: 1.2;
+    text-align: center;
+  }
+  
+  .marginbot{
+    margin-bottom: 2em;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .col {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .col:last-child {
+    margin-right: 0;
+  }
+  
+  .outer {
+    display: grid;
+    place-items: center; /* Centra tanto horizontal como verticalmente */
+    height: 100%; /* Para demostrar centrado vertical, opcional */
+  }
+  
+  .inner {
+   padding: 20px; /* Opcional, para contenido */
+  }
+  .grip{
+          
+    display: grid;
+  
+    /* Espaciado entre columnas */
+    grid-column-gap: 0.75rem; /* Equivalente a 3px */
+        
+    /* Espaciado entre filas */
+    grid-row-gap: 0.5rem; /* Equivalente a 2px */
+      
+    /* Número de columnas en la vista pequeña (sm) */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+      
+    /* Espaciado entre filas en la vista pequeña (sm) */
+    grid-row-gap: 0; /* Sin espacio entre filas */
+      
+  }
+
+  ::ng-deep .mat-calendar {
+    background-color: #006a6a;
+    color: #333;
+
+    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+      background-color: #739e00;
+      color: #fff;
+    }
+
+    .mat-calendar-body-selected {
+        background-color: #d7ff85;
+        color: #2f004d;
+      }
+    
+      .mat-calendar-body-disabled {
+        color: #bbb;
+        background-color: #023952;
+      }
+    
+      .mat-calendar-body-cell {
+        &:hover {
+          background-color: #008585;
+        }
+      }
+  }
+
+  
+  
+  
+  

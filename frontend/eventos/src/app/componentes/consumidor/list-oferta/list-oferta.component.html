@@ -1,0 +1,31 @@
+<mat-card class="shipping-card foto"> 
+    <div class="overlay"></div>
+      <mat-card-content id="textImagen">
+        <h1>tus expectativas se hacen realidad y tus actividades se transforman en momentos inolvidables</h1>
+      </mat-card-content> 
+    </mat-card>
+
+    @for (o of ofertas; track ofertas) {
+    <mat-card class="shipping-card back"> 
+
+      <!-- {   "titulo":"Fotografía Urbana",
+    "descripcion": "Caminata fotográfica: Una caminata guiada por la ciudad centrada en técnicas fotográficas. Los participantes deben traer su propia cámara y usar zapatos cómodos. Duración: 2 horas. Se recomienda conocimiento básico de fotografía.",
+    "fechaSolicitada":"12/06/2024",
+    "ubicacion": "Casco Antiguo",
+     -->
+      
+        <mat-card-header>
+          <h2><b>Titulo: </b>{{o.titulo}}</h2>
+        </mat-card-header> 
+        <mat-card-content>
+          <p><b>Fecha a solicitar: </b>{{o.fechaSolicitada}}</p>
+          <p><b>Descripcion: </b>{{o.descripcion}}</p>
+          <p><b>Ubicacion: </b>{{o.ubicacion}}</p>
+
+          <div class="grip">
+            <button style=" background-color: #2D232E;" mat-flat-button type="button">Editar</button>
+            <button style=" background-color: #2D232E;" mat-flat-button type="button">Eliminar</button>
+          </div>
+        </mat-card-content>
+    </mat-card>
+}

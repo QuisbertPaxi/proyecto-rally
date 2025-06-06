@@ -1,0 +1,24 @@
+<mat-card class="shipping-card foto">
+    <div class="overlay"></div>
+      <mat-card-content id="textImagen">
+        <h1>Muestranos tu perspectiva de las cosas</h1>
+      </mat-card-content>
+    </mat-card>
+<div class="galeria-container">
+  @for (imagen of imagenes; track $index) {
+  <mat-card class="galeria-card">
+    <img mat-card-image [src]="imagen.src" [alt]="imagen.titulo" />
+    <mat-card-header>
+      <mat-card-title>{{ imagen.titulo }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ imagen.descripcion }}</p>
+    </mat-card-content>
+    <mat-card-actions class="boton-votar-wrapper">
+      <button mat-raised-button class="boton-votar">
+        Votar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  }
+</div>
