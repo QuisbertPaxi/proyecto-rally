@@ -1,10 +1,13 @@
+import { ApiResponseFotografia } from './../../../modelos/api-response-fotografia';
+import { FotografiaService } from './../../../servicios/fotografia/fotografia.service';
+import { User } from './../../../modelos/user';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ApiResponseActividad } from '../../../modelos/api-response-actividad';
-import { ConsumidorService } from '../../../servicios/consumidor/consumidor.service';
 import { UsuarioService } from '../../../servicios/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-principal-consu',
@@ -12,50 +15,60 @@ import { UsuarioService } from '../../../servicios/usuario.service';
   imports: [MatCardModule, MatButtonModule, CommonModule],
 
   templateUrl: './principal-consu.component.html',
-  styleUrl: './principal-consu.component.scss'
+  styleUrls: ['./principal-consu.component.scss']
 })
 export class PrincipalConsuComponent implements OnInit{
-
-    imagenes = [
-    {
-      src: 'https://picsum.photos/1280/720?random=1',
-      titulo: 'Atardecer Urbano',
-      descripcion: 'Captura de la ciudad durante la puesta de sol.',
-      votos: 0
-    },
-    {
-      src: 'https://picsum.photos/400/300?random=2',
-      titulo: 'Arquitectura Moderna',
-      descripcion: 'Diseño contemporáneo en un entorno urbano srty egtyhu dfghy sfdhj sdfghj sfdg dddddddddddddddddddddddddddddddddd dddddddddddddddddd ddddddddddddddd.',
-      votos: 0
-    },
-    {
-      src: 'https://picsum.photos/400/300?random=3',
-      titulo: 'Vida Callejera',
-      descripcion: 'La energía cotidiana de la ciudad.',
-      votos: 0
-    }
-  ];
-  private readonly _consumidorService = inject(ConsumidorService)
+  participanteDatos: User = {} as User;
+  fotografias: ApiResponseFotografia [] = [];
   private readonly _usuarioService = inject(UsuarioService)
-  actividades: ApiResponseActividad[] = []
+  private readonly _fotografiaService = inject(FotografiaService)
+  actividades: ApiResponseActividad[] = [];
 
-  ngOnInit():void {
-    this._consumidorService.getAllActividades().subscribe(
-      (response) =>
-      {
-        if (response != null) {
-          response.forEach((act: ApiResponseActividad) =>{
-            this._usuarioService.getUsuarioData(act.idOfertante).subscribe((resp) =>
-              {
-                act.email = resp.email
-              }
-            )
-          })
+  constructor(private router: Router){}
 
-          this.actividades = response
-        }
+  ngOnInit(): void {
+    this._usuarioService.getUserData().subscribe({
+      next: (us: User) => {
+        this.participanteDatos = us;
+
+        this._fotografiaService.getFotografiaParticipante(this.participanteDatos.id!).subscribe({
+          next: data => {
+            this.fotografias = data.filter((f:ApiResponseFotografia) => f.estado !== 'ELIMINADO');
+            //console.log('Fotografías:', this.fotografias);
+          },
+          error: err => {
+            console.error('Error al obtener las fotografías:', err);
+            alert('No se pudo obtener las fotografías.');
+          }
+        });
+      },
+      error: err => {
+        console.error('Error al obtener participante:', err);
+        alert('No se pudo obtener el participante.');
       }
-    )
+    });
+  }
+
+  editarFotografia(foto:ApiResponseFotografia){
+    this.router.navigate(['/consumidor/addOferta/',foto.id]);
+  }
+
+  eliminarFoto(foto: ApiResponseFotografia) {
+    if (confirm(`¿Estás seguro de eliminar la foto "${foto.id}"?`)) {
+      this._fotografiaService.deleteFotografia(foto.id!, this.participanteDatos.userName!).subscribe({
+        next: () => {
+          this.fotografias = this.fotografias.filter(f => f.id !== foto.id);
+          alert('Foto eliminada correctamente');
+        },
+        error: err => {
+          console.error('Error al eliminar la foto:', err);
+          alert('No se pudo eliminar la foto');
+        }
+      });
+    }
+  }
+
+  irAddFotografia(){
+    this.router.navigate(["/consumidor/addOferta"]);
   }
 }

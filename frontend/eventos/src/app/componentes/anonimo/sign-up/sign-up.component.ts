@@ -39,7 +39,7 @@ export class SignUpComponent {
     password: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
-    role: ["consumidor", Validators.required]
+    role: ["participante"]
   });
 
   /**{
@@ -62,13 +62,13 @@ export class SignUpComponent {
     if (this.signInForm.valid) {
       console.log(this.signInForm.value);
       this._loginService.register(this.signInForm.value as RegisterRequest).subscribe({
-        next:(response) => 
+        next:(response) =>
         {
           console.log("esta es la respuesta:");
           console.log(response);
         },
         error:(respError) => {console.log(respError); alert(respError);},
-        complete: () => 
+        complete: () =>
         {
           alert('Registrado correctamente!!!')
           this.signInForm.reset()

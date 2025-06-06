@@ -1,0 +1,46 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 1rem;
+  background-color: #94b0d4;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-file {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.boton {
+  background-color: #b167c2!important;
+  color: rgb(44, 43, 43)!important;
+  border-radius: 20px!important;
+  font-weight: bold!important;
+  transition: transform 0.2s ease!important;
+  min-width: 100px;
+}
+
+
+.boton:hover {
+  background-color: #ebbef7!important;
+  transform: scale(1.05)!important;
+}

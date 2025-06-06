@@ -5,20 +5,30 @@
       </mat-card-content>
     </mat-card>
 <div class="galeria-container">
-  @for (imagen of imagenes; track $index) {
+  @for (foto of fotografias; track $index) {
   <mat-card class="galeria-card">
-    <img mat-card-image [src]="imagen.src" [alt]="imagen.titulo" />
+    <img mat-card-image [src]="foto.link" [alt]="foto.titulo" />
     <mat-card-header>
-      <mat-card-title>{{ imagen.titulo }}</mat-card-title>
+      <mat-card-title>{{ foto.titulo }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>{{ imagen.descripcion }}</p>
+      <p>{{ foto.descripcion }}</p>
     </mat-card-content>
     <mat-card-actions class="boton-votar-wrapper">
-      <button mat-raised-button class="boton-votar">
-        Votar
+      <button mat-raised-button class="boton-edit" (click)="editarFotografia(foto)">
+        Editar
+      </button>
+      <button mat-raised-button class="boton-delete" (click)="eliminarFoto(foto)">
+        Eliminar
       </button>
     </mat-card-actions>
   </mat-card>
   }
+</div>
+
+<div *ngIf="!fotografias || fotografias.length === 0" class="sin-fotos">
+  <p>No tienes fotografías aún.</p>
+  <button mat-raised-button class="btn-sinfotos" (click)="irAddFotografia()">
+    Añadir Fotografía
+  </button>
 </div>

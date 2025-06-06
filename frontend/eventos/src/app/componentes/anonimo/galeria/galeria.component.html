@@ -2,17 +2,17 @@
 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
        text-align: center;">GALERIA</h1>
 <div class="galeria-container">
-  @for (imagen of imagenes; track $index) {
+  @for (foto of fotografias; track $index) {
   <mat-card class="galeria-card">
-    <img mat-card-image [src]="imagen.src" [alt]="imagen.titulo" />
+    <img mat-card-image [src]="foto.link" [alt]="foto.titulo" />
     <mat-card-header>
-      <mat-card-title>{{ imagen.titulo }}</mat-card-title>
+      <mat-card-title>{{ foto.titulo }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>{{ imagen.descripcion }}</p>
+      <p>{{ foto.descripcion }}</p>
     </mat-card-content>
     <mat-card-actions class="boton-votar-wrapper">
-      <button mat-raised-button class="boton-votar" (click)="votar(imagen)">
+      <button mat-raised-button class="boton-votar" (click)="votar(foto)">
         Votar
       </button>
     </mat-card-actions>

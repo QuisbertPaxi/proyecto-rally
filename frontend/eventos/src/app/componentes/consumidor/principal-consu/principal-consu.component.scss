@@ -73,24 +73,50 @@ html, body {
 }
 
 .boton-votar-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  display: flex!important;
+  justify-content: center!important;
+  gap: 1rem!important;
 }
 
-.boton-votar {
-  background-color: #a11a1a;
-  color: white;
-  border-radius: 20px;
-  font-weight: bold;
-  transition: transform 0.2s ease;
+
+.boton-edit {
+  background-color: #e4e738!important;
+  color: rgb(44, 43, 43)!important;
+  border-radius: 20px!important;
+  font-weight: bold!important;
+  transition: transform 0.2s ease!important;
+  min-width: 100px;
 }
 
-.boton-votar:hover {
-  background-color: #b82d2d;
-  transform: scale(1.05);
+.boton-delete {
+  background-color: #a11a1a!important;
+  color: white!important;
+  border-radius: 20px!important;
+  font-weight: bold!important;
+  transition: transform 0.2s ease!important;
+  min-width: 100px;
 }
+
+.boton-edit:hover {
+  background-color: #e0e279!important;
+  transform: scale(1.05)!important;
+}
+
+.boton-delete:hover {
+  background-color: #b82d2d!important;
+  transform: scale(1.05)!important;
+}
+
+.sin-fotos {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-sinfotos{
+  background-color: #b786cd!important;
+  color: aliceblue!important;
+}
+
 
 mat-card-header {
   justify-content: center;

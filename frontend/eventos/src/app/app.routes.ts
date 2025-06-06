@@ -66,7 +66,8 @@ export const routes: Routes = [
             { path: 'perfil', component: PerfilOferComponent, data: { expectedRole: 'consumidor' } },
             { path: 'listaOferta', component: ListOfertaComponent, data: { expectedRole: 'consumidor' } },
             { path: 'addOferta', component: AddOfertaComponent, data: { expectedRole: 'consumidor' }},
-            { path: 'editOferta/:id', component: EditActividadComponent, data: { expectedRole: 'consumidor' }},
+            //{ path: 'editOferta/:id', component: EditActividadComponent, data: { expectedRole: 'consumidor' }},
+            { path: 'addOferta/:id', component: AddOfertaComponent, data: { expectedRole: 'consumidor' }},
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },
             { path: '**', redirectTo: 'inicio' }
           ]

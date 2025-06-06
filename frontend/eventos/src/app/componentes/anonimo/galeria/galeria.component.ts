@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { FotografiaService } from '../../../servicios/fotografia/fotografia.service';
+import { ApiResponseFotografia } from '../../../modelos/api-response-fotografia';
 
 @Component({
   selector: 'app-galeria',
@@ -15,34 +17,25 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./galeria.component.scss']
 })
 export class GaleriaComponent {
-  imagenes = [
-    {
-      src: 'https://picsum.photos/1280/720?random=1',
-      titulo: 'Atardecer Urbano',
-      descripcion: 'Captura de la ciudad durante la puesta de sol.',
-      votos: 0
-    },
-    {
-      src: 'https://picsum.photos/400/300?random=2',
-      titulo: 'Arquitectura Moderna',
-      descripcion: 'Diseño contemporáneo en un entorno urbano srty egtyhu dfghy sfdhj sdfghj sfdg dddddddddddddddddddddddddddddddddd dddddddddddddddddd ddddddddddddddd.',
-      votos: 0
-    },
-    {
-      src: 'https://picsum.photos/400/300?random=3',
-      titulo: 'Vida Callejera',
-      descripcion: 'La energía cotidiana de la ciudad.',
-      votos: 0
-    },
-    {
-      src: 'https://picsum.photos/400/300?random=4',
-      titulo: 'Transporte',
-      descripcion: 'El caos del transport en la ciudad.',
-      votos: 0
-    }
-  ];
+  fotografias: ApiResponseFotografia [] = [];
+  constructor(private fotografiaService: FotografiaService){}
+
+  ngOnInit(): void {
+    this.fotografiaService.getAllFotografia().subscribe(
+    (response) =>
+      {//esta funcioanando
+        if (response != null) {
+            this.fotografias = response;
+            console.log(response);
+        }
+      });
+  }
 
   votar(imagen: any) {
-    imagen.votos++;
+    //imagen.votos++;
+  }
+
+  buscarFotografias(){
+
   }
 }

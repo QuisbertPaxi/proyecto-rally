@@ -66,19 +66,6 @@
             </mat-form-field>
           </div>
         </div>
-
-        <div class="row outer">
-          <div class="col">
-            <mat-radio-group formControlName="role" class="inner radio-group">
-              <mat-radio-button value="consumidor" class="radio-option">consumidor</mat-radio-button>
-              <mat-radio-button value="ofertante" class="radio-option">ofertante</mat-radio-button>
-            </mat-radio-group>
-            @if (signInForm.controls['role'].hasError('required')) {
-              <mat-error class="marginbot">No hay rol <strong>requerido</strong></mat-error>
-            }
-          </div>
-        </div>
-
       </mat-card-content>
 
       <mat-card-actions class="outer">
