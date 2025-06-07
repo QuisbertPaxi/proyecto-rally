@@ -42,32 +42,32 @@ export const routes: Routes = [
         component: FormDatosPersonalesComponent
     },
     {
-        path: "ofertante",
+        path: "admin",
         component: MenuComponent,
         canActivateChild:[rolGuard],
-        data: {expectedRole: 'ofertante'},
+        data: {expectedRole: 'admin'},
         children: [
-            { path: 'inicio', component: PrincipalOferComponent, data: { expectedRole: 'ofertante' } },
-            { path: 'perfil', component: PerfilOferComponent, data: { expectedRole: 'ofertante' } },
-            { path: 'listaAct', component: ListActividadComponent, data: { expectedRole: 'ofertante' } },
-            { path: 'addActividad', component: AddActividadComponent, data: { expectedRole: 'ofertante' }},
-            { path: 'editActividad/:id', component: EditActividadComponent, data: { expectedRole: 'ofertante' }},
+            { path: 'inicio', component: PrincipalOferComponent, data: { expectedRole: 'admin' } },
+            { path: 'perfil', component: PerfilOferComponent, data: { expectedRole: 'admin' } },
+            { path: 'listaAct', component: ListActividadComponent, data: { expectedRole: 'admin' } },
+            { path: 'addActividad', component: AddActividadComponent, data: { expectedRole: 'admin' }},
+            { path: 'editActividad/:id', component: EditActividadComponent, data: { expectedRole: 'admin' }},
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },
             { path: '**', redirectTo: 'inicio' }
           ]
     },
     {
-        path: "consumidor",
+        path: "participante",
         component: MenuConsuComponent,
         canActivateChild:[rolGuard],
-        data: {expectedRole: 'consumidor'},
+        data: {expectedRole: 'participante'},
         children: [
-            { path: 'inicio', component: PrincipalConsuComponent, data: { expectedRole: 'consumidor' } },
-            { path: 'perfil', component: PerfilOferComponent, data: { expectedRole: 'consumidor' } },
-            { path: 'listaOferta', component: ListOfertaComponent, data: { expectedRole: 'consumidor' } },
-            { path: 'addOferta', component: AddOfertaComponent, data: { expectedRole: 'consumidor' }},
-            //{ path: 'editOferta/:id', component: EditActividadComponent, data: { expectedRole: 'consumidor' }},
-            { path: 'addOferta/:id', component: AddOfertaComponent, data: { expectedRole: 'consumidor' }},
+            { path: 'inicio', component: PrincipalConsuComponent, data: { expectedRole: 'participante' } },
+            { path: 'perfil', component: PerfilOferComponent, data: { expectedRole: 'participante' } },
+            { path: 'listaOferta', component: ListOfertaComponent, data: { expectedRole: 'participante' } },
+            { path: 'addOferta', component: AddOfertaComponent, data: { expectedRole: 'participante' }},
+            //{ path: 'editOferta/:id', component: EditActividadComponent, data: { expectedRole: 'participante' }},
+            { path: 'addOferta/:id', component: AddOfertaComponent, data: { expectedRole: 'participante' }},
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },
             { path: '**', redirectTo: 'inicio' }
           ]

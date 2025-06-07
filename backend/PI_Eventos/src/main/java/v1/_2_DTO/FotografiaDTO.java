@@ -13,6 +13,7 @@ public class FotografiaDTO {
     private String link;
     private String descripcion;
     private String titulo;
+    private String estado;
 
     private String usuCre;
     private Timestamp fecCre;
@@ -76,6 +77,14 @@ public class FotografiaDTO {
         this.descripcion = descripcion;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public Timestamp getFecCre() {
         return fecCre;
     }
@@ -123,6 +132,7 @@ public class FotografiaDTO {
                 ", idParticipante=" + idParticipante +
                 ", descripcion='" + descripcion + '\'' +
                 ", titulo='" + titulo + '\'' +
+                ", estado='" + estado + '\'' +
                 ", link='" + link + '\'' +
                 ", fecCre='" + fecCre + '\'' +
                 ", fecMod='" + fecMod + '\'' +

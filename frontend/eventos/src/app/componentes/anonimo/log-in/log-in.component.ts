@@ -46,7 +46,6 @@ export class LogInComponent {
 
   logInForm = this.fb.group({
     userName: [null, Validators.required],
-    email: [null,[Validators.required, Validators.email]],
     password: [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])
     ]
   });
@@ -81,14 +80,16 @@ export class LogInComponent {
           alert('¡Nos alegramos de verte de nuevo!')
           this.logInForm.reset()
 
-          if (this._roleUser.getUsuarioRol() === "consumidor")
+          if (this._roleUser.getUsuarioRol() === "participante")
           {
-            this._router.navigateByUrl("/consumidor/inicio")
+            this._router.navigateByUrl("/participante/inicio")
             //this._router.navigateByUrl("/participante")
-          } else
+          } else if (this._roleUser.getUsuarioRol() === "admin")
           {
             console.log("rol: ", this._roleUser.getUsuarioRol());
-            this._router.navigateByUrl("/ofertante/inicio")
+            this._router.navigateByUrl("/admin/inicio")
+          } else{
+            this._router.navigateByUrl("/")
           }
         }
       })

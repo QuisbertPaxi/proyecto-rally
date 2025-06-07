@@ -161,7 +161,7 @@ public class FotografiaImpl implements FotografiaService {
 
     @Override
     public List<FotografiaDTO> obtenerFotografiasPorParticipante(Long participanteId) {
-        Usuario participante = usuarioRepository.findById(participanteId).orElse(null);
+        Usuario participante = usuarioRepository.findByIdAndEstadoNot(participanteId, "ELIMINADO").orElse(null);
 
         if (participante == null || participante.getRole() == null) {
             return null;
@@ -177,8 +177,10 @@ public class FotografiaImpl implements FotografiaService {
     private FotografiaDTO convertirADTO(Fotografia fotografia) {
         FotografiaDTO dto = new FotografiaDTO();
         dto.setId(fotografia.getId());
+        dto.setTitulo(fotografia.getTitulo());
         dto.setDescripcion(fotografia.getDescripcion());
         dto.setLink(fotografia.getLink());
+        dto.setEstado(fotografia.getEstado());
         dto.setUsuCre(fotografia.getUsuarioCreacion());
         dto.setFecCre(fotografia.getFechaCreacion());
         dto.setUsuMod(fotografia.getUsuarioModificacion());

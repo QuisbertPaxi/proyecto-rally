@@ -14,5 +14,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query("SELECT COUNT(u) FROM Usuario u WHERE (u.nombre = :nombre OR u.email = :email) AND u.id <> :id")
     long countByNombreOrEmailExcludingId(@Param("nombre") String nombre, @Param("email") String email, @Param("id") Long id);
 
-
+    Optional<Usuario> findByIdAndEstadoNot(Long id, String estado);
 }

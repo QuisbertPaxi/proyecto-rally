@@ -62,6 +62,7 @@ public class FotografiaController {
         if (fotografiaListParticipante.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
+        System.out.println(fotografiaListParticipante);
 
         return ResponseEntity.ok(fotografiaListParticipante);
     }

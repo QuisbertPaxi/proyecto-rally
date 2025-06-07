@@ -106,7 +106,7 @@ export class FotografiaService {
     );
   }
 
-  deleteFotografia(idFotografia:number, usumod: string):Observable<any>{
+  deleteFotografia(idFotografia:number, usumod: string):Observable<string>{
     const token = this._tokenService.getToken();
     const data = {
       id: idFotografia,
@@ -120,7 +120,8 @@ export class FotografiaService {
 
     return this._http.request('delete', url, {
       headers,
-      body: data
+      body: data,
+      responseType: 'text'
       }).pipe(
         catchError(error => {
         console.error('Error al eliminar fotografía:', error);

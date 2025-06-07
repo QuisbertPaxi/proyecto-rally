@@ -145,6 +145,6 @@ export class AddOfertaComponent {
         }
       }
     }
-    this.router.navigate(['/consumidor/inicio']);
+    this.router.navigate(['/participante/inicio']);
   }
 }

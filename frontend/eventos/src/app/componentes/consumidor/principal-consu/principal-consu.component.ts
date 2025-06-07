@@ -50,11 +50,11 @@ export class PrincipalConsuComponent implements OnInit{
   }
 
   editarFotografia(foto:ApiResponseFotografia){
-    this.router.navigate(['/consumidor/addOferta/',foto.id]);
+    this.router.navigate(['/participante/addOferta/',foto.id]);
   }
 
   eliminarFoto(foto: ApiResponseFotografia) {
-    if (confirm(`¿Estás seguro de eliminar la foto "${foto.id}"?`)) {
+    if (confirm(`¿Estás seguro de eliminar la foto "${foto.titulo}"?`)) {
       this._fotografiaService.deleteFotografia(foto.id!, this.participanteDatos.userName!).subscribe({
         next: () => {
           this.fotografias = this.fotografias.filter(f => f.id !== foto.id);
@@ -69,6 +69,6 @@ export class PrincipalConsuComponent implements OnInit{
   }
 
   irAddFotografia(){
-    this.router.navigate(["/consumidor/addOferta"]);
+    this.router.navigate(["/participante/addOferta"]);
   }
 }
