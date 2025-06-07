@@ -2,11 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { User } from '../../../modelos/user';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { TokenService } from '../../../servicios/jwt/token.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-perfil-ofer',
@@ -36,6 +38,8 @@ export class PerfilOferComponent implements OnInit{
       Validators.required, Validators.minLength(5), Validators.maxLength(10)])
     ],
   });
+
+  constructor(private router: Router) {}
 
 
   ngOnInit(): void 
@@ -107,6 +111,10 @@ export class PerfilOferComponent implements OnInit{
     this._tokenService.removeToken()
     console.log("se removio el token (null)", this._tokenService.getToken());
     window.location.reload();
+  }
+
+  irAInicio() {
+    this.router.navigateByUrl('/participante/inicio');
   }
 
 }

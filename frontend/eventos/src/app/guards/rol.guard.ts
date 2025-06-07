@@ -16,8 +16,9 @@ export const rolGuard: CanActivateChildFn = (childRoute, state) => {
 
   if (tokenService.isTokenExpired()) 
   {
-    router.navigateByUrl("/LogIn")
-    return false
+    tokenService.removeToken();
+    router.navigateByUrl("/LogIn");
+    return false;
   }
 
   if (!roleService.getUsuarioRol().includes(expectedRole)) 

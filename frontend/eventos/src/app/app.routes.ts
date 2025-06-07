@@ -10,6 +10,7 @@ import { PerfilOferComponent } from './componentes/ofertante/perfil-ofer/perfil-
 import { ListActividadComponent } from './componentes/ofertante/list-actividad/list-actividad.component';
 import { AddActividadComponent } from './componentes/ofertante/add-actividad/add-actividad.component';
 import { rolGuard } from './guards/rol.guard';
+import { redirectIfAuthenticatedGuard } from './guards/redirect.guard';
 import { EditActividadComponent } from './componentes/ofertante/edit-actividad/edit-actividad.component';
 import { MenuConsuComponent } from './componentes/consumidor/menu/menu.component';
 import { PrincipalConsuComponent } from './componentes/consumidor/principal-consu/principal-consu.component';
@@ -23,6 +24,7 @@ export const routes: Routes = [
     {
       path: '',
       component: MenuToolbarComponent,
+      canActivate: [redirectIfAuthenticatedGuard],
       children: [
       { path: '', component: InicioComponent },
       { path: 'Galeria', component: GaleriaComponent },
@@ -31,15 +33,13 @@ export const routes: Routes = [
     },
     {
         path: "LogIn",
+        canActivate: [redirectIfAuthenticatedGuard],
         component: LogInComponent
     },
     {
         path: "SignUp",
+        canActivate: [redirectIfAuthenticatedGuard],
         component: SignUpComponent
-    },
-    {
-        path: "participante",
-        component: FormDatosPersonalesComponent
     },
     {
         path: "admin",

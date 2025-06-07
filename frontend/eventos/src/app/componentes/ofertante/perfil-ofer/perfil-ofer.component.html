@@ -61,7 +61,7 @@
               </button>
   
               @if (signInForm.controls['password'].hasError('required')) {
-                <mat-error class="marginbot">La contraseña es <strong>requerido</strong></mat-error>
+                <mat-error class="marginbot">La contraseña es <strong>requerida</strong></mat-error>
               }
             </mat-form-field>
           </div>
@@ -70,13 +70,11 @@
       </mat-card-content>
   
       <mat-card-actions class="outer">
-         <div class="inner">
-            
+         <div class="inner">            
              <div class="grip">
-                <button mat-flat-button type="submit" [disabled]="!signInForm.valid">actualizar</button>
-                <button mat-flat-button type="button" >eliminar</button>
+                <button mat-flat-button type="submit" [disabled]="!signInForm.valid">Actualizar</button>
+                <button mat-flat-button type="button" (click)="irAInicio()" >Cancelar</button>
              </div>
-            
          </div>
       </mat-card-actions>
     </mat-card>

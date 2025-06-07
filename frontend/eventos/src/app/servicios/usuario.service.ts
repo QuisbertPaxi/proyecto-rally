@@ -11,13 +11,13 @@ import { catchError, throwError } from 'rxjs';
 export class UsuarioService {
   private readonly _http = inject(HttpClient);
   private readonly _rolService = inject(RolService)
-  private readonly _id = this._rolService.getUsuarioId()
   private readonly _URL = environment.API_URL;
 
   getUserData()
   {
     // http://localhost:19090/api/v1/usuarios/{{id}}
-    return this._http.get<User>(this._URL+'usuarios/'+this._id)
+    const id = this._rolService.getUsuarioId();
+    return this._http.get<User>(this._URL+'usuarios/'+id)
   }
 
   getUsuarioData(idOf: number| null | undefined)
@@ -28,16 +28,17 @@ export class UsuarioService {
 
   // PUT http://localhost:19090/api/v1/usuarios/{{id}}
 
-  putUpdateData(usurio: User)
+  putUpdateData(usuario: User)
   {
-    return this._http.put<{mensaje: string}>(this._URL+'usuarios/'+this._id, usurio).pipe(
+    const id = this._rolService.getUsuarioId();
+    return this._http.put<{mensaje: string}>(this._URL+'usuarios/'+id, usuario).pipe(
       catchError(this.handleError)
     )
   }
 
   private handleError(error:HttpErrorResponse){
     if(error.status===0){
-      console.error('Se ha producio un error ', error.error);
+      console.error('Se ha produció un error ', error.error);
     }
     else{
       console.error('Backend retornó el código de estado ', error);
