@@ -3,7 +3,7 @@
   }
 
   #h2{
-    color: antiquewhite;
+    color: #c5c4e3;
     font-variant-caps: all-small-caps;
     letter-spacing: 0.5em;
     line-height: 1.2;
@@ -70,8 +70,8 @@
 
 .signup-right {
   flex: 1;
-  background-color: #037171;
-  color: white;
+  background-color: #8981c3;
+  color: #c5c4e3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,7 +90,7 @@
 
 .signup-left {
   flex: 1;
-  background-color: #b3dada;
+  background-color: #aba3e4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,27 +107,10 @@ form {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  color: #ffffff;
+  color: #c5c4e3;
   z-index: 10;
 }
 
-.radio-group {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  margin: 1rem 0;
-}
 
-.radio-option {
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  color: white;
-  background-color: #b3dada;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
-.radio-option:hover {
-  background-color: #94adad;
-  cursor: pointer;
-}
+

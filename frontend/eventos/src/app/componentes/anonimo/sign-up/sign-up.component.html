@@ -1,7 +1,7 @@
 <div class="signup-container">
   <div class="signup-left">
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-    <mat-card style="background-color: #037171;">
+    <mat-card style="background-color: #8981c3;">
       <mat-card-header class="outer">
         <mat-card-title class="inner"><h2 id="h2">Registrar usuario</h2></mat-card-title>
       </mat-card-header>
@@ -69,7 +69,8 @@
       </mat-card-content>
 
       <mat-card-actions class="outer">
-        <button mat-flat-button type="submit" class="full-width" [disabled]="!signInForm.valid" >enviar</button>
+        <button style="background-color: #7168b5; color:#c5c4e3 ;" mat-flat-button type="submit" class="full-width" [disabled]="!signInForm.valid" >enviar</button>
+        <!-- [disabled]="!signInForm.valid" -->
       </mat-card-actions>
     </mat-card>
   </form>

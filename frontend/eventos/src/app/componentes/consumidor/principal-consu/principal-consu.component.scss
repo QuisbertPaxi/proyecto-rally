@@ -1,5 +1,5 @@
 html, body {
-  background-color: white !important;
+  background-color: #94b0d4 !important;
   margin: 0;
   padding: 0;
 }
@@ -113,8 +113,12 @@ html, body {
 }
 
 .btn-sinfotos{
-  background-color: #b786cd!important;
-  color: aliceblue!important;
+  background-color: #2e78b0!important;
+  color: #c5c4e3!important;
+  border-radius: 0.5rem!important;
+  font-weight: bold!important;
+  transition: transform 0.2s ease!important;
+  min-width: 100px;
 }
 
 

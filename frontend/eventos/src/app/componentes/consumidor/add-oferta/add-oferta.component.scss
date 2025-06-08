@@ -1,9 +1,26 @@
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
+h2{
+    color: #c5c4e3;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
+    text-align: center;
+  }
+.outer {
+    display: grid;
+    place-items: center; /* Centra tanto horizontal como verticalmente */
+    height: 100%; /* Para demostrar centrado vertical, opcional */
+  }
+
+  .inner {
+   padding: 20px; /* Opcional, para contenido */
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
 
 .form-card {
   width: 100%;
@@ -11,7 +28,7 @@
   padding: 1.5rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   border-radius: 1rem;
-  background-color: #94b0d4;
+  background-color: #5c7dba;
 }
 
 .full-width {
@@ -19,11 +36,11 @@
   margin-bottom: 1rem;
 }
 
-.input-file {
-  display: block;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
+// .input-file {
+//   display: block;
+//   margin-top: 1rem;
+//   margin-bottom: 2rem;
+// }
 
 .button-row {
   display: flex;
@@ -31,16 +48,53 @@
 }
 
 .boton {
-  background-color: #b167c2!important;
-  color: rgb(44, 43, 43)!important;
-  border-radius: 20px!important;
+  background-color: #2e78b0!important;
+  color: #c5c4e3!important;
+  border-radius: 0.5rem!important;
   font-weight: bold!important;
   transition: transform 0.2s ease!important;
   min-width: 100px;
-}
 
+   &:disabled {
+    background-color: #0074a6a8;
+    cursor: not-allowed;
+  }
 
-.boton:hover {
-  background-color: #ebbef7!important;
+  &:hover {
+  background-color: #6e93c2!important;
   transform: scale(1.05)!important;
 }
+}
+
+
+// Input file
+
+.input-file {
+  display: none; // Oculta el input real de archivos
+}
+
+// Estilos para el botón de carga de archivo (label)
+.file-upload-btn {
+  display: block;
+  padding: 10px 20px;
+  background-color: #586db4;
+  color: #c5c4e3;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-bottom: 2rem;
+
+  &:hover {
+    background-color: #8981c3;
+  }
+
+  &:active {
+    background-color: darken(#586db4, 10%);
+  }
+}
+
+
+

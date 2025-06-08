@@ -30,8 +30,10 @@
 </div>
 
 <div *ngIf="!fotografias || fotografias.length === 0" class="sin-fotos">
-  <p>No tienes fotografías aún.</p>
-  <button mat-raised-button class="btn-sinfotos" (click)="irAddFotografia()">
+  <div>
+    <h1>No tienes fotografías aún.</h1>
+  <button mat-raised-button style="border-radius: 7em;" class="btn-sinfotos" (click)="irAddFotografia()">
     Añadir Fotografía
   </button>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 <mat-toolbar class="custom-toolbar">
   <div class="toolbar-left">
     <button mat-icon-button (click)="sidenav.toggle()" aria-label="Menú">
-      <mat-icon>menu</mat-icon>
+      <mat-icon style="color: #c5c4e3;">menu</mat-icon>
     </button>
   </div>
   <div class="toolbar-title">
@@ -9,11 +9,11 @@
   </div>
   <div class="grip toolbar-right">
     <button mat-flat-button routerLink="/LogIn"
-      style="background-color:#586db4; color: white;">
+      style="background-color:#2c70ad; color: #c5c4e3;">
       Iniciar Sesión
     </button>
     <button mat-flat-button routerLink="/SignUp"
-      style="background-color: white; color: #555daf;">
+      style="background-color: #8981c3; color: #c5c4e3;">
       Suscribirse
     </button>
   </div>
@@ -23,8 +23,8 @@
   <mat-sidenav #sidenav mode="over" class="sidebar">
     <nav style="padding: 16px;">
       <p><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="sidenav.close()">Inicio</a></p>
-      <p><a routerLink="/Galeria" routerLinkActive="active-link" (click)="sidenav.close()">Galeria</a></p>
-      <p><a routerLink="/Stats" routerLinkActive="active-link" (click)="sidenav.close()">Estadisticas</a></p>
+      <p><a routerLink="/Galeria" routerLinkActive="active-link" (click)="sidenav.close()">Galería</a></p>
+      <p><a routerLink="/Stats" routerLinkActive="active-link" (click)="sidenav.close()">Estadísticas</a></p>
     </nav>
   </mat-sidenav>
 

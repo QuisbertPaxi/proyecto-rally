@@ -1,6 +1,7 @@
 
   .back{
-    background-color: #95C623;
+    background-color: #5c7dba;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     color: #023952;
   }
    
@@ -64,6 +65,25 @@
     /* Espaciado entre filas en la vista pequeña (sm) */
     grid-row-gap: 0; /* Sin espacio entre filas */
       
+  }
+
+  .btn{
+    background-color: #2e78b0!important;
+    color: #c5c4e3!important;
+    border-radius: 0.5rem!important;
+    font-weight: bold!important;
+    transition: transform 0.2s ease!important;
+    min-width: 100px;
+
+     &:disabled {
+    background-color: #02354b;
+    cursor: not-allowed;
+    }
+
+  &:hover {
+  background-color: #6e93c2!important;
+  transform: scale(1.05)!important;
+}
   }
   
   
