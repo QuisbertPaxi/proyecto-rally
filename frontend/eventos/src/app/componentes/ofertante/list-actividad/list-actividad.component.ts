@@ -4,9 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { OfertanteService } from '../../../servicios/ofertante/ofertante.service';
-import { ApiResponseActividad } from '../../../modelos/api-response-actividad';
-import { UsuarioService } from '../../../servicios/usuario.service';
-import { RolService } from '../../../servicios/jwt/rol.service';
+import { ApiResponseConsurso } from '../../../modelos/api.response-concurso';
+import { ConsursoService } from '../../../servicios/consurso/consurso.service';
 
 
 @Component({
@@ -19,39 +18,39 @@ import { RolService } from '../../../servicios/jwt/rol.service';
 export class ListActividadComponent implements OnInit{
 
   private readonly _ofertanteService = inject(OfertanteService)
-  private readonly _usuarioService = inject(UsuarioService)
-  private readonly _rolService = inject(RolService)
+  private readonly _conscursoService = inject(ConsursoService)
 
-  actividades: ApiResponseActividad[] = []
-  email: string | undefined = ""
+  datosConcurso: ApiResponseConsurso = {};
+  fEnvioIni: any;
+  fEnvioFin: any;
+  fVotoIni: any;
+  fVotoFin: any;
+  fGanadores: any;
+
 
   ngOnInit(): void {
-    this._ofertanteService.getAllActividades().subscribe(
-    (response) =>
-    {
-      if (response != null) {
-       
-        this._usuarioService.getUserData().subscribe( (resp) =>
-        
-          {
-            this.email = resp.email
-            this.actividades = response
-
-            console.log(response);
-          }
-        )
-
+    this._conscursoService.getConcurso().subscribe({
+      next: (data) => {
+        this.datosConcurso = data;
+        this.fEnvioIni = this.formatearFecha(this.datosConcurso.fechaInicioEnvio);
+        this.fEnvioFin = this.formatearFecha(this.datosConcurso.fechaFinEnvio);
+        this.fVotoIni = this.formatearFecha(this.datosConcurso.fechaInicioVotacion);
+        this.fVotoFin = this.formatearFecha(this.datosConcurso.fechaFinVotacion);
+        this.fGanadores = this.formatearFecha(this.datosConcurso.fechaAnuncio);
+        //console.log("datos conc: ", this.datosConcurso);
+      },
+      error: (err) => {
+        console.error("Error al obtener el concurso:", err);
       }
-    }
-  )}
+    });
+  }
+
+  formatearFecha(fecha: any): string {
+    const [año, mes, dia] = fecha.split('-');
+    return `${dia}/${mes}/${año}`;
+  }
 
   eliminar(id: any){
     console.log(id);
-
-    this._ofertanteService.deleteActividad({id: id, idOfertante: this._rolService.getUsuarioId()}).subscribe({
-      next: (value) => {console.log(value);} , 
-      error: (error) => {console.log(error);} , 
-      complete: () => {window.location.reload();}
-    })
   }
 }

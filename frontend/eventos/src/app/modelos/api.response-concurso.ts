@@ -13,5 +13,4 @@ export interface ApiResponseConsurso
     numeroFotografias?: number | null,
     usuCre?: string | null,
     usuMod?: string | null
-
 }

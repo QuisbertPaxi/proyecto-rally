@@ -1,34 +1,60 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { OfertanteService } from '../../../servicios/ofertante/ofertante.service';
-import { ApiResponseOferta } from '../../../modelos/api-response-oferta';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FotografiaService } from '../../../servicios/fotografia/fotografia.service';
+import { ApiResponseFotografia } from '../../../modelos/api-response-fotografia';
+import { UsuarioService } from '../../../servicios/usuario.service';
+import { User } from '../../../modelos/user';
 
 @Component({
   selector: 'app-principal-ofer',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule,
+            MatFormFieldModule,
+            MatSelectModule,
+            MatInputModule,
+            FormsModule,
+            ReactiveFormsModule,],
   templateUrl: './principal-ofer.component.html',
   styleUrl: './principal-ofer.component.scss'
 })
 export class PrincipalOferComponent implements OnInit{
+  estados = ['APROBADO','RECHAZADO'];
+  adminDatos: User = {};
 
-  private readonly _ofertanteService = inject(OfertanteService)
-  ofertas: ApiResponseOferta[] = []
+  fotografias: ApiResponseFotografia [] = [];
+
+  private readonly _fotografiaService = inject(FotografiaService)
+  private readonly _usuarioService = inject(UsuarioService)
 
   ngOnInit(): void {
-    this._ofertanteService.getAllOfertas().subscribe(
-      (response) => 
-      {
-        if (response != null) {
-          this.ofertas = response
-        }
-      }
-    )
+    this._usuarioService.getUserData().subscribe({
+          next: (us: User) => {
+            this.adminDatos = us;
+
+            this._fotografiaService.getFotografiaEstado(this.adminDatos.id!,'PENDIENTE').subscribe({
+              next: data => {
+                this.fotografias = data.filter((f:ApiResponseFotografia) => f.estado !== 'ELIMINADO');
+                console.log('Fotografías:', this.fotografias);
+              },
+              error: err => {
+                console.error('Error al obtener las fotografías:', err);
+                alert('No se pudo obtener las fotografías.');
+              }
+            });
+          },
+          error: err => {
+            console.error('Error al obtener participante:', err);
+            alert('No se pudo obtener el participante.');
+          }
+        });
   }
 
   hacerOferta(flag: boolean){
-    // el ofertante se encargara de cambiar el 
+    // el ofertante se encargara de cambiar el
   }
 
 }

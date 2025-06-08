@@ -1,79 +1,102 @@
-<form [formGroup]="editAct" (ngSubmit)="onSubmit()">
+<form [formGroup]="editCon" (ngSubmit)="onSubmit()">
     <mat-card class="shipping-card back">
       <mat-card-header class="outer">
-        <mat-card-title class="inner"><h2 id="h2">Crear nueva actividad</h2></mat-card-title>
+        <mat-card-title class="inner"><h2 id="h2">Editar datos del Concurso</h2></mat-card-title>
       </mat-card-header>
-  
+
       <mat-card-content>
         <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Titulo" formControlName="titulo">
-              @if (editAct.controls['titulo'].hasError('required')) {
-                <mat-error class="marginbot">El titulo es <strong>requerido</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Ubicación" formControlName="ubicacion">
-              @if (editAct.controls['ubicacion'].hasError('required')) {
-                <mat-error class="marginbot">La ubicación es <strong>requerido</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
+          <h2>Envio de Fotografías</h2>
         </div>
-  
+        <div class="row">
+          <mat-form-field class="full-width">
+          <mat-label>Descripción del Concurso</mat-label>
+          <textarea matInput formControlName="descripcion" rows="4"></textarea>
+          @if (editCon.controls['descripcion'].hasError('required')) {
+            <mat-error class="marginbot">La descripcion es <strong>requerida</strong></mat-error>
+          }
+</mat-form-field>
+        </div>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="Descripcion" formControlName="descripcion"/>
-              @if (editAct.controls['descripcion'].hasError('required')) {
-                <mat-error class="marginbot">La descripción es <strong>requerido</strong></mat-error>
-              }
-            </mat-form-field>
-          </div>
-        </div>
-  
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width" floatLabel="always">
-              
-                <mat-label>Amount</mat-label>
-                <input matInput type="number" class="example-right-align" placeholder="0" formControlName="precio"/>
-                <span matTextPrefix>€&nbsp;</span>
-               <!--  <span matTextSuffix>.00</span> -->
-                @if (editAct.controls['precio'].hasError('required')) {
-                  <mat-error class="marginbot">El precio es <strong>requerido</strong></mat-error>
-                }
-            </mat-form-field>
-          </div>
-        </div>
-  
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-             
-                <mat-label>Fecha de la actividad</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlName="fecha">
+                <mat-label>Inicio</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="fechaEinicio">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
-                @if (editAct.controls['fecha'].hasError('required')) {
+                @if (editCon.controls['fechaEinicio'].hasError('required')) {
                   <mat-error class="marginbot">La fecha es <strong>requerido</strong></mat-error>
                 }
-              
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Fin</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="fechaEfin">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                @if (editCon.controls['fechaEfin'].hasError('required')) {
+                  <mat-error class="marginbot">La fecha es <strong>requerido</strong></mat-error>
+                }
             </mat-form-field>
           </div>
         </div>
-  
+        <div class="row">
+          <h2>Votación de Fotografías</h2>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Inicio</mat-label>
+                <input matInput [matDatepicker]="picker3" formControlName="fechaVinicio">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+                @if (editCon.controls['fechaVinicio'].hasError('required')) {
+                  <mat-error class="marginbot">La fecha es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Fin</mat-label>
+                <input matInput [matDatepicker]="picker4" formControlName="fechaVfin">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+                @if (editCon.controls['fechaVfin'].hasError('required')) {
+                  <mat-error class="marginbot">La fecha es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <h2>Anuncio Ganadores</h2>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Fecha única</mat-label>
+                <input matInput [matDatepicker]="picker5" formControlName="fechaAnuncio">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+                <mat-datepicker #picker5></mat-datepicker>
+                @if (editCon.controls['fechaAnuncio'].hasError('required')) {
+                  <mat-error class="marginbot">La fecha es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+          </div>
+        </div>
+
       </mat-card-content>
-  
+
       <mat-card-actions class="outer">
          <div class="inner">
             <div class="grip">
-                <button mat-flat-button type="submit" [disabled]="!editAct.valid">actualizar</button>
-                <button style=" background-color: #023952;" mat-flat-button type="button" routerLink="/ofertante/listaAct">volver</button>
+                <button mat-flat-button type="submit" [disabled]="!editCon.valid">actualizar</button>
+                <button style=" background-color: #023952;" mat-flat-button type="button" routerLink="/admin/listaAct">volver</button>
               </div>
          </div>
       </mat-card-actions>

@@ -1,29 +1,25 @@
-<mat-card class="shipping-card foto"> 
-    <div class="overlay"></div>
-      <mat-card-content id="textImagen"><h1>Un espacio diseñado para los creadores de eventos, donde tus ideas toman forma y tus celebraciones cobran vida</h1></mat-card-content> 
+<div class="photo-form-container">
+  <h2>Datos de Fotografía</h2>
+
+  @for (foto of fotografias; track $index) {
+    <div class="photo-entry">
+      <mat-card class="photo-card">
+        <div class="photo-row">
+          <img mat-card-image [src]="foto.link" [alt]="foto.titulo" class="image-placeholder"/>
+          <div class="photo-details">
+            <mat-form-field>
+              <mat-label>ESTADO</mat-label>
+              <mat-select [(ngModel)]="foto.estado">
+                @for (estado of estados; track $index) {
+                  <mat-option class="option" [value]="estado">{{ estado }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <div class="descripcion-label">Descripción</div>
+            <div class="descripcion-text">{{ foto.descripcion }}</div>
+        </div>
+      </div>
     </mat-card>
-
-    <mat-card class="shipping-card back"> 
-
-      <!-- {   "titulo":"Fotografía Urbana",
-    "descripcion": "Caminata fotográfica: Una caminata guiada por la ciudad centrada en técnicas fotográficas. Los participantes deben traer su propia cámara y usar zapatos cómodos. Duración: 2 horas. Se recomienda conocimiento básico de fotografía.",
-    "fecha":"12/06/2024",
-    "ubicacion": "Casco Antiguo",
-    "precio": "15.00", -->
-      @for (o of ofertas; track o.id) {
-        <mat-card-header>
-          <h2>{{o.titulo}}</h2>
-        </mat-card-header> 
-        <mat-card-content>
-          <p><b>Fecha solicitada: </b>{{o.fechaSolicitada}}</p>
-          <p><b>Descripción: </b>{{o.descripcion}}</p>
-          <p><b>Ubicación deseada: </b>{{o.ubicacion}}</p>
-
-          @if (o.estado) {
-            <button style=" background-color: #023952;" mat-flat-button type="button">¡Me encargo!</button>
-          } @else {
-            <button style=" background-color: #023952;" mat-flat-button type="button" disabled>¡Me encargo!</button>
-          }
-        </mat-card-content>
-      }
-    </mat-card>
+  </div>
+  }
+</div>

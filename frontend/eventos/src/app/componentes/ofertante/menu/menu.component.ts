@@ -8,10 +8,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router, RouterLink } from '@angular/router';
-import { PrincipalOferComponent } from '../principal-ofer/principal-ofer.component';
-import { RouterModule } from '@angular/router'; // Importar RouterModule
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { TokenService } from '../../../servicios/jwt/token.service';
+
 
 @Component({
   selector: 'app-menu',
@@ -24,14 +23,12 @@ import { TokenService } from '../../../servicios/jwt/token.service';
     MatIconModule,
     RouterLink,
     AsyncPipe,
-    PrincipalOferComponent,
     RouterModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-  
   private breakpointObserver = inject(BreakpointObserver);
   private readonly _tokenService = inject(TokenService)
   private readonly route = inject(Router)

@@ -42,7 +42,7 @@ public class FotografiaImpl implements FotografiaService {
     public List<FotografiaDTO> allFotografiasPorEstado(Long adminId, String estado) {
         Usuario admin = usuarioRepository.findById(adminId).orElse(null);
 
-        if (admin == null || !admin.getRole().equals("administrador")) {
+        if (admin == null || !admin.getRole().equals("admin")) {
             return null;
         }
 

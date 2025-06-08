@@ -22,6 +22,7 @@ public class ConcursoController {
 
     @PutMapping("/Update/{idAdmin}")
     public ResponseEntity<Object> actualizarConcurso (@PathVariable Long idAdmin, @RequestBody ConcursoDTO act) {
+        System.out.println("Holiiiis");
         return concursoService.editConcurso(idAdmin, act);
     }
 

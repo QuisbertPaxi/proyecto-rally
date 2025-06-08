@@ -53,14 +53,14 @@ export class FotografiaService {
     );
   }
 
-  getFotografiaEstado(estado: string): Observable<any> {
+  getFotografiaEstado(idAdmin:number, estado: string): Observable<any> {
     const token = this._tokenService.getToken();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this._http.get(`${this._URL}fotografias/State/11/${estado}`, { headers }).pipe(
+    return this._http.get(`${this._URL}fotografias/State/${idAdmin}/${estado}`, { headers }).pipe(
       catchError(error => {
         console.error('Error al obtener la fotografía', error);
         throw error;

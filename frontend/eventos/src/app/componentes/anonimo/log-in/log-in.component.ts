@@ -84,7 +84,7 @@ export class LogInComponent {
           {
             this._router.navigateByUrl("/participante/inicio")
             //this._router.navigateByUrl("/participante")
-          } else if (this._roleUser.getUsuarioRol() === "admin")
+          } else if (this._roleUser.getUsuarioRol() === "administrador")
           {
             console.log("rol: ", this._roleUser.getUsuarioRol());
             this._router.navigateByUrl("/admin/inicio")
