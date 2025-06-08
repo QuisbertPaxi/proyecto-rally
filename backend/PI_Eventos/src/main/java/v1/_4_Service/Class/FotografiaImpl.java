@@ -1,20 +1,27 @@
 package v1._4_Service.Class;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import v1._1_Model.Fotografia;
-import v1._1_Model.Reserva;
 import v1._1_Model.Usuario;
 import v1._2_DTO.FotografiaDTO;
 import v1._3_Repository.FotografiaRepository;
-import v1._3_Repository.ReservaRepository;
 import v1._3_Repository.UsuarioRepository;
 import v1._4_Service.Interface.FotografiaService;
 
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,10 +35,8 @@ public class FotografiaImpl implements FotografiaService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @Autowired
-    ReservaRepository reservaRepository;
-
-    String of = "participante";
+    String roleParticipante = "participante";
+    String roleAdmin = "admin";
 
     @Override
     public List<FotografiaDTO> allFotografiasAprobadas() {
@@ -42,7 +47,7 @@ public class FotografiaImpl implements FotografiaService {
     public List<FotografiaDTO> allFotografiasPorEstado(Long adminId, String estado) {
         Usuario admin = usuarioRepository.findById(adminId).orElse(null);
 
-        if (admin == null || !admin.getRole().equals("admin")) {
+        if (admin == null || !admin.getRole().equals(roleAdmin)) {
             return null;
         }
 
@@ -62,48 +67,54 @@ public class FotografiaImpl implements FotografiaService {
             return null;
         }
 
-        System.out.println(a.toString());
         FotografiaDTO foundAct = convertirADTO(a);
-
-        System.out.println(foundAct.toString());
-
         return foundAct;
     }
 
     @Override
-    public ResponseEntity<Object> addFotografia(FotografiaDTO fotografiaDTO) {
+    public ResponseEntity<Object> addFotografia(FotografiaDTO fotografiaDTO, MultipartFile file) {
+        try {
+            Usuario participante = usuarioRepository.findById(fotografiaDTO.getIdParticipante()).orElse(null);
 
-        Usuario participante = usuarioRepository.findById(fotografiaDTO.getIdParticipante()).orElse(null);
+            if (participante == null || !participante.getRole().equals(roleParticipante) || fotografiaDTO == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No se le está permitido entrar en esta ruta");
+            }
 
-        if(participante.getRole() == null || participante == null || fotografiaDTO == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No se le esta permitido entrar en esta ruta");
+            if (fotografiaDTO.getDescripcion() == null ||
+                    fotografiaDTO.getIdParticipante() == null ||
+                    fotografiaDTO.getTitulo() == null ||
+                    fotografiaDTO.getUsuCre() == null) {
+
+                return ResponseEntity.badRequest().body("Ha habido un error, revise el envío de datos");
+            }
+
+            String imageUrl = uploadToImgbb(file);
+            if (imageUrl == null) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo subir la imagen");
+            }
+
+            // Asignar el link generado al DTO
+            fotografiaDTO.setLink(imageUrl);
+
+            Fotografia a = new Fotografia(fotografiaDTO);
+
+            a.setParticipante(participante);
+            fotografiaRepository.save(a);
+
+            return ResponseEntity.ok(a);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno: " + e.getMessage());
         }
-
-        if (fotografiaDTO.getDescripcion() == null ||
-                fotografiaDTO.getIdParticipante() == null ||
-                fotografiaDTO.getTitulo() == null ||
-                fotografiaDTO.getLink() == null  ||
-                fotografiaDTO.getUsuCre() == null) {
-
-            return ResponseEntity.badRequest().body("Ha habido un error revise el envio de datos");
-        }
-
-        Fotografia a = new Fotografia(fotografiaDTO);
-
-        // participante.addFotografia(a);
-
-        a.setParticipante(participante);
-        fotografiaRepository.save(a);
-
-        return ResponseEntity.ok(a);
     }
 
+
     @Override
-    public ResponseEntity<Object> editFotografia(FotografiaDTO fotografiaDTO) {
+    public ResponseEntity<Object> editFotografia(FotografiaDTO fotografiaDTO, MultipartFile file) {
         Fotografia fotografia = fotografiaRepository.findById(fotografiaDTO.getId()).orElse(null);
         Usuario user = usuarioRepository.findById(fotografiaDTO.getIdParticipante()).orElse(null);
 
-        if (user.getRole() == null || user == null){
+        if (!user.getRole().equals(roleParticipante) || user.getRole() == null || user == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No se le esta permitido entrar en esta ruta");
         }
 
@@ -112,17 +123,22 @@ public class FotografiaImpl implements FotografiaService {
         }
 
         if (fotografiaDTO.getDescripcion() == null ||
-                fotografiaDTO.getLink() == null  ||
                 fotografiaDTO.getUsuMod() == null ||
                 fotografiaDTO.getTitulo() == null) {
 
             return ResponseEntity.badRequest().body("No esta bien los datos");
         }
-        System.out.println(fotografia.toString());
-        System.out.println(fotografiaDTO.toString());
+
+        if (file != null && !file.isEmpty()) {
+            String newImageUrl = uploadToImgbb(file);
+            if (newImageUrl == null) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la nueva imagen");
+            }
+            fotografia.setLink(newImageUrl);
+        }
+
         fotografia.setTitulo(fotografiaDTO.getTitulo());
         fotografia.setDescripcion(fotografiaDTO.getDescripcion());
-        fotografia.setLink(fotografiaDTO.getLink());
         fotografia.setUsuarioModificacion(fotografiaDTO.getUsuMod());
         fotografia.setFechaModificacion(new Timestamp(new Date().getTime()));
 
@@ -139,7 +155,7 @@ public class FotografiaImpl implements FotografiaService {
         Fotografia fotografia = fotografiaRepository.findById(fotografiaDTO.getId()).orElse(null);
         Usuario user = usuarioRepository.findByUserName(fotografiaDTO.getUsuMod()).orElse(null);
 
-        if (user.getRole() == null || fotografiaDTO == null || user == null){
+        if (!user.getRole().equals(roleParticipante) || fotografiaDTO == null || user == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
@@ -163,7 +179,7 @@ public class FotografiaImpl implements FotografiaService {
     public List<FotografiaDTO> obtenerFotografiasPorParticipante(Long participanteId) {
         Usuario participante = usuarioRepository.findByIdAndEstadoNot(participanteId, "ELIMINADO").orElse(null);
 
-        if (participante == null || participante.getRole() == null) {
+        if (participante == null || !participante.getRole().equals(roleParticipante)) {
             return null;
         }
 
@@ -189,30 +205,6 @@ public class FotografiaImpl implements FotografiaService {
         return dto;
     }
 
-    /*@Override
-    public ResponseEntity<Object> anadirFotografiaConsumidor(FotografiaDTO fotografiaDTO) {
-
-        System.out.println(fotografiaDTO);
-
-        Fotografia act = fotografiaRepository.findById(fotografiaDTO.getId()).orElse(null);
-        Usuario consumidor = usuarioRepository.findById(fotografiaDTO.getIdConsumidor()).orElse(null);
-
-        System.out.println(consumidor);
-
-        if (consumidor.getRole().equals(of) || fotografiaDTO == null || consumidor == null || act == null){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No puedes acceder ha este apartado");
-        }
-
-        Reserva nuevaReserva = new Reserva();
-        nuevaReserva.setFotografia(act);
-        nuevaReserva.setConsumidor(consumidor);
-        nuevaReserva.setFechaReserva(fotografiaDTO.getFechaReserva());
-
-        reservaRepository.save(nuevaReserva);
-
-        return ResponseEntity.ok("La reserva fue un exito");
-    }*/
-
     @Override
     public List<Fotografia> obtenerFotografiasPorTituloODescripcion(String searchWord) {
         return fotografiaRepository.buscarPorTituloODescripcion(searchWord);
@@ -222,7 +214,7 @@ public class FotografiaImpl implements FotografiaService {
     public ResponseEntity<Object> aprobarFotografia(Long idFotografia, Long idAdmin) {
         Fotografia fotografia = fotografiaRepository.findById(idFotografia).orElse(null);
         Usuario user = usuarioRepository.findById(idAdmin).orElse(null);
-        if (user.getRole() == null || user == null){
+        if (!user.getRole().equals(roleAdmin) || user == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No se le esta permitido entrar en esta ruta");
         }
 
@@ -240,4 +232,35 @@ public class FotografiaImpl implements FotografiaService {
 
         return ResponseEntity.ok(updatedFotografiaDTO);
     }
+
+    private String uploadToImgbb(MultipartFile file) {
+        try {
+            String apiKey = "b39badf29b5ff865bf039a4dcb78d0bb";
+
+            byte[] imageBytes = file.getBytes();
+            String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.imgbb.com/1/upload?key=" + apiKey))
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .POST(HttpRequest.BodyPublishers.ofString("image=" + URLEncoder.encode(encodedImage, StandardCharsets.UTF_8)))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode json = mapper.readTree(response.body());
+                return json.get("data").get("url").asText(); // URL pública de la imagen
+            } else {
+                System.err.println("Error al subir imagen: " + response.body());
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

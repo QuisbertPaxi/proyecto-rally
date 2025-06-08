@@ -9,9 +9,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (token) 
   {
-    //console.log("hay un token el local Storage");
     const headers = req.headers.set('Authorization', `Bearer ${token}`)
-    //console.log("me temos el token en los headers: ", headers);
     const reqClon = req.clone({ headers }) 
 
     return next(reqClon)

@@ -24,8 +24,9 @@ export class ConsursoService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
+    console.log("se enviara: ");
+      console.log(nuevoConcurso);
     const url = `${this._URL}concurso/Update/${idUsuario}`;
-    console.log("concurso edit: ", nuevoConcurso);
     return this._http.put(url, nuevoConcurso, { headers }).pipe(
       catchError(error => {
         console.error('Error al actualizar concurso: ', error);

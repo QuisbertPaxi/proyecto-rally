@@ -8,14 +8,11 @@ import v1._1_Model.Concurso;
 import v1._1_Model.Usuario;
 import v1._2_DTO.ConcursoDTO;
 import v1._3_Repository.ConcursoRepository;
-import v1._3_Repository.ReservaRepository;
 import v1._3_Repository.UsuarioRepository;
 import v1._4_Service.Interface.ConcursoService;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ConcursoImpl implements ConcursoService {
@@ -26,19 +23,14 @@ public class ConcursoImpl implements ConcursoService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @Autowired
-    ReservaRepository reservaRepository;
-
-    String of = "participante";
-
- 
+    String of = "admin";
 
     @Override
     public ResponseEntity<Object> editConcurso(Long idAdmin, ConcursoDTO concursoDTO) {
         Concurso concurso = concursoRepository.findFirstBy();
         Usuario user = usuarioRepository.findById(idAdmin).orElse(null);
 
-        if (user.getRole() == null || user == null){
+        if (!user.getRole().equals(of)|| user == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No se le esta permitido entrar en esta ruta");
         }
 
@@ -55,8 +47,6 @@ public class ConcursoImpl implements ConcursoService {
 
             return ResponseEntity.badRequest().body("No esta bien los datos");
         }
-        System.out.println(concurso.toString());
-        System.out.println(concursoDTO.toString());
         concurso.setDescripcion(concursoDTO.getDescripcion());
         concurso.setFechaInicioEnvio(concursoDTO.getFechaInicioEnvio());
         concurso.setFechaFinEnvio(concursoDTO.getFechaFinEnvio());

@@ -49,7 +49,6 @@ export class InicioComponent {
       this.fVotoIni = this.formatearFecha(this.datosConcurso.fechaInicioVotacion);
       this.fVotoFin = this.formatearFecha(this.datosConcurso.fechaFinVotacion);
       this.fGanadores = this.formatearFecha(this.datosConcurso.fechaAnuncio);
-      console.log("datos conc: ",this.datosConcurso);
     });
 
   }

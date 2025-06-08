@@ -27,7 +27,6 @@ export class ListOfertaComponent implements OnInit{
     this._consumidorService.getAllOfertas().subscribe(
       (response) => {
         if (response != null) {
-          console.log(response);
           this.ofertas = response
         }
       }

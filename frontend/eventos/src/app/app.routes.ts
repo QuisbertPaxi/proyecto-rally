@@ -12,12 +12,11 @@ import { AddActividadComponent } from './componentes/ofertante/add-actividad/add
 import { rolGuard } from './guards/rol.guard';
 import { redirectIfAuthenticatedGuard } from './guards/redirect.guard';
 import { EditActividadComponent } from './componentes/ofertante/edit-actividad/edit-actividad.component';
-import { MenuConsuComponent } from './componentes/consumidor/menu/menu.component';
-import { PrincipalConsuComponent } from './componentes/consumidor/principal-consu/principal-consu.component';
-import { ListOfertaComponent } from './componentes/consumidor/list-oferta/list-oferta.component';
-import { AddOfertaComponent } from './componentes/consumidor/add-oferta/add-oferta.component';
+import { MenuConsuComponent } from './componentes/participante/menu/menu.component';
+import { PrincipalConsuComponent } from './componentes/participante/principal-consu/principal-consu.component';
+import { ListOfertaComponent } from './componentes/participante/list-oferta/list-oferta.component';
+import { AddFotografiaComponent } from './componentes/participante/add-fotografia/add-fotografia.component';
 import { MenuToolbarComponent } from './componentes/anonimo/menu-toolbar/menu-toolbar.component';
-import { FormDatosPersonalesComponent } from './componentes/participante/form-datos-personales/form-datos-personales.component';
 
 export const routes: Routes = [
 
@@ -64,10 +63,9 @@ export const routes: Routes = [
         children: [
             { path: 'inicio', component: PrincipalConsuComponent, data: { expectedRole: 'participante' } },
             { path: 'perfil', component: PerfilOferComponent, data: { expectedRole: 'participante' } },
-            { path: 'listaOferta', component: ListOfertaComponent, data: { expectedRole: 'participante' } },
-            { path: 'addOferta', component: AddOfertaComponent, data: { expectedRole: 'participante' }},
+            { path: 'addFotografia', component: AddFotografiaComponent, data: { expectedRole: 'participante' }},
             //{ path: 'editOferta/:id', component: EditActividadComponent, data: { expectedRole: 'participante' }},
-            { path: 'addOferta/:id', component: AddOfertaComponent, data: { expectedRole: 'participante' }},
+            { path: 'addFotografia/:id', component: AddFotografiaComponent, data: { expectedRole: 'participante' }},
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },
             { path: '**', redirectTo: 'inicio' }
           ]

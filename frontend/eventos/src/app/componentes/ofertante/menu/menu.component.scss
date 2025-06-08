@@ -45,7 +45,6 @@
   transition: background-color 0.3s ease;
 }
 
-
 mat-icon {
   color: white;
 }
@@ -93,4 +92,23 @@ mat-sidenav nav a:hover {
     padding-left: 8px;
     padding-right: 8px;
   }
+}
+
+.nombre{
+  font-weight: bold; 
+  font-size: 18px; 
+  height: 20px;
+}
+
+.rol{
+  font-size: 15px; 
+  color: rgb(231, 231, 231); 
+  height: 25px; 
+  text-align: center;
+}
+
+.contenedor_datos{
+  display: flex; 
+  align-items: center; 
+  height: 30px;
 }

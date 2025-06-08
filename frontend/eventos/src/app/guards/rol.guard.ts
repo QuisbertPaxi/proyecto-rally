@@ -11,9 +11,6 @@ export const rolGuard: CanActivateChildFn = (childRoute, state) => {
 
   const expectedRole = childRoute.data['expectedRole'];
 
-  //console.log("expectedRole: ", expectedRole);
-  //console.log("childRoute.data: ", childRoute.data);
-
   if (tokenService.isTokenExpired()) 
   {
     tokenService.removeToken();
@@ -23,13 +20,8 @@ export const rolGuard: CanActivateChildFn = (childRoute, state) => {
 
   if (!roleService.getUsuarioRol().includes(expectedRole)) 
   {
-   console.log("rol: ", roleService.getUsuarioRol());
    router.navigateByUrl("/")
    return false
   }
-  
-  //console.log("el rol esperado: ", expectedRole);
-  //console.log("el rol en el token: ", roleService.getUsuarioRol());
-  //console.log("id_user:", roleService.getUsuarioId());
   return true;
 };

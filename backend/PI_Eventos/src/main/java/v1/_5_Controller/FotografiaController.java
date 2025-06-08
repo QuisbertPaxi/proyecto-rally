@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import v1._1_Model.Fotografia;
 import v1._2_DTO.FotografiaDTO;
 import v1._4_Service.Interface.FotografiaService;
@@ -35,14 +36,21 @@ public class FotografiaController {
     /**-------------------------------------- PARTICIPANTES ----------------------------------------------------**/
 
     @PostMapping("/Participantes/Add")
-    public ResponseEntity<Object> anadirFotografiaParticipante (@RequestBody FotografiaDTO fotografiaDTO){
-        return fotografiaService.addFotografia(fotografiaDTO);
+    public ResponseEntity<Object> anadirFotografiaParticipante(
+            @RequestPart("fotografia") FotografiaDTO fotografiaDTO,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+
+        return fotografiaService.addFotografia(fotografiaDTO, file);
     }
 
     @PutMapping("/Participantes/Update")
-    public ResponseEntity<Object> actualizarFotografia (@RequestBody FotografiaDTO act) {
-        return fotografiaService.editFotografia(act);
+    public ResponseEntity<Object> actualizarFotografia(
+            @RequestPart("fotografia") FotografiaDTO fotografiaDTO,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+
+        return fotografiaService.editFotografia(fotografiaDTO, file);
     }
+
 
     @DeleteMapping("/Participantes/Delete")
     public ResponseEntity<Object> EliminarFotografia(@RequestBody FotografiaDTO fotografiaDTO){
@@ -62,7 +70,6 @@ public class FotografiaController {
         if (fotografiaListParticipante.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        System.out.println(fotografiaListParticipante);
 
         return ResponseEntity.ok(fotografiaListParticipante);
     }

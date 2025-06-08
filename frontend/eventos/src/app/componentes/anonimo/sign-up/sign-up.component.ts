@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { RouterLink, Router } from '@angular/router';
 import { RegisterRequest } from '../../../modelos/registerRequest';
 import { LoginService } from '../../../servicios/auth/login.service';
+import { AlertService } from '../../../servicios/alert.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,7 +30,8 @@ import { LoginService } from '../../../servicios/auth/login.service';
 })
 export class SignUpComponent {
   private fb = inject(FormBuilder);
-  private readonly _loginService = inject(LoginService)
+  private readonly _loginService = inject(LoginService);
+  private readonly _alertService = inject(AlertService);
   private readonly _router = inject(Router)
   signInForm = this.fb.group({
     nombre: [null, Validators.required],
@@ -37,19 +39,10 @@ export class SignUpComponent {
     userName: [null, Validators.required],
     email: [null,[Validators.required, Validators.email]],
     password: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
+      Validators.required, Validators.minLength(5), Validators.maxLength(8)])
     ],
     role: ["participante"]
   });
-
-  /**{
-    "apellidos": "Hamilton",
-    "email": "alex@example.com",
-    "nombre": "Alexander",
-    "password": "password2",
-    "role": "ofertante",
-    "userName": "AlexH."
-} */
 
   hide = true;
   clickEvent(event: MouseEvent) {
@@ -60,19 +53,19 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signInForm.valid) {
-      console.log(this.signInForm.value);
       this._loginService.register(this.signInForm.value as RegisterRequest).subscribe({
         next:(response) =>
         {
-          console.log("esta es la respuesta:");
           console.log(response);
         },
-        error:(respError) => {console.log(respError); alert(respError);},
+        error:(respError) => {
+          this._alertService.alertWithError(respError);
+        },
         complete: () =>
         {
-          alert('Registrado correctamente!!!')
+          this._alertService.alertWithSuccess("Registrado correctamente!!!. Por favor, inicie sesión");
           this.signInForm.reset()
-          this._router.navigateByUrl("/")
+          this._router.navigateByUrl("/LogIn")
         }
       })
     }

@@ -23,14 +23,10 @@ export class RolService {
 
   getUsuarioId(): number
   {
-    const token = this.tokenService.getToken();
-    console.log("el token recuperado es: "+ token);
-    
+    const token = this.tokenService.getToken();  
     if (!token) {return 0 }
 
     const tokenPayload = environment.decodeToken(token);
-    console.log("el id enviado sera: " + tokenPayload.id);
-    //console.log("token decode", tokenPayload);
     return tokenPayload.id ?? 0
   }
 }

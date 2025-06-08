@@ -26,7 +26,6 @@ export class TokenService {
 
   removeToken(): void
   {
-    alert("antes de eliminar el token: " + this.getToken);
     return localStorage.removeItem(this.tokenKey);
   }
 
