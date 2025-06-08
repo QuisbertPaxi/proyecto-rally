@@ -211,7 +211,7 @@ public class FotografiaImpl implements FotografiaService {
     }
 
     @Override
-    public ResponseEntity<Object> aprobarFotografia(Long idFotografia, Long idAdmin) {
+    public ResponseEntity<Object> aprobarFotografia(Long idFotografia, Long idAdmin, Boolean aprobado) {
         Fotografia fotografia = fotografiaRepository.findById(idFotografia).orElse(null);
         Usuario user = usuarioRepository.findById(idAdmin).orElse(null);
         if (!user.getRole().equals(roleAdmin) || user == null){
@@ -222,7 +222,11 @@ public class FotografiaImpl implements FotografiaService {
             return  ResponseEntity.notFound().build();
         }
 
-        fotografia.setEstado("APROBADO");
+        if(aprobado){
+            fotografia.setEstado("APROBADO");
+        }else{
+            fotografia.setEstado("RECHAZADO");
+        }
         fotografia.setUsuarioAprobacion(user.getUserName());
         fotografia.setFechaAprobacion(new Timestamp(new Date().getTime()));
 

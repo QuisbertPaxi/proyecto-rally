@@ -123,9 +123,11 @@ public class FotografiaController {
         return ResponseEntity.ok(fotografiaListWordSearch);
     }
 
-    @PutMapping("/Aprobar/{idFotografia}/{idAdmin}")
-    public ResponseEntity<Object> aprobarFotografia (@PathVariable Long idFotografia, @PathVariable Long idAdmin) {
-        return fotografiaService.aprobarFotografia(idFotografia, idAdmin);
+    @PutMapping("/Aprobar/{idFotografia}/{idAdmin}/{aprobado}")
+    public ResponseEntity<Object> aprobarFotografia (@PathVariable Long idFotografia,
+                                                     @PathVariable Long idAdmin,
+                                                     @PathVariable Boolean aprobado) {
+        return fotografiaService.aprobarFotografia(idFotografia, idAdmin, aprobado);
     }
 
 }

@@ -31,7 +31,7 @@ import { RolService } from '../../../servicios/jwt/rol.service';
 })
 export class AddActividadComponent {
 
-  private fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
   private readonly _ofertanteServicio = inject(OfertanteService)
   private readonly _rolService = inject(RolService)
   actividad: ApiResponseActividad = {}
@@ -85,10 +85,4 @@ export class AddActividadComponent {
     const year = date.getFullYear().toString();
     return `${day}/${month}/${year}`;
   }
-
-  delete()
-  {
-    
-  }
-
 }

@@ -16,9 +16,10 @@
       <textarea matInput formControlName="descripcion" rows="3"></textarea>
     </mat-form-field>
 
-    <input type="file" (change)="onFileSelected($event)" class="input-file" />
+    
 
     <div class="button-row">
+      <input type="file" (change)="onFileSelected($event)" class="input-file" />
       <button mat-raised-button class="boton" type="button" (click)="onSubmit()" [disabled]="!fotoForm.valid || !selectedFile">
         {{texto_boton}}
       </button>

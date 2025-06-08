@@ -47,7 +47,7 @@ export class AddFotografiaComponent {
   private readonly _fb = inject(FormBuilder);
   private readonly _http = inject(HttpClient);
   private readonly _fotoService = inject(FotografiaService);
-  private breakpointObserver = inject(BreakpointObserver);
+  private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly _alertService = inject(AlertService);
   fotografia: ApiResponseFotografia = {} as ApiResponseFotografia;
   isEdit:boolean = false;

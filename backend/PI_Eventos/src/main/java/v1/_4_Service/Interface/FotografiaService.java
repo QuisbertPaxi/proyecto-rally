@@ -22,6 +22,6 @@ public interface FotografiaService {
 
     /**--------------------------- LOS DOS -------------------------------------------------------**/
     public FotografiaDTO searchFotografia (Long id); // Listar 1 fotografia dado su id
-    public ResponseEntity<Object> aprobarFotografia(Long idFotografia, Long idAdmin); // Aprobar una fotografia, solo administrador
+    public ResponseEntity<Object> aprobarFotografia(Long idFotografia, Long idAdmin, Boolean aprobado); // Aprobar una fotografia, solo administrador
 
 }
