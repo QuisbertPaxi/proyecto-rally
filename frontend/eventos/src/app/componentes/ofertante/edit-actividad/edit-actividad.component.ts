@@ -12,6 +12,7 @@ import { ApiResponseConsurso } from '../../../modelos/api.response-concurso';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ConsursoService } from '../../../servicios/consurso/consurso.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 
@@ -63,7 +64,7 @@ export class EditActividadComponent implements OnInit{
   fVotoFin: any;
   fGanadores: any;
 
-  constructor(private datePipe:DatePipe){}
+  constructor(private datePipe:DatePipe, private router:Router){}
 
 ngOnInit(): void {
   this._usuarioService.getUserData().subscribe({
@@ -98,14 +99,16 @@ ngOnInit(): void {
     this.concurso.fechaInicioVotacion = this.datePipe.transform(this.editCon.value.fechaVinicio, 'yyyy-MM-dd');
     this.concurso.fechaFinVotacion = this.datePipe.transform(this.editCon.value.fechaVfin, 'yyyy-MM-dd');
     this.concurso.fechaAnuncio = this.datePipe.transform(this.editCon.value.fechaAnuncio, 'yyyy-MM-dd');
-    this._concursoService.updateConcurso(this.datosUsuario.id!, this.concurso).subscribe({
+    if (confirm(`¿Guardar los cambios del concurso "${this.datosConcurso.descripcion}"?`)) {
+      this._concursoService.updateConcurso(this.datosUsuario.id!, this.concurso).subscribe({
       next: (res) => {
         console.log("Actualización exitosa", res);
       },
       error: (err) => {
         console.error("Error al actualizar", err);
       }
-  });
-
+    });
+    }
+    this.router.navigate(['/admin/listaAct']);
   }
 }
