@@ -1,15 +1,43 @@
+#container{
+  background-color: #8f98cb;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+  
+}
 .chart-container {
     width: 100%;
     margin: 0 auto;
 }
 h2 {
+    // text-align: center;
+    // margin-bottom: 20px;
+    
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 10cap;
+    color: #262539;
+}
+
+.mat-headline{
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
+    color: #262539;
+    font-size: 30px;
+    width: 100%;
 }
 canvas {
     max-height: 600px;
     display: inline-block !important;
+}
+
+mat-card-content img {
+  max-width: 100%; // Esto hace que la imagen no sobrepase el ancho del contenedor
+  height: auto; // Esto mantiene la proporción original de la imagen
+  object-fit: contain; // Si quieres que la imagen se ajuste sin recortarse
 }
   
 /* Layout para pantallas grandes */
@@ -25,16 +53,39 @@ canvas {
     gap: 20px;
     margin: 10px;
   
-    @media (max-width: 1024px) {
-      grid-template-columns: 1fr;
+    // @media (max-width: 1024px) {
+    //   grid-template-columns: 1fr;
+    // }
+}
+
+@media (max-width:  768px) {
+    h2{
+    font-size: 32px;
+    }
+
+    .grid-container {
+    grid-template-columns: 1fr;
+    }
+
+    
+    mat-card-image{
+        height: 150px;
+    }
+
+    mat-card-title {
+        font-size: 1.1rem;
     }
 }
 
 .item {
+    flex: 1 1 500px; /* Tamaño base: mínimo 300px, crecer si hay espacio */
+    //max-width: 800px; /* Opcional: no más ancho que esto */
+    display: flex;
+    flex-direction: column;
     text-align: center;
     border-radius: 8px;
     padding: 20px;
-    background-color: #d4e7ff;
+    background-color:#b6c3d4;
     border: 2px solid #0073a6;
 }
 

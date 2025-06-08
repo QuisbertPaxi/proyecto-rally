@@ -7,7 +7,7 @@
 }
 
 h1{
-  color: #c5c4e3;
+  color: #262539;
     font-variant-caps: all-small-caps;
     letter-spacing: 0.2em;
     line-height: 1.2;
@@ -28,7 +28,7 @@ h1{
   max-width: 600px; /* Opcional: no más ancho que esto */
   display: flex;
   flex-direction: column;
-  background-color: #5c7dba;
+  background-color: #6f7ac4;
 }
 
 .galeria-card img {
@@ -37,11 +37,27 @@ h1{
    border-radius: 4px 4px 0 0; /* Redondea solo las esquinas superiores */
 }
 
-h3, p{
+h3, h4,h5{
   color: #143252;
+  font-family:  "AvertaStd-Regular",-apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
+  
 }
 
+h3{
+    font-weight: 700;
+    font-family: Averta, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 16px;
+    color: #282652;
+}
 
+h5{
+  font-size: 1rem;
+}
+
+h4{
+  font-size: 1.5rem;
+  color: #7d358d;
+}
 .boton-votar-wrapper {
   display: flex;
   justify-content: center;
@@ -75,7 +91,6 @@ mat-card-title {
 mat-card-content {
   font-size: 1rem;
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 mat-card-actions {
@@ -85,6 +100,11 @@ mat-card-actions {
 }
 
 @media (max-width: 768px) {
+
+  h1{
+    font-size: 32px;
+}
+
   .galeria-container {
     grid-template-columns: 1fr;
   }

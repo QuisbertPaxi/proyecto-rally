@@ -20,8 +20,19 @@
   border: 0 solid #e3e3e3;
   box-sizing: border-box;
 }
+
+@font-face {
+    font-family: "AvertaStd-Regular";
+    src: url("https://db.onlinewebfonts.com/t/19b8f54eb1f074fb01efb1c4f02e9623.eot");
+    src: url("https://db.onlinewebfonts.com/t/19b8f54eb1f074fb01efb1c4f02e9623.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/19b8f54eb1f074fb01efb1c4f02e9623.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/19b8f54eb1f074fb01efb1c4f02e9623.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/19b8f54eb1f074fb01efb1c4f02e9623.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/19b8f54eb1f074fb01efb1c4f02e9623.svg#AvertaStd-Regular") format("svg");
+}
+
 body {
-  font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
+  font-family:  "AvertaStd-Regular",-apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
   font-style: normal;
   height: 100%;
   line-height: 1.5;

@@ -50,8 +50,8 @@ mat-sidenav {
   background-color: #555daf;
   padding: 1rem;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   overflow-x: hidden!important;
+  word-spacing: 0.9rem;
   border-radius: 0;
   // box-sizing: border-box;
 }
@@ -79,6 +79,8 @@ mat-sidenav nav a:hover {
 button {
   border-radius: 7px;
   letter-spacing: 0.07rem;
+  font-family:  "AvertaStd-Regular",-apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
+  font-weight: 700;
 }
 
 @media (max-width: 768px) {

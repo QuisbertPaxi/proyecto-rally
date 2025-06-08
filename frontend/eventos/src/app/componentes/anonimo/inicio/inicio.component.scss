@@ -62,7 +62,7 @@
     letter-spacing: 0px;
     font-weight: 600;
     line-height: 1.2;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 //PARTE 2
@@ -75,7 +75,6 @@
   color: #c5c4e3;
   padding: 20px;
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .fechas-grid .titulo {
@@ -86,8 +85,15 @@
 
 .fechas-grid .etiqueta,
 .fechas-grid .fecha {
-  font-weight: bold;
+  font-weight: bold
+}
+
+.fechas-grid .etiqueta{
   font-size: 1.2rem;
+}
+
+.fechas-grid .fecha{
+  font-size: 1.6rem;
 }
 
 .resaltado {
@@ -138,7 +144,6 @@
   color: #143252;
   max-width: 100%;
   padding: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 19px;
   line-height: 1.2;
 }
