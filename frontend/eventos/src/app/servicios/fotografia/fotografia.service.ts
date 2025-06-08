@@ -77,13 +77,13 @@ export class FotografiaService {
     );
   }
 
-  postFotografiaParticipante(fotografia: ApiResponseFotografia): Observable<any> {
+  postFotografiaParticipante(formData: FormData): Observable<any> {
     const token = this._tokenService.getToken();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
     const url = `${this._URL}fotografias/Participantes/Add`;
-    return this._http.post(url, fotografia, { headers }).pipe(
+    return this._http.post(url, formData, { headers }).pipe(
       catchError(error => {
         console.error('Error al agregar fotografía:', error);
         throw error;
@@ -91,14 +91,14 @@ export class FotografiaService {
     );
   }
 
-  updateFotografia(fotografia: ApiResponseFotografia):Observable<any>{
+  updateFotografia(formData: FormData):Observable<any>{
     const token = this._tokenService.getToken();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
     const url = `${this._URL}fotografias/Participantes/Update`;
 
-    return this._http.put(url,fotografia, { headers }).pipe(
+    return this._http.put(url,formData, { headers }).pipe(
       catchError(error => {
         console.error('Error al actualizar fotografia: ', error);
         throw error;
@@ -112,7 +112,6 @@ export class FotografiaService {
       id: idFotografia,
       usuMod: usumod
     }
-    //console.log("data delete: ",data);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });

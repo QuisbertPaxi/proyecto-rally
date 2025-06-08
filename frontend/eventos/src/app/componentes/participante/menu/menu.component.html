@@ -7,8 +7,17 @@
   <div class="toolbar-title">
     CFU
   </div>
-  <div>
-    <button mat-icon-button routerLink="/participante/inicio">
+  <div class="contenedor_datos">
+    <div style="margin-right: 20px;">
+      <div class="nombre">
+        {{ participanteDatos.nombre | titlecase }} {{ participanteDatos.apellidos | titlecase }}
+      </div>
+      <div class="rol">
+        {{ participanteDatos.role | titlecase }}
+      </div>
+    </div>
+  
+    <button mat-icon-button routerLink="/participante/inicio" aria-label="Ir a inicio">
       <mat-icon>home</mat-icon>
     </button>
   </div>
@@ -19,7 +28,7 @@
     <nav style="padding: 16px;">
       <p><a routerLink="/participante/perfil" routerLinkActive="active-link" (click)="sidenav.close()">Editar Perfil</a></p>
       <p><a routerLink="/participante/inicio" routerLinkActive="active-link" (click)="sidenav.close()">Mis Peticiones</a></p>
-      <p><a routerLink="/participante/addOferta" routerLinkActive="active-link" (click)="sidenav.close()">Añadir Fotografia</a></p>
+      <p><a routerLink="/participante/addFotografia" routerLinkActive="active-link" (click)="sidenav.close()">Añadir Fotografia</a></p>
       <p><a (click)="logout()">Salir</a></p>
     </nav>
   </mat-sidenav>

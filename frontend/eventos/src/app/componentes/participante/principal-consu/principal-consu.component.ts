@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { ApiResponseActividad } from '../../../modelos/api-response-actividad';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../servicios/alert.service';
+
 
 @Component({
   selector: 'app-principal-consu',
@@ -22,6 +24,7 @@ export class PrincipalConsuComponent implements OnInit{
   fotografias: ApiResponseFotografia [] = [];
   private readonly _usuarioService = inject(UsuarioService)
   private readonly _fotografiaService = inject(FotografiaService)
+  private readonly _alertService = inject(AlertService);
   actividades: ApiResponseActividad[] = [];
 
   constructor(private router: Router){}
@@ -34,7 +37,6 @@ export class PrincipalConsuComponent implements OnInit{
         this._fotografiaService.getFotografiaParticipante(this.participanteDatos.id!).subscribe({
           next: data => {
             this.fotografias = data.filter((f:ApiResponseFotografia) => f.estado !== 'ELIMINADO');
-            //console.log('Fotografías:', this.fotografias);
           },
           error: err => {
             console.error('Error al obtener las fotografías:', err);
@@ -50,25 +52,29 @@ export class PrincipalConsuComponent implements OnInit{
   }
 
   editarFotografia(foto:ApiResponseFotografia){
-    this.router.navigate(['/participante/addOferta/',foto.id]);
+    this.router.navigate(['/participante/addFotografia/',foto.id]);
   }
 
   eliminarFoto(foto: ApiResponseFotografia) {
-    if (confirm(`¿Estás seguro de eliminar la foto "${foto.titulo}"?`)) {
-      this._fotografiaService.deleteFotografia(foto.id!, this.participanteDatos.userName!).subscribe({
-        next: () => {
-          this.fotografias = this.fotografias.filter(f => f.id !== foto.id);
-          alert('Foto eliminada correctamente');
-        },
-        error: err => {
-          console.error('Error al eliminar la foto:', err);
-          alert('No se pudo eliminar la foto');
-        }
-      });
-    }
+    this._alertService
+    .confirmDeleteBox(foto.titulo)
+    .then((result) => {
+      if (result.value) {
+        this._fotografiaService.deleteFotografia(foto.id!, this.participanteDatos.userName!).subscribe({
+          next: () => {
+            this.fotografias = this.fotografias.filter(f => f.id !== foto.id);
+            this._alertService.alertWithSuccess(`Se ha eliminado la fotografía ${foto.titulo}`);
+          },
+          error: err => {
+            console.error('Error al eliminar la foto:', err);
+            this._alertService.alertWithError("Ocurrió un error al eliminar la fotografía. Inténtelo más tarde");
+          }
+        });
+      }
+    });
   }
 
   irAddFotografia(){
-    this.router.navigate(["/participante/addOferta"]);
+    this.router.navigate(["/participante/addFotografia"]);
   }
 }

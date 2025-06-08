@@ -37,7 +37,6 @@ export class ListActividadComponent implements OnInit{
         this.fVotoIni = this.formatearFecha(this.datosConcurso.fechaInicioVotacion);
         this.fVotoFin = this.formatearFecha(this.datosConcurso.fechaFinVotacion);
         this.fGanadores = this.formatearFecha(this.datosConcurso.fechaAnuncio);
-        //console.log("datos conc: ", this.datosConcurso);
       },
       error: (err) => {
         console.error("Error al obtener el concurso:", err);

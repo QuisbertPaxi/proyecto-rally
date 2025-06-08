@@ -29,7 +29,8 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/api/v1/fotografias/All/**").permitAll()
                                 .requestMatchers("/concurso").permitAll()
-                                .requestMatchers("/votos/contar/**").permitAll()
+                                .requestMatchers("/votos").permitAll()
+                                .requestMatchers("/votos/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->

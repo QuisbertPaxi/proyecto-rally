@@ -52,60 +52,6 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String estado;
 
-    /************ ONE-TO-MANY *************/
-    @OneToMany(mappedBy="ofertante",
-	cascade = CascadeType.ALL,
-	orphanRemoval = true)
-
-    private Set<Actividad> actividades = new HashSet<>();
-
-    // Métodos HELPERs
-	public void addActividad(Actividad i) {
-	this.actividades.add(i);
-	i.setOfertante(this);
-	}
-	public void removeActividad(Actividad i) {
-	this.actividades.remove(i);
-	i.setOfertante(null);
-	}
-    /************ Fin ONE-TO-MANY *************/
-
-    /************ ONE-TO-MANY *************/
-    @OneToMany(mappedBy="consumidor",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-
-    private Set<Reserva> reservas = new HashSet<>();
-
-    // Métodos HELPERs
-    public void addReserva(Reserva i) {
-        this.reservas.add(i);
-        i.setConsumidor(this);
-    }
-    public void removeReserva(Reserva i) {
-        this.reservas.remove(i);
-        i.setConsumidor(null);
-    }
-    /************ Fin ONE-TO-MANY *************/
-
-    /************ ONE-TO-MANY *************/
-    @OneToMany(mappedBy="consu",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-
-    private Set<OfertaConsumidor> oc = new HashSet<>();
-
-    // Métodos HELPERs
-    public void addOfertaConsumidor(OfertaConsumidor i) {
-        this.oc.add(i);
-        i.setConsu(this);
-    }
-    public void removeOfertaConsumidor(OfertaConsumidor i) {
-        this.oc.remove(i);
-        i.setConsu(null);
-    }
-    /************ Fin ONE-TO-MANY *************/
-
     public Usuario(UsuarioDTO usuarioDTO) {
         this.setApellidos(usuarioDTO.getApellidos());
         this.setNombre(usuarioDTO.getNombre());

@@ -1,6 +1,7 @@
 package v1._4_Service.Interface;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 import v1._1_Model.Fotografia;
 import v1._2_DTO.FotografiaDTO;
 
@@ -8,8 +9,8 @@ import java.util.List;
 
 public interface FotografiaService {
 
-    public ResponseEntity<Object> addFotografia (FotografiaDTO fotografiaDTO); // Añadir una fotografia solo participante
-    public ResponseEntity<Object> editFotografia (FotografiaDTO fotografiaDTO); // Actualizar una fotografia solo participante
+    public ResponseEntity<Object> addFotografia (FotografiaDTO fotografiaDTO, MultipartFile file); // Añadir una fotografia solo participante
+    public ResponseEntity<Object> editFotografia (FotografiaDTO fotografiaDTO, MultipartFile file); // Actualizar una fotografia solo participante
     public ResponseEntity<Object> deleteFotografia (FotografiaDTO fotografiaDTO); // Eliminar una fotografia solo participante
     public List<FotografiaDTO> obtenerFotografiasPorParticipante(Long participanteId); // Listar todas las fotografias de un participante
 

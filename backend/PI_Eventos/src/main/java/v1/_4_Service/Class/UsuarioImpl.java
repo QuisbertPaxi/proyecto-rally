@@ -36,8 +36,6 @@ public class UsuarioImpl implements UsuarioService {
     @Override
     public TokenResponse registrarUsuario(UsuarioDTO usuario) {
 
-        System.out.println(usuario);
-
         if (usuarioRepository.findByEmail(usuario.getEmail()) != null ||
                 usuarioRepository.findByUserName(usuario.getUserName()).isPresent() ){
             return null;
@@ -46,8 +44,6 @@ public class UsuarioImpl implements UsuarioService {
         // Codifica la contraseña antes de almacenarla
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         Usuario user = new Usuario(usuario);
-
-        System.out.println(user);
 
         // Guardar el nuevo usuario en la base de datos
         usuarioRepository.save(user);
@@ -72,7 +68,6 @@ public class UsuarioImpl implements UsuarioService {
         Optional<Usuario> a = null;
 
         if (id != null) {
-            System.out.println("si encontramos el usuario con "+ id);
             a = usuarioRepository.findById(id);
             Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
 
@@ -99,7 +94,6 @@ public class UsuarioImpl implements UsuarioService {
 
         Usuario d = usuarioRepository.findById(id).orElse(null);
 
-        System.out.println(d);
 
         if (d != null ) {
 
@@ -108,8 +102,6 @@ public class UsuarioImpl implements UsuarioService {
             d.setUserName(usuarioDTO.getUserName());
             d.setNombre(usuarioDTO.getNombre());
             d.setApellidos(usuarioDTO.getApellidos());
-
-            System.out.println(d);
 
             if (esUnicoUsuario(d)) {
                 try {

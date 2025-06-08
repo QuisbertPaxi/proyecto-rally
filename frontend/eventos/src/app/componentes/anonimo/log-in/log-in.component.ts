@@ -74,10 +74,9 @@ export class LogInComponent {
             this._tokenService.setToken(response.token)
           }
         },
-        error:(respError) => {console.log(respError); alert(respError); this.logInForm.reset()},
+        error:(respError) => {alert(respError.message); this.logInForm.reset()},
         complete: () =>
         {
-          alert('¡Nos alegramos de verte de nuevo!')
           this.logInForm.reset()
 
           if (this._roleUser.getUsuarioRol() === "participante")
@@ -86,7 +85,6 @@ export class LogInComponent {
             //this._router.navigateByUrl("/participante")
           } else if (this._roleUser.getUsuarioRol() === "administrador")
           {
-            console.log("rol: ", this._roleUser.getUsuarioRol());
             this._router.navigateByUrl("/admin/inicio")
           } else{
             this._router.navigateByUrl("/")

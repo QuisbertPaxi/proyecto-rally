@@ -45,18 +45,14 @@ export class PerfilOferComponent implements OnInit{
   ngOnInit(): void 
   {
     this._usuarioService.getUserData().subscribe({
-
       next: (response) => 
       {
         this.ofertante = response; 
-        console.log(this.ofertante);
         this.rellenarForm()
       },
       error: (errorData) =>{alert(errorData)},
       complete: () => {console.log("user data ok")}
     })
-
-    console.log(this.ofertante);
   }
   
 
@@ -89,10 +85,8 @@ export class PerfilOferComponent implements OnInit{
 
       let resp: {mensaje: string};
       if (this.signInForm.valid) {
-        //console.log(this.signInForm.value as User);
         this._usuarioService.putUpdateData(this.signInForm.value as User).subscribe({
           next: (response) => {
-            console.log(response)
             resp = response
           },
           error: (error) => {alert(error)},
@@ -109,7 +103,6 @@ export class PerfilOferComponent implements OnInit{
     logout():void
   {
     this._tokenService.removeToken()
-    console.log("se removio el token (null)", this._tokenService.getToken());
     window.location.reload();
   }
 

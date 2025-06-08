@@ -92,7 +92,6 @@ ngOnInit(): void {
 }
 
   onSubmit(){
-    console.log(this.editCon.value);
     this.concurso.descripcion = this.editCon.value.descripcion;
     this.concurso.fechaInicioEnvio = this.datePipe.transform(this.editCon.value.fechaEinicio, 'yyyy-MM-dd');
     this.concurso.fechaFinEnvio = this.datePipe.transform(this.editCon.value.fechaEfin, 'yyyy-MM-dd');

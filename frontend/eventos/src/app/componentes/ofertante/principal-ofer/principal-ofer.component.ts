@@ -38,7 +38,6 @@ export class PrincipalOferComponent implements OnInit{
             this._fotografiaService.getFotografiaEstado(this.adminDatos.id!,'PENDIENTE').subscribe({
               next: data => {
                 this.fotografias = data.filter((f:ApiResponseFotografia) => f.estado !== 'ELIMINADO');
-                console.log('Fotografías:', this.fotografias);
               },
               error: err => {
                 console.error('Error al obtener las fotografías:', err);

@@ -70,8 +70,6 @@ export class AddActividadComponent {
       this.actividad.precio = this.addAct.value.precio
       this.actividad.idOfertante = this._rolService.getUsuarioId()
 
-      console.log(this.actividad);
-
       this._ofertanteServicio.postAddActividad(this.actividad).subscribe({
         next: (response) => {console.log(response);},
         error: (error) => {console.error(error);},

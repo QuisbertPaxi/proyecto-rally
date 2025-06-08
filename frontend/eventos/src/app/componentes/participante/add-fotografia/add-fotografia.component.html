@@ -16,8 +16,11 @@
     <input type="file" (change)="onFileSelected($event)" class="input-file" />
 
     <div class="button-row">
-      <button mat-raised-button class="boton" type="submit" [disabled]="!fotoForm.valid || !selectedFile">
-        Subir Foto
+      <button mat-raised-button class="boton" type="button" (click)="onSubmit()" [disabled]="!fotoForm.valid || !selectedFile">
+        {{texto_boton}}
+      </button>
+      <button mat-raised-button class="boton" type="button" (click)="cancelar()">
+        Cancelar
       </button>
     </div>
   </form>

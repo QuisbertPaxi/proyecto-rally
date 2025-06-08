@@ -10,7 +10,9 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { TokenService } from '../../../servicios/jwt/token.service';
-
+import { UsuarioService } from '../../../servicios/usuario.service';
+import { User } from '../../../modelos/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-menu',
@@ -23,7 +25,8 @@ import { TokenService } from '../../../servicios/jwt/token.service';
     MatIconModule,
     RouterLink,
     AsyncPipe,
-    RouterModule
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
@@ -32,17 +35,30 @@ export class MenuConsuComponent {
   private breakpointObserver = inject(BreakpointObserver);
   private readonly _tokenService = inject(TokenService)
   private readonly route = inject(Router)
+  private readonly _usuarioService = inject(UsuarioService)
+  participanteDatos: User = {} as User;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
-    );
+  );
 
-    logout():void
-    {
-      this._tokenService.removeToken()
-      console.log("se removio el token (null)", this._tokenService.getToken());
-      this.route.navigateByUrl("/")
-    }
+  ngOnInit(): void {
+    this._usuarioService.getUserData().subscribe({
+      next: (us: User) => {
+        this.participanteDatos = us;
+      },
+      error: err => {
+        console.error('Error al obtener participante:', err);
+        alert('No se pudo obtener el participante.');
+      }
+    });
+  }
+
+  logout():void
+  {
+    this._tokenService.removeToken()
+    this.route.navigateByUrl("/")
+  }
 }
