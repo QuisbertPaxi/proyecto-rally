@@ -56,15 +56,16 @@ public class Concurso {
     // Constructor basado en DTO
     public Concurso(ConcursoDTO concursoDTO) {
         this.setDescripcion(concursoDTO.getDescripcion());
-        this.setFechaInicioEnvio(concursoDTO.getFechaInicioEnvio());
-        this.setFechaFinEnvio(concursoDTO.getFechaFinEnvio());
-        this.setFechaInicioVotacion(concursoDTO.getFechaInicioVotacion());
-        this.setFechaFinVotacion(concursoDTO.getFechaFinVotacion());
-        this.setFechaAnuncio(concursoDTO.getFechaAnuncio());
+        // Usar los métodos helper del DTO para convertir String a Date
+        this.setFechaInicioEnvio(concursoDTO.getFechaInicioEnvioAsDate());
+        this.setFechaFinEnvio(concursoDTO.getFechaFinEnvioAsDate());
+        this.setFechaInicioVotacion(concursoDTO.getFechaInicioVotacionAsDate());
+        this.setFechaFinVotacion(concursoDTO.getFechaFinVotacionAsDate());
+        this.setFechaAnuncio(concursoDTO.getFechaAnuncioAsDate());
         this.setNumeroFotografias(concursoDTO.getNumeroFotografias());
         this.setUsuarioCreacion(concursoDTO.getUsuCre());
         this.setFechaCreacion(new Timestamp(new Date().getTime()));
-        this.setEstado("ACTIVO"); // Estado por defecto
+        this.setEstado("ACTIVO");
     }
 
     // Constructor vacío
@@ -187,6 +188,10 @@ public class Concurso {
                 ", fechaFinVotacion=" + fechaFinVotacion +
                 ", fechaAnuncio=" + fechaAnuncio +
                 ", numeroFotografias=" + numeroFotografias +
+                ", usuarioCreacion='" + usuarioCreacion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", usuarioModificacion='" + usuarioModificacion + '\'' +
+                ", fechaModificacion=" + fechaModificacion +
                 ", estado='" + estado + '\'' +
                 '}';
     }

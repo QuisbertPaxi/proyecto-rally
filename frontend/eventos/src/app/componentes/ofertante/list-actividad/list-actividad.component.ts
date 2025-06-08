@@ -31,6 +31,7 @@ export class ListActividadComponent implements OnInit{
   ngOnInit(): void {
     this._conscursoService.getConcurso().subscribe({
       next: (data) => {
+        console.log("consultamos...");
         this.datosConcurso = data;
         this.fEnvioIni = this.formatearFecha(this.datosConcurso.fechaInicioEnvio);
         this.fEnvioFin = this.formatearFecha(this.datosConcurso.fechaFinEnvio);
@@ -47,9 +48,5 @@ export class ListActividadComponent implements OnInit{
   formatearFecha(fecha: any): string {
     const [año, mes, dia] = fecha.split('-');
     return `${dia}/${mes}/${año}`;
-  }
-
-  eliminar(id: any){
-    console.log(id);
   }
 }

@@ -1,20 +1,27 @@
-import { User } from './../../../modelos/user';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, LOCALE_ID } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+// Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core'; // Asegúrate de importar MatNativeDateModule
-import { UsuarioService } from '../../../servicios/usuario.service';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+
+// Models
+import { User } from './../../../modelos/user';
 import { ApiResponseConsurso } from '../../../modelos/api.response-concurso';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+
+// Services
+import { UsuarioService } from '../../../servicios/usuario.service';
 import { ConsursoService } from '../../../servicios/consurso/consurso.service';
-import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { AlertService } from '../../../servicios/alert.service';
 
-
+registerLocaleData(localeEs);
 
 @Component({
   selector: 'app-edit-actividad',
@@ -30,24 +37,30 @@ import { Router } from '@angular/router';
     RouterLink
   ],
   providers: [
-    [DatePipe],
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'es-ES' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
   templateUrl: './edit-actividad.component.html',
   styleUrl: './edit-actividad.component.scss'
 })
-export class EditActividadComponent implements OnInit{
+export class EditActividadComponent implements OnInit {
+  // Injected services
+  private fb = inject(FormBuilder);
+  private readonly _concursoService = inject(ConsursoService);
+  private readonly _routeAc = inject(ActivatedRoute);
+  private readonly _usuarioService = inject(UsuarioService);
+  private readonly _alertService = inject(AlertService);
+  private readonly datePipe = inject(DatePipe);
+  private readonly router = inject(Router);
 
-  private fb = inject(FormBuilder)
-
-  private readonly _concursoService = inject(ConsursoService)
-  private readonly _routeAc = inject(ActivatedRoute)
-  private readonly _usuarioService = inject(UsuarioService)
-
-  concurso: ApiResponseConsurso = {}
-  id = this._routeAc.snapshot.params["id"]
+  // Component properties
+  concurso: ApiResponseConsurso = {};
+  datosConcurso: ApiResponseConsurso = {};
   datosUsuario: User = {};
+  id = this._routeAc.snapshot.params["id"];
 
+  // Form definition
   editCon = this.fb.group({
     descripcion: ['', Validators.required],
     fechaVinicio: [this.concurso.fechaInicioVotacion, Validators.required],
@@ -57,57 +70,105 @@ export class EditActividadComponent implements OnInit{
     fechaAnuncio: [this.concurso.fechaAnuncio, Validators.required],
   });
 
-  datosConcurso: ApiResponseConsurso = {};
-  fEnvioIni: any;
-  fEnvioFin: any;
-  fVotoIni: any;
-  fVotoFin: any;
-  fGanadores: any;
+  ngOnInit(): void {
+    this.loadUserData();
+    this.loadConcursoData();
+  }
 
-  constructor(private datePipe:DatePipe, private router:Router){}
+  private loadUserData(): void {
+    this._usuarioService.getUserData().subscribe({
+      next: (us) => {
+        this.datosUsuario = us;
+      }
+    });
+  }
 
-ngOnInit(): void {
-  this._usuarioService.getUserData().subscribe({
-    next: (us) => {
-      this.datosUsuario = us;
-    }
-  })
-  this._concursoService.getConcurso().subscribe({
-    next: (data) => {
-      this.datosConcurso = data;
-      // Actualizar formulario
-      this.editCon.patchValue({
-        descripcion: this.datosConcurso.descripcion,
-        fechaEinicio: this.datosConcurso.fechaInicioEnvio,
-        fechaEfin:  this.datosConcurso.fechaFinEnvio,
-        fechaVinicio:  this.datosConcurso.fechaInicioVotacion,
-        fechaVfin:  this.datosConcurso.fechaFinVotacion,
-        fechaAnuncio:  this.datosConcurso.fechaAnuncio
-      });
-    },
-    error: (err) => {
-      console.error("Error al obtener el concurso:", err);
-    }
-  });
-}
-
-  onSubmit(){
-    this.concurso.descripcion = this.editCon.value.descripcion;
-    this.concurso.fechaInicioEnvio = this.datePipe.transform(this.editCon.value.fechaEinicio, 'yyyy-MM-dd');
-    this.concurso.fechaFinEnvio = this.datePipe.transform(this.editCon.value.fechaEfin, 'yyyy-MM-dd');
-    this.concurso.fechaInicioVotacion = this.datePipe.transform(this.editCon.value.fechaVinicio, 'yyyy-MM-dd');
-    this.concurso.fechaFinVotacion = this.datePipe.transform(this.editCon.value.fechaVfin, 'yyyy-MM-dd');
-    this.concurso.fechaAnuncio = this.datePipe.transform(this.editCon.value.fechaAnuncio, 'yyyy-MM-dd');
-    if (confirm(`¿Guardar los cambios del concurso "${this.datosConcurso.descripcion}"?`)) {
-      this._concursoService.updateConcurso(this.datosUsuario.id!, this.concurso).subscribe({
-      next: (res) => {
-        console.log("Actualización exitosa", res);
+  private loadConcursoData(): void {
+    this._concursoService.getConcurso().subscribe({
+      next: (data) => {
+        this.datosConcurso = data;
+        this.updateFormWithConcursoData();
       },
       error: (err) => {
+        console.error("Error al obtener el concurso:", err);
+      }
+    });
+  }
+
+  private updateFormWithConcursoData(): void {
+    this.editCon.patchValue({
+      descripcion: this.datosConcurso.descripcion,
+      fechaEinicio: this.toLocalDate(this.datosConcurso.fechaInicioEnvio),
+      fechaEfin: this.toLocalDate(this.datosConcurso.fechaFinEnvio),
+      fechaVinicio: this.toLocalDate(this.datosConcurso.fechaInicioVotacion),
+      fechaVfin: this.toLocalDate(this.datosConcurso.fechaFinVotacion),
+      fechaAnuncio: this.toLocalDate(this.datosConcurso.fechaAnuncio)
+    });
+  }
+
+  private toLocalDate(dateStr: string | Date | null | undefined): Date | null {
+    if (!dateStr) return null;
+    const parts = (dateStr + '').split('-'); // Asume 'yyyy-MM-dd'
+    return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+  }
+
+  onSubmit(): void {
+    this.updateConcursoFromForm();
+    
+    this._alertService.confirmBox("Guardar", `¿Está seguro de guardar los cambios del concurso?`)
+      .then((result) => {
+        if (result.value) {
+          this.saveConcursoChanges();
+        }
+      });
+  }
+
+  private updateConcursoFromForm(): void {
+    this.concurso = {
+      ...this.concurso,
+      descripcion: this.editCon.value.descripcion,
+      fechaInicioEnvio: this.formatDateToString(this.editCon.value.fechaEinicio),
+      fechaFinEnvio: this.formatDateToString(this.editCon.value.fechaEfin),
+      fechaInicioVotacion: this.formatDateToString(this.editCon.value.fechaVinicio),
+      fechaFinVotacion: this.formatDateToString(this.editCon.value.fechaVfin),
+      fechaAnuncio: this.formatDateToString(this.editCon.value.fechaAnuncio)
+    };
+  }
+
+  private formatDateToString(date: string | Date | null | undefined): string | null {
+    if (!date) return null;
+    
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return date;
+    }
+
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    
+    if (isNaN(dateObj.getTime())) {
+      return null;
+    }
+    
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  private saveConcursoChanges(): void {
+    this._concursoService.updateConcurso(this.datosUsuario.id!, this.concurso).subscribe({
+      next: (res) => {
+        console.log("Actualización exitosa", res);
+        this._alertService.alertWithSuccess("Se registró su voto. ¡Gracias por participar!");
+        this.navigateToList();
+      },
+      error: (err) => {
+        this._alertService.alertWithError("Hubo un error en el guardado. Por favor, inténtelo más tarde");
         console.error("Error al actualizar", err);
       }
     });
-    }
+  }
+
+  private navigateToList(): void {
     this.router.navigate(['/admin/listaAct']);
   }
 }

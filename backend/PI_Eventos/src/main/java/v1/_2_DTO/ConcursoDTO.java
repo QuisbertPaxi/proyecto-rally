@@ -4,31 +4,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ConcursoDTO {
     private Long id;
     private String descripcion;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaInicioEnvio;
+    private String fechaInicioEnvio;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaFinEnvio;
+    private String fechaFinEnvio;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaInicioVotacion;
+    private String fechaInicioVotacion;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaFinVotacion;
+    private String fechaFinVotacion;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaAnuncio;
+    private String fechaAnuncio;
 
     private Integer numeroFotografias;
     private String usuCre;
@@ -41,8 +32,8 @@ public class ConcursoDTO {
     public ConcursoDTO() {
     }
 
-    public ConcursoDTO(Long id, String descripcion, Date fechaInicioEnvio, Date fechaFinEnvio,
-                       Date fechaInicioVotacion, Date fechaFinVotacion, Date fechaAnuncio,
+    public ConcursoDTO(Long id, String descripcion, String fechaInicioEnvio, String fechaFinEnvio,
+                       String fechaInicioVotacion, String fechaFinVotacion, String fechaAnuncio,
                        Integer numeroFotografias, String usuCre) {
         this.id = id;
         this.descripcion = descripcion;
@@ -74,45 +65,20 @@ public class ConcursoDTO {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicioEnvio() {
-        return fechaInicioEnvio;
-    }
+    public String getFechaInicioEnvio() { return fechaInicioEnvio; }
+    public void setFechaInicioEnvio(String fechaInicioEnvio) { this.fechaInicioEnvio = fechaInicioEnvio; }
 
-    public void setFechaInicioEnvio(Date fechaInicioEnvio) {
-        this.fechaInicioEnvio = fechaInicioEnvio;
-    }
+    public String getFechaFinEnvio() { return fechaFinEnvio; }
+    public void setFechaFinEnvio(String fechaFinEnvio) { this.fechaFinEnvio = fechaFinEnvio; }
 
-    public Date getFechaFinEnvio() {
-        return fechaFinEnvio;
-    }
+    public String getFechaInicioVotacion() { return fechaInicioVotacion; }
+    public void setFechaInicioVotacion(String fechaInicioVotacion) { this.fechaInicioVotacion = fechaInicioVotacion; }
 
-    public void setFechaFinEnvio(Date fechaFinEnvio) {
-        this.fechaFinEnvio = fechaFinEnvio;
-    }
+    public String getFechaFinVotacion() { return fechaFinVotacion; }
+    public void setFechaFinVotacion(String fechaFinVotacion) { this.fechaFinVotacion = fechaFinVotacion; }
 
-    public Date getFechaInicioVotacion() {
-        return fechaInicioVotacion;
-    }
-
-    public void setFechaInicioVotacion(Date fechaInicioVotacion) {
-        this.fechaInicioVotacion = fechaInicioVotacion;
-    }
-
-    public Date getFechaFinVotacion() {
-        return fechaFinVotacion;
-    }
-
-    public void setFechaFinVotacion(Date fechaFinVotacion) {
-        this.fechaFinVotacion = fechaFinVotacion;
-    }
-
-    public Date getFechaAnuncio() {
-        return fechaAnuncio;
-    }
-
-    public void setFechaAnuncio(Date fechaAnuncio) {
-        this.fechaAnuncio = fechaAnuncio;
-    }
+    public String getFechaAnuncio() { return fechaAnuncio; }
+    public void setFechaAnuncio(String fechaAnuncio) { this.fechaAnuncio = fechaAnuncio; }
 
     public Integer getNumeroFotografias() {
         return numeroFotografias;
@@ -162,16 +128,58 @@ public class ConcursoDTO {
         this.estado = estado;
     }
 
+    // Métodos helper para convertir String a LocalDate cuando necesites usarlos en la lógica
+    public LocalDate getFechaInicioEnvioAsLocalDate() {
+        return fechaInicioEnvio != null ? LocalDate.parse(fechaInicioEnvio) : null;
+    }
+
+    public LocalDate getFechaFinEnvioAsLocalDate() {
+        return fechaFinEnvio != null ? LocalDate.parse(fechaFinEnvio) : null;
+    }
+
+    public LocalDate getFechaInicioVotacionAsLocalDate() {
+        return fechaInicioVotacion != null ? LocalDate.parse(fechaInicioVotacion) : null;
+    }
+
+    public LocalDate getFechaFinVotacionAsLocalDate() {
+        return fechaFinVotacion != null ? LocalDate.parse(fechaFinVotacion) : null;
+    }
+
+    public LocalDate getFechaAnuncioAsLocalDate() {
+        return fechaAnuncio != null ? LocalDate.parse(fechaAnuncio) : null;
+    }
+
+    // Métodos helper para convertir String a Date (para compatibilidad con el modelo)
+    public Date getFechaInicioEnvioAsDate() {
+        return fechaInicioEnvio != null ? java.sql.Date.valueOf(LocalDate.parse(fechaInicioEnvio)) : null;
+    }
+
+    public Date getFechaFinEnvioAsDate() {
+        return fechaFinEnvio != null ? java.sql.Date.valueOf(LocalDate.parse(fechaFinEnvio)) : null;
+    }
+
+    public Date getFechaInicioVotacionAsDate() {
+        return fechaInicioVotacion != null ? java.sql.Date.valueOf(LocalDate.parse(fechaInicioVotacion)) : null;
+    }
+
+    public Date getFechaFinVotacionAsDate() {
+        return fechaFinVotacion != null ? java.sql.Date.valueOf(LocalDate.parse(fechaFinVotacion)) : null;
+    }
+
+    public Date getFechaAnuncioAsDate() {
+        return fechaAnuncio != null ? java.sql.Date.valueOf(LocalDate.parse(fechaAnuncio)) : null;
+    }
+
     @Override
     public String toString() {
         return "ConcursoDTO{" +
                 "id=" + id +
                 ", descripcion='" + descripcion + '\'' +
-                ", fechaInicioEnvio=" + fechaInicioEnvio +
-                ", fechaFinEnvio=" + fechaFinEnvio +
-                ", fechaInicioVotacion=" + fechaInicioVotacion +
-                ", fechaFinVotacion=" + fechaFinVotacion +
-                ", fechaAnuncio=" + fechaAnuncio +
+                ", fechaInicioEnvio='" + fechaInicioEnvio + '\'' +
+                ", fechaFinEnvio='" + fechaFinEnvio + '\'' +
+                ", fechaInicioVotacion='" + fechaInicioVotacion + '\'' +
+                ", fechaFinVotacion='" + fechaFinVotacion + '\'' +
+                ", fechaAnuncio='" + fechaAnuncio + '\'' +
                 ", numeroFotografias=" + numeroFotografias +
                 ", estado='" + estado + '\'' +
                 '}';

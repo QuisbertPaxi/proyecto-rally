@@ -28,6 +28,8 @@ public class ConcursoImpl implements ConcursoService {
     @Override
     public ResponseEntity<Object> editConcurso(Long idAdmin, ConcursoDTO concursoDTO) {
         Concurso concurso = concursoRepository.findFirstBy();
+        System.out.println("---------------------------concurso recuperado---------------------------");
+        System.out.println(concurso);
         Usuario user = usuarioRepository.findById(idAdmin).orElse(null);
 
         if (!user.getRole().equals(of)|| user == null){
@@ -48,13 +50,15 @@ public class ConcursoImpl implements ConcursoService {
             return ResponseEntity.badRequest().body("No esta bien los datos");
         }
         concurso.setDescripcion(concursoDTO.getDescripcion());
-        concurso.setFechaInicioEnvio(concursoDTO.getFechaInicioEnvio());
-        concurso.setFechaFinEnvio(concursoDTO.getFechaFinEnvio());
-        concurso.setFechaInicioVotacion(concursoDTO.getFechaInicioVotacion());
-        concurso.setFechaFinVotacion(concursoDTO.getFechaFinVotacion());
-        concurso.setFechaAnuncio(concursoDTO.getFechaAnuncio());
+        concurso.setFechaInicioEnvio(concursoDTO.getFechaInicioEnvioAsDate());
+        concurso.setFechaFinEnvio(concursoDTO.getFechaFinEnvioAsDate());
+        concurso.setFechaInicioVotacion(concursoDTO.getFechaInicioVotacionAsDate());
+        concurso.setFechaFinVotacion(concursoDTO.getFechaFinVotacionAsDate());
+        concurso.setFechaAnuncio(concursoDTO.getFechaAnuncioAsDate());
         concurso.setUsuarioModificacion(user.getUserName());
         concurso.setFechaModificacion(new Timestamp(new Date().getTime()));
+        System.out.println("---------------------------antes de guardar: -------------------------------");
+        System.out.println(concurso);
 
         concursoRepository.save(concurso);
 
@@ -63,20 +67,32 @@ public class ConcursoImpl implements ConcursoService {
         return ResponseEntity.ok(updatedConcursoDTO);
     }
 
-   
+
 
     private ConcursoDTO convertirADTO(Concurso concurso) {
         ConcursoDTO dto = new ConcursoDTO();
         dto.setId(concurso.getId());
         dto.setDescripcion(concurso.getDescripcion());
-        dto.setFechaInicioEnvio(concurso.getFechaInicioEnvio());
-        dto.setFechaFinEnvio(concurso.getFechaFinEnvio());
-        dto.setFechaInicioVotacion(concurso.getFechaInicioVotacion());
-        dto.setFechaFinVotacion(concurso.getFechaFinVotacion());
-        dto.setFechaAnuncio(concurso.getFechaAnuncio());
+
+        // Usar java.sql.Date que tiene el método toString() que devuelve formato yyyy-MM-dd
+        dto.setFechaInicioEnvio(concurso.getFechaInicioEnvio() != null ?
+                new java.sql.Date(concurso.getFechaInicioEnvio().getTime()).toString() : null);
+        dto.setFechaFinEnvio(concurso.getFechaFinEnvio() != null ?
+                new java.sql.Date(concurso.getFechaFinEnvio().getTime()).toString() : null);
+        dto.setFechaInicioVotacion(concurso.getFechaInicioVotacion() != null ?
+                new java.sql.Date(concurso.getFechaInicioVotacion().getTime()).toString() : null);
+        dto.setFechaFinVotacion(concurso.getFechaFinVotacion() != null ?
+                new java.sql.Date(concurso.getFechaFinVotacion().getTime()).toString() : null);
+        dto.setFechaAnuncio(concurso.getFechaAnuncio() != null ?
+                new java.sql.Date(concurso.getFechaAnuncio().getTime()).toString() : null);
+
+        dto.setNumeroFotografias(concurso.getNumeroFotografias());
         dto.setUsuCre(concurso.getUsuarioCreacion());
         dto.setFecCre(concurso.getFechaCreacion());
         dto.setUsuMod(concurso.getUsuarioModificacion());
+        dto.setFecMod(concurso.getFechaModificacion());
+        dto.setEstado(concurso.getEstado());
+
         return dto;
     }
 

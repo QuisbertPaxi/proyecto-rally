@@ -19,6 +19,7 @@ public interface FotografiaService {
     public List<FotografiaDTO> allFotografiasPorEstado(Long adminId, String estado);
     //public ResponseEntity<Object> anadirFotografiaConsumidor (FotografiaDTO fotografiaDTO); // Añadimos una fotografia a la reservas de un consumidor
     public List<Fotografia> obtenerFotografiasPorTituloODescripcion (String searchWord); // Lista todas las fotografias que contengan la searchWord para consumidores
+    public Integer countFotografiasAprobadasYPendientes(Long idParticipante);
 
     /**--------------------------- LOS DOS -------------------------------------------------------**/
     public FotografiaDTO searchFotografia (Long id); // Listar 1 fotografia dado su id

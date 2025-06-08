@@ -12,6 +12,7 @@ import { LoginRequest } from '../../../modelos/loginRequest';
 import { LoginService } from '../../../servicios/auth/login.service';
 import { TokenService } from '../../../servicios/jwt/token.service';
 import { RolService } from '../../../servicios/jwt/rol.service';
+import { AlertService } from '../../../servicios/alert.service';
 
 @Component({
   selector: 'app-log-in',
@@ -36,6 +37,7 @@ export class LogInComponent {
   private readonly _loginService = inject(LoginService)
   private readonly _tokenService = inject(TokenService)
   private readonly _roleUser = inject(RolService)
+  private readonly _alertService = inject(AlertService)
   hide = true;
 
   clickEvent(event: MouseEvent) {
@@ -74,7 +76,9 @@ export class LogInComponent {
             this._tokenService.setToken(response.token)
           }
         },
-        error:(respError) => {alert(respError.message); this.logInForm.reset()},
+        error:(respError) => {
+          this._alertService.alertWithError(respError.message);
+          this.logInForm.reset()},
         complete: () =>
         {
           this.logInForm.reset()

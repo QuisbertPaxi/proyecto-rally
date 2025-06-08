@@ -4,30 +4,40 @@
       <mat-card-title><h2>Sube tu Fotografía 📸</h2></mat-card-title>
     </mat-card-header>
       
-   <mat-card-content>
+    <mat-card-content>
       <form [formGroup]="fotoForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="full-width">
           <mat-label>Título</mat-label>
           <input matInput formControlName="titulo" required />
         </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <mat-label>Descripción</mat-label>
-      <textarea matInput formControlName="descripcion" rows="3"></textarea>
-    </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion" rows="3"></textarea>
+        </mat-form-field>
+        
+          <input type="file" (change)="onFileSelected($event)" class="input-file" accept=".jpg,.jpeg,.png"/>
 
-    
-
-    <div class="button-row">
-      <input type="file" (change)="onFileSelected($event)" class="input-file" />
-      <button mat-raised-button class="boton" type="button" (click)="onSubmit()" [disabled]="!fotoForm.valid || !selectedFile">
-        {{texto_boton}}
-      </button>
-      <button mat-raised-button class="boton" type="button" (click)="cancelar()">
-        Cancelar
-      </button>
-    </div>
-  </form>
-</mat-card-content>
+        <div class="button-row">
+          <button mat-raised-button class="boton" type="button" (click)="onSubmit()" [disabled]="!fotoForm.valid || !selectedFile || !puedeEnviar">
+            {{texto_boton}}
+          </button>
+          <button mat-raised-button class="boton" type="button" (click)="cancelar()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-content>
+      <div class="texto_max_fotos">
+        {{texto_max_fotos}}
+      </div>
+      <div class="texto_max_fotos">
+        {{texto_total_fotos}}
+      </div>
+      <div class="texto_excedido">
+        {{alert_excedido}}
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>

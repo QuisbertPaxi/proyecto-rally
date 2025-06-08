@@ -128,4 +128,19 @@ export class FotografiaService {
         })
       );
   }
+
+  getCountFotografias(idParticipante:number): Observable<any> {
+    const token = this._tokenService.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this._http.get(`${this._URL}fotografias/Contar/${idParticipante}`, { headers }).pipe(
+      catchError(error => {
+        console.error('Error al obtener el conteo de fotografias del participante', error);
+        throw error;
+      })
+    );
+  }
 }

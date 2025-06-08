@@ -36,11 +36,11 @@ h2{
   margin-bottom: 1rem;
 }
 
-// .input-file {
-//   display: block;
-//   margin-top: 1rem;
-//   margin-bottom: 2rem;
-// }
+.input-file {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
 
 .button-row {
   display: flex;
@@ -66,13 +66,6 @@ h2{
 }
 }
 
-
-// Input file
-
-.input-file {
-  display: none; // Oculta el input real de archivos
-}
-
 // Estilos para el botón de carga de archivo (label)
 .file-upload-btn {
   display: block;
@@ -96,5 +89,17 @@ h2{
   }
 }
 
+.texto_max_fotos{
+  text-align: center;
+  margin-top: 5px;
+  font-size: 17px;
+  color: rgb(255, 255, 255);
+}
+.texto_excedido{
+  text-align: center;
+  margin-top: 5px;
+  font-size: 15px;
+  color: rgb(119, 5, 5);
+}
 
 

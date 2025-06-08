@@ -18,6 +18,7 @@ import { ApiResponseFotografia } from '../../../modelos/api-response-fotografia'
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { User } from '../../../modelos/user';
+import { ConsursoService } from '../../../servicios/consurso/consurso.service';
 
 @Component({
   selector: 'app-add-fotografia',
@@ -44,6 +45,7 @@ import { User } from '../../../modelos/user';
 export class AddFotografiaComponent {
   participanteDatos: User = {} as User;
   private readonly _usuarioService = inject(UsuarioService)
+  private readonly _concursoService = inject(ConsursoService)
   private readonly _fb = inject(FormBuilder);
   private readonly _http = inject(HttpClient);
   private readonly _fotoService = inject(FotografiaService);
@@ -52,6 +54,10 @@ export class AddFotografiaComponent {
   fotografia: ApiResponseFotografia = {} as ApiResponseFotografia;
   isEdit:boolean = false;
   texto_boton:string = 'Subir Foto';
+  texto_max_fotos = '';
+  texto_total_fotos = '';
+  alert_excedido = '';
+  puedeEnviar = true;
 
   fotoForm: FormGroup = this._fb.group({
     titulo: ['', Validators.required],
@@ -63,18 +69,17 @@ export class AddFotografiaComponent {
   constructor(private router: Router, private route: ActivatedRoute,){}
 
   ngOnInit(): void {
-    this._usuarioService.getUserData().subscribe({
-      next: (us: User) => {
-        this.participanteDatos = us;
-      },
-      error: err => {
-        console.error('Error al obtener participante:', err);
-        alert('No se pudo obtener el participante.');
-      }
-    });
-
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      this._usuarioService.getUserData().subscribe({
+        next: (us: User) => {
+          this.participanteDatos = us;
+        },
+        error: err => {
+          console.error('Error al obtener participante:', err);
+          alert('No se pudo obtener el participante.');
+        }
+      });
       this.isEdit = true;
       this.texto_boton = 'Editar Foto';
       this._fotoService.getFotografiaId(+id).subscribe((foto) => {
@@ -84,12 +89,74 @@ export class AddFotografiaComponent {
         });
       this.fotografia = foto;
       });
+    }else{
+      this._usuarioService.getUserData().subscribe({
+        next: (us: User) => {
+          this.participanteDatos = us;
+          this._concursoService.getConcurso().subscribe({
+            next: (concurso: any) => {
+              const max_fotos = concurso.numeroFotografias;
+              this.texto_max_fotos = 'Recuerde que puede subir hasta ' + max_fotos + ' fotografías';
+              this._fotoService.getCountFotografias(this.participanteDatos.id!).subscribe({
+                next: (conteo: number) => {
+                  this.texto_total_fotos = 'Actualmente, usted ya subió ' + conteo + ' fotografías';
+                  if(conteo >= max_fotos){
+                    this.alert_excedido = 'Usted ya no puede subir más fotografías';
+                    this.puedeEnviar = false;
+                  }
+                },
+                error: err => {
+                  console.error('No se pudieron obtener los datos del concurso:', err);
+                }
+              });  
+            },
+            error: err => {
+              console.error('No se pudieron obtener los datos del concurso:', err);
+            }
+          });  
+        },
+        error: err => {
+          console.error('Error al obtener participante:', err);
+          alert('No se pudo obtener el participante.');
+        }
+      });
+        
     }
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  onFileSelected(event: any): void {
+    const input = event.target as HTMLInputElement;
+    const file: File = event.target.files[0] || null;
+    if (!file) return;
+  
+    const maxSizeMB = 0.5;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+  
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const validExtensions = ['.jpg', '.jpeg', '.png'];
+  
+    const fileTypeValid = validTypes.includes(file.type);
+    const fileNameValid = validExtensions.some(ext =>
+      file.name.toLowerCase().endsWith(ext)
+    );
+  
+    if (!fileTypeValid || !fileNameValid) {
+      this._alertService.alertWithError('Solo se permiten imágenes en formato JPG, JPEG o PNG.');
+      input.value = '';
+      return;
+    }
+  
+    if (file.size > maxSizeBytes) {
+      this._alertService.alertWithError(`La imagen no debe superar los ${maxSizeMB}MB.`);
+      input.value = ''; 
+      return;
+    }
+  
+    // Si pasa las validaciones, guarda el archivo
+    this.selectedFile = file;
+    console.log('Archivo válido:', file);
   }
+  
 
   onSubmit() {
     let id = this.route.snapshot.paramMap.get('id');

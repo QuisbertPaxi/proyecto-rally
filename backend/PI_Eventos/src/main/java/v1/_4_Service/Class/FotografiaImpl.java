@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import v1._1_Model.Concurso;
 import v1._1_Model.Fotografia;
 import v1._1_Model.Usuario;
 import v1._2_DTO.FotografiaDTO;
+import v1._3_Repository.ConcursoRepository;
 import v1._3_Repository.FotografiaRepository;
 import v1._3_Repository.UsuarioRepository;
 import v1._4_Service.Interface.FotografiaService;
@@ -34,6 +36,9 @@ public class FotografiaImpl implements FotografiaService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    ConcursoRepository concursoRepository;
 
     String roleParticipante = "participante";
     String roleAdmin = "admin";
@@ -75,9 +80,20 @@ public class FotografiaImpl implements FotografiaService {
     public ResponseEntity<Object> addFotografia(FotografiaDTO fotografiaDTO, MultipartFile file) {
         try {
             Usuario participante = usuarioRepository.findById(fotografiaDTO.getIdParticipante()).orElse(null);
+            Concurso concurso = concursoRepository.findFirstBy();
+            Integer conteoFotografias = fotografiaRepository.countFotografiasAprobadasYPendientes(fotografiaDTO.getIdParticipante());
+
+            System.out.println("el concurso permite: " + concurso.getNumeroFotografias() + " fotografias");
+            System.out.println("El participante ya subio: "+ conteoFotografias + " fotografias");
 
             if (participante == null || !participante.getRole().equals(roleParticipante) || fotografiaDTO == null) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No se le está permitido entrar en esta ruta");
+            }
+
+            if(conteoFotografias >= concurso.getNumeroFotografias()){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Ha excedido el número de fotografías permitidas");
+
             }
 
             if (fotografiaDTO.getDescripcion() == null ||
@@ -208,6 +224,17 @@ public class FotografiaImpl implements FotografiaService {
     @Override
     public List<Fotografia> obtenerFotografiasPorTituloODescripcion(String searchWord) {
         return fotografiaRepository.buscarPorTituloODescripcion(searchWord);
+    }
+
+    @Override
+    public Integer countFotografiasAprobadasYPendientes(Long idParticipante){
+        Usuario participante = usuarioRepository.findById(idParticipante).orElse(null);
+
+        if (participante == null || !participante.getRole().equals(roleParticipante)) {
+            return -1;
+        }
+
+        return fotografiaRepository.countFotografiasAprobadasYPendientes(idParticipante);
     }
 
     @Override

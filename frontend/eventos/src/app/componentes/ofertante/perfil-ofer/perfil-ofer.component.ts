@@ -8,7 +8,8 @@ import { User } from '../../../modelos/user';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { TokenService } from '../../../servicios/jwt/token.service';
 import { Router } from '@angular/router';
-
+import { AlertService } from '../../../servicios/alert.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-perfil-ofer',
@@ -27,6 +28,7 @@ export class PerfilOferComponent implements OnInit{
 
   private readonly _usuarioService = inject(UsuarioService);
   private readonly _tokenService = inject(TokenService)
+  private readonly _alertService = inject(AlertService);
   private fb = inject(FormBuilder);
   ofertante: User = {}
   signInForm = this.fb.group({
@@ -39,7 +41,7 @@ export class PerfilOferComponent implements OnInit{
     ],
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private location: Location) {}
 
 
   ngOnInit(): void 
@@ -80,23 +82,26 @@ export class PerfilOferComponent implements OnInit{
       event.stopPropagation();
     }
   
-  
     onSubmit() {
-
       let resp: {mensaje: string};
-      if (this.signInForm.valid) {
-        this._usuarioService.putUpdateData(this.signInForm.value as User).subscribe({
-          next: (response) => {
-            resp = response
-          },
-          error: (error) => {alert(error)},
-          complete: () => 
-            { 
-              alert(resp.mensaje)
-              this.logout()
+      if (this.signInForm.valid) {      
+        this._alertService
+          .confirmBox("Editar datos", "¿Está seguro de editar su datos personales?")
+          .then((result) => {
+            if (result.value) {
+              this._usuarioService.putUpdateData(this.signInForm.value as User).subscribe({
+                next: (response) => {
+                  resp = response
+                },
+                error: (error) => {alert(error)},
+                complete: () => 
+                  { 
+                    this._alertService.alertWithSuccess(resp.mensaje);
+                    this.location.back();
+                  }
+              })
             }
-        })
-  
+          })
       }
     }
 

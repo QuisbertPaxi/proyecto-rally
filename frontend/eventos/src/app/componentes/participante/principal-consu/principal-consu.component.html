@@ -17,7 +17,7 @@
     <mat-card-content>
       <p>{{ foto.estado }}</p>
     </mat-card-content>
-    <mat-card-actions class="boton-votar-wrapper" *ngIf = "foto.estado != 'APROBADO'">
+    <mat-card-actions class="boton-votar-wrapper" *ngIf = "foto.estado == 'PENDIENTE'">
       <button mat-raised-button class="boton-edit" (click)="editarFotografia(foto)">
         Editar
       </button>

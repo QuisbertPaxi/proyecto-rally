@@ -130,4 +130,15 @@ public class FotografiaController {
         return fotografiaService.aprobarFotografia(idFotografia, idAdmin, aprobado);
     }
 
+    @GetMapping("/Contar/{idParticipante}")
+    public ResponseEntity<Object> contarVigentes (@PathVariable("idParticipante") Long idParticipante) {
+        Integer total = fotografiaService.countFotografiasAprobadasYPendientes(idParticipante);
+
+        if (total == -1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tiene permiso para estar en este apartado");
+        }
+
+        return ResponseEntity.ok(total);
+    }
+
 }

@@ -44,4 +44,11 @@ public interface FotografiaRepository extends JpaRepository<Fotografia, Long> {
            """)
     List<Fotografia> buscarPorTituloODescripcion(String searchWord);
 
+    @Query("""
+            SELECT count(f) FROM Fotografia f
+            WHERE (f.estado = 'APROBADO' OR f.estado = 'PENDIENTE')
+              AND f.participante.id = :idParticipante
+           """)
+    Integer countFotografiasAprobadasYPendientes(Long idParticipante);
+
 }
