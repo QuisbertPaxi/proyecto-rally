@@ -21,6 +21,8 @@ public class FotografiaController {
     @Autowired
     FotografiaService fotografiaService;
 
+    String mensajeError = "No tiene permiso para estar en este apartado";
+
     @GetMapping("/{idFotografia}")
     public ResponseEntity<Object> obtenerUnaFotografiaPorId (@PathVariable Long idFotografia) {
         FotografiaDTO fotografiaFound = fotografiaService.searchFotografia(idFotografia);
@@ -53,7 +55,7 @@ public class FotografiaController {
 
 
     @DeleteMapping("/Participantes/Delete")
-    public ResponseEntity<Object> EliminarFotografia(@RequestBody FotografiaDTO fotografiaDTO){
+    public ResponseEntity<Object> eliminarFotografia(@RequestBody FotografiaDTO fotografiaDTO){
         return fotografiaService.deleteFotografia(fotografiaDTO);
     }
 
@@ -80,7 +82,7 @@ public class FotografiaController {
      List<FotografiaDTO> allActivities = fotografiaService.allFotografiasAprobadas();
 
         if (allActivities == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tiene permiso para estar en este apartado");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(mensajeError);
         }
 
         if (allActivities.isEmpty()) {
@@ -98,7 +100,7 @@ public class FotografiaController {
         List<FotografiaDTO> allActivities = fotografiaService.allFotografiasPorEstado(idAdmin, estado);
 
         if (allActivities == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tiene permiso para estar en este apartado");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(mensajeError);
         }
 
         if (allActivities.isEmpty()) {
@@ -135,7 +137,7 @@ public class FotografiaController {
         Integer total = fotografiaService.countFotografiasAprobadasYPendientes(idParticipante);
 
         if (total == -1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tiene permiso para estar en este apartado");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(mensajeError);
         }
 
         return ResponseEntity.ok(total);

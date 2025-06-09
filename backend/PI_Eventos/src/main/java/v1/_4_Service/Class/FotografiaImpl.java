@@ -263,7 +263,7 @@ public class FotografiaImpl implements FotografiaService {
 
     private String uploadToImgbb(MultipartFile file) {
         try {
-            String apiKey = "b39badf29b5ff865bf039a4dcb78d0bb";
+            String apiKey = "3a3305a4d94d0d3983f0cdd31f38ebef";
 
             byte[] imageBytes = file.getBytes();
             String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
