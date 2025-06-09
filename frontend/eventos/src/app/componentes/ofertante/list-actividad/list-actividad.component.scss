@@ -1,6 +1,6 @@
   .back{
-    background-color: #95C623;
-    color: #023952;
+    background-color: #94b0d4;
+    color: #143252;
   }
   
   .shipping-card {
@@ -9,6 +9,28 @@
     background-color: blackç;
     padding: 10;
   }
+
+  #header-center {
+  display: flex;
+  justify-content: center;  // Centra el <h2> horizontalmente
+  align-items: center;      // Asegura que el <h2> se alinee verticalmente en el centro (si es necesario)
+  text-align: center; 
+  font-variant-caps: all-small-caps;
+  font-size: 33px;
+  color: #262539;
+}
+
+  #centered-content {
+  display: flex;
+  flex-direction: column;  // Centra los elementos en columna
+  align-items: center;     // Centra los elementos horizontalmente
+  justify-content: center; // Centra los elementos verticalmente (si hay espacio)
+  text-align: center;      // Opcional: centra el texto dentro de cada elemento
+  height: 100%;  
+  font-size: 23px;
+    
+}
+
   
   .foto {
     position: relative;
@@ -48,21 +70,17 @@
     
   }
   
-  
-  .grip{
-          
-    display: grid;
-  
-    /* Espaciado entre columnas */
-    grid-column-gap: 0.75rem; /* Equivalente a 3px */
-        
-    /* Espaciado entre filas */
-    grid-row-gap: 0.5rem; /* Equivalente a 2px */
-      
-    /* Número de columnas en la vista pequeña (sm) */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-      
-    /* Espaciado entre filas en la vista pequeña (sm) */
-    grid-row-gap: 0; /* Sin espacio entre filas */
-      
+  b{
+    
+    font-weight: 700;
+    color: #282652;
   }
+  
+  button {
+  border-radius: 7px;
+  letter-spacing: 0.07rem;
+  font-family:  "AvertaStd-Regular",-apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
+  font-weight: 700;
+}
+ 
+ 

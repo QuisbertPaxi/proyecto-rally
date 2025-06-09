@@ -1,21 +1,15 @@
+<h2>Participantes del Concurso</h2>
 <div class="usuario-container">
   @for (usuario of usuarios; track $index) {
     <mat-card class="usuario-card">
-      <mat-card-header>
-        <mat-card-title>{{ usuario.nombre }} {{ usuario.apellidos }}</mat-card-title>
-        <mat-card-subtitle>{{ usuario.userName }}</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <!-- Puedes poner más información aquí si tienes -->
-      </mat-card-content>
-
-      <mat-card-actions align="end">
-        <button mat-raised-button color="primary" (click)="editarUsuario(usuario.id!)">
+    <mat-card-title id="nomverd">{{ usuario.nombre| titlecase }} {{ usuario.apellidos| titlecase }}</mat-card-title>
+    <mat-card-subtitle id="nom">{{ usuario.userName }}</mat-card-subtitle>
+      <mat-card-actions>
+        <button mat-raised-button class="btn" id="color" (click)="editarUsuario(usuario.id!)">
           Editar
         </button>
-        <button mat-raised-button color="warn" (click)="eliminarUsuario(usuario.id!)">
-          Eliminar
+        <button mat-raised-button class="btn" (click)="eliminarUsuario(usuario.id!)">
+         Eliminar
         </button>
       </mat-card-actions>
     </mat-card>

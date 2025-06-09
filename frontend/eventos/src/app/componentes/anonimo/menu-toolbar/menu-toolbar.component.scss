@@ -6,6 +6,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
+  width: 100%; /* Asegura que la barra de herramientas ocupe todo el ancho disponible */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+
 }
 
 .toolbar-left {
@@ -18,9 +21,10 @@
   left: 50%;
   transform: translateX(-180%);
   font-weight: bold;
-   letter-spacing: 0.2rem;
+  letter-spacing: 0.2rem;
   font-size: 2rem;
   max-width: 3vw;
+  text-align: center;
 }
 
 .toolbar-right {
@@ -37,13 +41,6 @@
   grid-row-gap: 0;
 }
 
-// .active-link {
-//   background-color: #454b8a;
-//   color: #c5c4e3;
-//   border-radius: 4px;
-// }
-
-
 mat-sidenav {
   width: 200px;
   max-width: 100vw;
@@ -51,9 +48,8 @@ mat-sidenav {
   padding: 1rem;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   overflow-x: hidden!important;
-  word-spacing: 0.9rem;
   border-radius: 0;
-  // box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 mat-sidenav nav a {
@@ -62,18 +58,27 @@ mat-sidenav nav a {
   font-weight: 600;
   font-size: 1.1rem;
   padding: 0.5rem 0.25rem;
-  border-radius: 7px;
+  border-radius: 4px;
   transition: background-color 0.3s ease, color 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
   max-width: 100%;
-  letter-spacing: 0.07rem;
+  letter-spacing: 0.09rem;
 }
 
 mat-sidenav nav a:hover {
   background-color: #586db4;
+}
+
+.active-link {
+  font-weight: bold;
+  color: #c5c4e3;
+  border-left: 4px solid #7f53b3;
+  padding-left: 8px;
+  background-color: #454b8a;
+  transition: background-color 0.3s ease;
 }
 
 button {
@@ -89,31 +94,43 @@ button {
   // }
 
   /* Ajuste en .grip para que sea más pequeño */
-.grip {
-  display: grid;
-  grid-column-gap: 0.5rem; /* Reducir el espacio entre columnas */
-  grid-row-gap: 0.25rem; /* Reducir el espacio entre filas */
-  grid-template-columns: repeat(2, minmax(100px, 1fr)); /* Tamaño mínimo de 100px */
-  max-width: 200px; /* Limitar el ancho total de la grilla */
-  width: 100%; /* Asegurarse de que se adapte al contenedor */
-}
-/* Estilos de los botones dentro de .grip */
-.grip button {
-  padding: 8px 12px; /* Ajustar el padding para que los botones no sean tan grandes */
-  font-size: 0.9rem; /* Reducir el tamaño de la fuente */
-  letter-spacing: 0;
-  text-align: center; /* Asegurarse de que el texto esté centrado */
-}
+  .grip {
+    display: grid;
+    grid-column-gap: 0.5rem; /* Reducir el espacio entre columnas */
+    grid-row-gap: 0.25rem; /* Reducir el espacio entre filas */
+    grid-template-columns: repeat(2, minmax(100px, 1fr)); /* Tamaño mínimo de 100px */
+    max-width: 200px; /* Limitar el ancho total de la grilla */
+    width: 100%; /* Asegurarse de que se adapte al contenedor */
+  }
 
 
   .toolbar-title {
     font-size: 1.2rem;
-    
+    max-width: 100%; /* El título ocupa todo el ancho disponible */
+    position: static; /* Lo devolvemos a su flujo normal */
+    transform: none; /* Quitamos el efecto de translate */
+    text-align: center; /* Alineamos el título al centro */
   }
 
-  // .custom-toolbar {
-  //   padding-left: 8px;
-  //   padding-right: 8px;
-  // }
+  .toolbar-left, .toolbar-right {
+    flex-direction: column; /* Colocamos los elementos en columna */
+    gap: 8px; /* Espacio entre los elementos */
+    width: auto; /* No ocupará todo el espacio disponible */
+  }
+
+  .toolbar-left {
+    align-items: center; /* Centrar los elementos de la izquierda */
+  }
+
+  .toolbar-right {
+    align-items: center; /* Centrar los botones de la derecha */
+  }
+
+  /* Estilo adicional para los botones */
+  button {
+    width: 100%; /* Los botones ocupan todo el ancho disponible */
+    padding: 10px;
+    font-size: .7rem; /* Ajustamos el tamaño de la fuente */
+  }
 
 }

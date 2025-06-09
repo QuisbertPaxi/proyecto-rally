@@ -68,6 +68,7 @@ export class EditActividadComponent implements OnInit {
     fechaEinicio: [this.concurso.fechaInicioEnvio, Validators.required],
     fechaEfin: [this.concurso.fechaFinEnvio, Validators.required],
     fechaAnuncio: [this.concurso.fechaAnuncio, Validators.required],
+    nfotografias: [this.concurso.numeroFotografias, [Validators.required, Validators.min(0)]]
   });
 
   ngOnInit(): void {
@@ -102,7 +103,8 @@ export class EditActividadComponent implements OnInit {
       fechaEfin: this.toLocalDate(this.datosConcurso.fechaFinEnvio),
       fechaVinicio: this.toLocalDate(this.datosConcurso.fechaInicioVotacion),
       fechaVfin: this.toLocalDate(this.datosConcurso.fechaFinVotacion),
-      fechaAnuncio: this.toLocalDate(this.datosConcurso.fechaAnuncio)
+      fechaAnuncio: this.toLocalDate(this.datosConcurso.fechaAnuncio),
+      nfotografias: this.datosConcurso.numeroFotografias
     });
   }
 
@@ -131,7 +133,8 @@ export class EditActividadComponent implements OnInit {
       fechaFinEnvio: this.formatDateToString(this.editCon.value.fechaEfin),
       fechaInicioVotacion: this.formatDateToString(this.editCon.value.fechaVinicio),
       fechaFinVotacion: this.formatDateToString(this.editCon.value.fechaVfin),
-      fechaAnuncio: this.formatDateToString(this.editCon.value.fechaAnuncio)
+      fechaAnuncio: this.formatDateToString(this.editCon.value.fechaAnuncio),
+      numeroFotografias: this.editCon.value.nfotografias
     };
   }
 
@@ -158,7 +161,7 @@ export class EditActividadComponent implements OnInit {
     this._concursoService.updateConcurso(this.datosUsuario.id!, this.concurso).subscribe({
       next: (res) => {
         console.log("Actualización exitosa", res);
-        this._alertService.alertWithSuccess("Se registró su voto. ¡Gracias por participar!");
+        this._alertService.alertWithSuccess("¡Actualización exitosa! Sus datos se han guardado correctamente.");
         this.navigateToList();
       },
       error: (err) => {

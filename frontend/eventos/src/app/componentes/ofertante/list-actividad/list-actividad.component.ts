@@ -26,6 +26,7 @@ export class ListActividadComponent implements OnInit{
   fVotoIni: any;
   fVotoFin: any;
   fGanadores: any;
+  nfotografias: any;
 
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class ListActividadComponent implements OnInit{
         this.fVotoIni = this.formatearFecha(this.datosConcurso.fechaInicioVotacion);
         this.fVotoFin = this.formatearFecha(this.datosConcurso.fechaFinVotacion);
         this.fGanadores = this.formatearFecha(this.datosConcurso.fechaAnuncio);
+        this.nfotografias = this.datosConcurso.numeroFotografias
       },
       error: (err) => {
         console.error("Error al obtener el concurso:", err);

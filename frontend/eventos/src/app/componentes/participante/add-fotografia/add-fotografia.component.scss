@@ -43,10 +43,34 @@ h2{
 }
 
 .button-row {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
+  display: grid;
+  place-items: center; /* Centra tanto horizontal como verticalmente */
+  height: 100%;
 }
 
+#inner{
+  padding: 20px;
+}
+
+#grip{
+          
+    display: grid;
+  
+    /* Espaciado entre columnas */
+    grid-column-gap: 0.75rem; /* Equivalente a 3px */
+        
+    /* Espaciado entre filas */
+    grid-row-gap: 0.5rem; /* Equivalente a 2px */
+      
+    /* Número de columnas en la vista pequeña (sm) */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+      
+    /* Espaciado entre filas en la vista pequeña (sm) */
+    grid-row-gap: 0; /* Sin espacio entre filas */
+      
+  }
 .boton {
   background-color: #2e78b0!important;
   color: #c5c4e3!important;
@@ -56,7 +80,7 @@ h2{
   min-width: 100px;
 
    &:disabled {
-    background-color: #0074a6a8;
+    background-color: #0074a6a8!important;
     cursor: not-allowed;
   }
 
@@ -64,6 +88,13 @@ h2{
   background-color: #6e93c2!important;
   transform: scale(1.05)!important;
 }
+}
+
+ button {
+  border-radius: 7px;
+  letter-spacing: 0.07rem;
+  font-family:  "AvertaStd-Regular",-apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
+  font-weight: 700;
 }
 
 // Estilos para el botón de carga de archivo (label)
@@ -94,6 +125,10 @@ h2{
   margin-top: 5px;
   font-size: 17px;
   color: rgb(255, 255, 255);
+  font-weight: 300;
+  letter-spacing: 0.07rem;
+  font-family:  Roboto, sans-serif;;
+
 }
 .texto_excedido{
   text-align: center;
