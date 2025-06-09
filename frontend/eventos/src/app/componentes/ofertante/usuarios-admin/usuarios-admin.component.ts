@@ -21,44 +21,16 @@ import { User } from '../../../modelos/user';
 export class UsuariosAdminComponent {
   private readonly _usuarioService = inject(UsuarioService);
   private readonly router = inject(Router);
-  usuarios: User [] = [
-    {
-      id: 1,
-      nombre: "pepe",
-      apellidos: "papa",
-      userName:  "pp"
-    },
-    {
-      id: 2,
-      nombre: "ana",
-      apellidos: "perez",
-      userName:  "anpe"
-    },
-    {
-      id: 3,
-      nombre: "juan",
-      apellidos: "suarez",
-      userName:  "jjj"
-    },
-    {
-      id: 4,
-      nombre: "maria",
-      apellidos: "montes",
-      userName:  "mm"
-    },
-    {
-      id: 5,
-      nombre: "pepa",
-      apellidos: "pig",
-      userName:  "iii"
-    },
-  ];
+  usuarios!: User [];
 
   ngOnInit(): void {
-    /*this._usuarioService.getAllUser().subscribe({
-      next: (data) => this.usuarios = data,
+    this._usuarioService.getAllUser().subscribe({
+      next: (data) => {
+        this.usuarios = data
+        console.log(data);
+      },
       error: (err) => console.error('Error al obtener usuarios', err)
-    });*/
+    });
   }
 
   editarUsuario(id: number) {

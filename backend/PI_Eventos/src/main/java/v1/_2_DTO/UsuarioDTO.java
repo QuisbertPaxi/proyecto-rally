@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -74,4 +75,15 @@ public class UsuarioDTO {
                 ", role='" + role + '\'' +
                 '}';
     }
+
+    public UsuarioDTO(Long id, String userName, String email, String nombre, String apellidos, String role) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.role = role;
+    }
+
+    public UsuarioDTO(){}
 }

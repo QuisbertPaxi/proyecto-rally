@@ -37,8 +37,7 @@ export class PerfilOferComponent implements OnInit{
     apellidos: [this.ofertante.apellidos, Validators.required],
     userName: [this.ofertante.userName, Validators.required],
     email: [this.ofertante.email, [Validators.required, Validators.email]],
-    password: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(10)])
+    password: [null, Validators.compose([ Validators.minLength(5), Validators.maxLength(10)])
     ],
   });
 
@@ -71,8 +70,6 @@ ngOnInit(): void {
   }
 }
 
-
-
   rellenarForm() {
     this.signInForm.patchValue({
       id: this.ofertante.id,
@@ -83,15 +80,6 @@ ngOnInit(): void {
     });
   }
 
-    /**{
-      "apellidos": "Hamilton",
-      "email": "alex@example.com",
-      "nombre": "Alexander",
-      "password": "password2",
-      "role": "x",
-      "userName": "AlexH."
-  } */
-
     hide = true;
     clickEvent(event: MouseEvent) {
       this.hide = !this.hide;
@@ -99,6 +87,8 @@ ngOnInit(): void {
     }
 
     onSubmit() {
+      console.log(this.signInForm.value);
+
       let resp: {mensaje: string};
       if (this.signInForm.valid) {
         this._alertService

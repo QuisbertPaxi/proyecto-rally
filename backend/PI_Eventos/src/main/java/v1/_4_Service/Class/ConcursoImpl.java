@@ -28,8 +28,6 @@ public class ConcursoImpl implements ConcursoService {
     @Override
     public ResponseEntity<Object> editConcurso(Long idAdmin, ConcursoDTO concursoDTO) {
         Concurso concurso = concursoRepository.findFirstBy();
-        System.out.println("---------------------------concurso recuperado---------------------------");
-        System.out.println(concurso);
         Usuario user = usuarioRepository.findById(idAdmin).orElse(null);
 
         if (!user.getRole().equals(of)|| user == null){
@@ -57,8 +55,6 @@ public class ConcursoImpl implements ConcursoService {
         concurso.setFechaAnuncio(concursoDTO.getFechaAnuncioAsDate());
         concurso.setUsuarioModificacion(user.getUserName());
         concurso.setFechaModificacion(new Timestamp(new Date().getTime()));
-        System.out.println("---------------------------antes de guardar: -------------------------------");
-        System.out.println(concurso);
 
         concursoRepository.save(concurso);
 

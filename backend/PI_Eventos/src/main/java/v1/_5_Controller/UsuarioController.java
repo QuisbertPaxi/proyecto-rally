@@ -1,9 +1,12 @@
 package v1._5_Controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import v1._1_Model.Usuario;
+import v1._2_DTO.FotografiaDTO;
 import v1._2_DTO.UsuarioDTO;
 import v1._4_Service.Interface.UsuarioService;
 
@@ -60,6 +63,22 @@ public class UsuarioController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/All/{id}")
+    public ResponseEntity<Object> obtenerAllUser (@PathVariable Long id){
+
+        List<UsuarioDTO> usuarios = usuarioService.getAllUser(id);
+
+        if (usuarios == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tiene permiso para estar en este apartado");
+        }
+
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(usuarios);
     }
 
 }

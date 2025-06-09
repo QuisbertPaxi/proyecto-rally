@@ -9,6 +9,8 @@ import { ApiResponseFotografia } from '../../../modelos/api-response-fotografia'
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { User } from '../../../modelos/user';
 import { AlertService } from '../../../servicios/alert.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-principal-ofer',
@@ -18,7 +20,8 @@ import { AlertService } from '../../../servicios/alert.service';
             MatSelectModule,
             MatInputModule,
             FormsModule,
-            ReactiveFormsModule,],
+            ReactiveFormsModule,
+            CommonModule],
   templateUrl: './principal-ofer.component.html',
   styleUrl: './principal-ofer.component.scss'
 })
@@ -37,8 +40,9 @@ export class PrincipalOferComponent implements OnInit{
           next: (us: User) => {
             this.adminDatos = us;
 
-            this._fotografiaService.getAllFotografia().subscribe({
+            this._fotografiaService.getFotografiaEstado(this.adminDatos.id!, "PENDIENTE").subscribe({
               next: data => {
+                console.log(data);
                 this.fotografias = data;
               },
               error: err => {
@@ -54,19 +58,21 @@ export class PrincipalOferComponent implements OnInit{
         });
   }
 
-  cambiarEstadoFoto(foto: any, nuevoEstado: string) {
+  seleccionarEstado(foto: any, nuevoEstado: string) {
     const estadoAnterior = foto.estado;
 
     this._alertService
-      .confirmBox("Cambiar Estado", `¿Está seguro de "${nuevoEstado}" la fotografia ${foto.descripcion}?`)
+      .confirmBox("Cambiar Estado", `¿Está seguro de ${nuevoEstado} la fotografia "${foto.titulo}"?`)
       .then((result) => {
         if (result.value) {
           const aprobado = nuevoEstado === 'APROBAR';
           foto.estado = nuevoEstado;
 
           this._fotografiaService.aprobarFotografia(foto.id, this.adminDatos.id!, aprobado).subscribe({
-            next: (resp) => console.log('Cambio de estado exitoso', resp),
-            error: (err) => console.error('Error al cambiar estado', err)
+            next: (resp) => {
+              this._alertService.alertWithSuccess(`Usted acaba de ${nuevoEstado} la fotografia "${foto.titulo}"`);
+            },
+            error: (err) => this._alertService.alertWithError(`Hubo un error al ${nuevoEstado} la fotografia "${foto.titulo}"`)
           });
 
           this.ngOnInit();

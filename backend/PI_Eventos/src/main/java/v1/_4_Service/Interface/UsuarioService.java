@@ -5,6 +5,7 @@ import v1._1_Model.Usuario;
 import v1._2_DTO.InicioSesionDTO;
 import v1._2_DTO.UsuarioDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioService {
@@ -13,5 +14,6 @@ public interface UsuarioService {
     public Usuario actualizarUsuario(final Long id, UsuarioDTO usuarioDTO); // actualizar usuario
     public boolean borrarUsuario(final Long id); // borrar usuario
     public TokenResponse iniciarSesion (InicioSesionDTO sesionDTO); // iniciar sesion con usuario
+    public List<UsuarioDTO> getAllUser(Long id);
 
 }

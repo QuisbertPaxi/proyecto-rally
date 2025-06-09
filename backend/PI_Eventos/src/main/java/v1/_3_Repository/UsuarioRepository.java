@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import v1._1_Model.Usuario;
+import v1._2_DTO.UsuarioDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
@@ -15,5 +17,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     long countByNombreOrEmailExcludingId(@Param("nombre") String nombre, @Param("email") String email, @Param("id") Long id);
 
     Optional<Usuario> findByIdAndEstadoNot(Long id, String estado);
+
+    @Query("""
+            SELECT new v1._2_DTO.UsuarioDTO(
+                u.id, u.userName, u.email, u.nombre, u.apellidos, u.role
+            )
+            FROM Usuario u
+            WHERE u.estado <> 'ELIMINADO'
+        """)
+    List<UsuarioDTO> findByEstadoNot();
 
 }

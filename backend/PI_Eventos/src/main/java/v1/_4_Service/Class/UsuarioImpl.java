@@ -16,6 +16,7 @@ import v1._4_Service.Interface.UsuarioService;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,8 @@ public class UsuarioImpl implements UsuarioService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    String roleAdmin = "admin";
 
     @Override
     public TokenResponse registrarUsuario(UsuarioDTO usuario) {
@@ -97,7 +100,11 @@ public class UsuarioImpl implements UsuarioService {
 
         if (d != null ) {
 
-            d.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
+            String pass = usuarioDTO.getPassword();
+            if (pass != null && !pass.isBlank()) {
+                d.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
+            }
+
             d.setEmail(usuarioDTO.getEmail());
             d.setUserName(usuarioDTO.getUserName());
             d.setNombre(usuarioDTO.getNombre());
@@ -128,6 +135,17 @@ public class UsuarioImpl implements UsuarioService {
         u.setFechaModificacion(new Timestamp(new Date().getTime()));
         usuarioRepository.save(u);
         return true;
+    }
+
+    @Override
+    public List<UsuarioDTO> getAllUser(Long id){
+        Usuario admin = usuarioRepository.findById(id).orElse(null);
+
+        if (admin == null || !admin.getRole().equals(roleAdmin)) {
+            return null;
+        }
+
+        return usuarioRepository.findByEstadoNot();
     }
 
     private boolean esUnicoUsuario(Usuario u) {

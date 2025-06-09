@@ -54,15 +54,11 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>Contraseña</mat-label>
-              <input matInput #password maxlength="10"  [type]="hide ? 'password' : 'text'" formControlName="password">
+              <input matInput #password maxlength="10"  [type]="hide ? 'password' : 'text'" formControlName="password" autocomplete="new-password">
               <mat-hint align="end">{{password.value.length}} / 10</mat-hint>
               <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-  
-              @if (signInForm.controls['password'].hasError('required')) {
-                <mat-error class="marginbot">La contraseña es <strong>requerida</strong></mat-error>
-              }
             </mat-form-field>
           </div>
         </div>
