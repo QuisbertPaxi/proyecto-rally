@@ -143,4 +143,20 @@ export class FotografiaService {
       })
     );
   }
+
+  aprobarFotografia(idFotografia: number, idAdmin: number, aprobado: boolean): Observable<any> {
+    const token = this._tokenService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    const url = `${this._URL}fotografias/Aprobar/${idFotografia}/${idAdmin}/${aprobado}`;
+    return this._http.put(url, null, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error al aprobar fotografía:', error);
+        throw error;
+      })
+    );
+  }
+
 }

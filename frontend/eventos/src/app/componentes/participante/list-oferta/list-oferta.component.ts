@@ -4,8 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ConsumidorService } from '../../../servicios/consumidor/consumidor.service';
-import { RolService } from '../../../servicios/jwt/rol.service';
-import { UsuarioService } from '../../../servicios/usuario.service';
 import { ApiResponseOferta } from '../../../modelos/api-response-oferta';
 
 @Component({

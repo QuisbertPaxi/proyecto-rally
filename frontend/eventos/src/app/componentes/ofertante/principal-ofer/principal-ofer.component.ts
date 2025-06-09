@@ -8,6 +8,7 @@ import { FotografiaService } from '../../../servicios/fotografia/fotografia.serv
 import { ApiResponseFotografia } from '../../../modelos/api-response-fotografia';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { User } from '../../../modelos/user';
+import { AlertService } from '../../../servicios/alert.service';
 
 @Component({
   selector: 'app-principal-ofer',
@@ -22,22 +23,23 @@ import { User } from '../../../modelos/user';
   styleUrl: './principal-ofer.component.scss'
 })
 export class PrincipalOferComponent implements OnInit{
-  estados = ['APROBADO','RECHAZADO'];
+  estados = ['APROBAR', 'RECHAZAR'];
   adminDatos: User = {};
 
   fotografias: ApiResponseFotografia [] = [];
 
   private readonly _fotografiaService = inject(FotografiaService)
   private readonly _usuarioService = inject(UsuarioService)
+  private readonly _alertService = inject(AlertService);
 
   ngOnInit(): void {
     this._usuarioService.getUserData().subscribe({
           next: (us: User) => {
             this.adminDatos = us;
 
-            this._fotografiaService.getFotografiaEstado(this.adminDatos.id!,'PENDIENTE').subscribe({
+            this._fotografiaService.getAllFotografia().subscribe({
               next: data => {
-                this.fotografias = data.filter((f:ApiResponseFotografia) => f.estado !== 'ELIMINADO');
+                this.fotografias = data;
               },
               error: err => {
                 console.error('Error al obtener las fotografías:', err);
@@ -52,8 +54,26 @@ export class PrincipalOferComponent implements OnInit{
         });
   }
 
-  hacerOferta(flag: boolean){
-    // el ofertante se encargara de cambiar el
+  cambiarEstadoFoto(foto: any, nuevoEstado: string) {
+    const estadoAnterior = foto.estado;
+
+    this._alertService
+      .confirmBox("Cambiar Estado", `¿Está seguro de "${nuevoEstado}" la fotografia ${foto.descripcion}?`)
+      .then((result) => {
+        if (result.value) {
+          const aprobado = nuevoEstado === 'APROBAR';
+          foto.estado = nuevoEstado;
+
+          this._fotografiaService.aprobarFotografia(foto.id, this.adminDatos.id!, aprobado).subscribe({
+            next: (resp) => console.log('Cambio de estado exitoso', resp),
+            error: (err) => console.error('Error al cambiar estado', err)
+          });
+
+          this.ngOnInit();
+        } else {
+          foto.estado = estadoAnterior;
+        }
+    });
   }
 
 }

@@ -37,7 +37,7 @@ export class GaleriaComponent {
 
   ngOnInit(): void {
     this.obtenerIp();
-    this.cargarFotografias();  
+    this.cargarFotografias();
   }
 
   votar(imagen: any) {
@@ -72,7 +72,7 @@ export class GaleriaComponent {
       console.warn('Usted ya emitió su voto anteriormente (desde localstorage)');
       this._alertService.alertWithError("No se registró su voto. Usted ya emitió su voto anteriormente");
     }
-    
+
   }
 
   buscarFotografias(){

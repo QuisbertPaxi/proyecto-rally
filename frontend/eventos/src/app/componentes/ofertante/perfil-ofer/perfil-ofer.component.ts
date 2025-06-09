@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { User } from '../../../modelos/user';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { TokenService } from '../../../servicios/jwt/token.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from '../../../servicios/alert.service';
 import { Location } from '@angular/common';
 
@@ -15,9 +15,9 @@ import { Location } from '@angular/common';
   selector: 'app-perfil-ofer',
   standalone: true,
   imports: [
-    MatCardModule, 
-    ReactiveFormsModule, 
-    MatInputModule, 
+    MatCardModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatIconModule,
     MatButtonModule
   ],
@@ -32,8 +32,9 @@ export class PerfilOferComponent implements OnInit{
   private fb = inject(FormBuilder);
   ofertante: User = {}
   signInForm = this.fb.group({
+    id: [this.ofertante.id],
     nombre: [this.ofertante.nombre, Validators.required],
-    apellidos: [this.ofertante.apellidos, Validators.required], 
+    apellidos: [this.ofertante.apellidos, Validators.required],
     userName: [this.ofertante.userName, Validators.required],
     email: [this.ofertante.email, [Validators.required, Validators.email]],
     password: [null, Validators.compose([
@@ -41,32 +42,47 @@ export class PerfilOferComponent implements OnInit{
     ],
   });
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(private router: Router, private location: Location, private activatedRoute: ActivatedRoute) {}
 
 
-  ngOnInit(): void 
-  {
-    this._usuarioService.getUserData().subscribe({
-      next: (response) => 
-      {
-        this.ofertante = response; 
-        this.rellenarForm()
+ngOnInit(): void {
+  const id = this.activatedRoute.snapshot.paramMap.get('id');
+
+  if (id) {
+    this._usuarioService.getUsuarioData(Number(id)).subscribe({
+      next: (usuario) => {
+        this.ofertante = usuario;
+        this.rellenarForm();
       },
-      error: (errorData) =>{alert(errorData)},
-      complete: () => {console.log("user data ok")}
-    })
+      error: (error) => {
+        alert("Error al obtener usuario por ID");
+        console.error(error);
+      }
+    });
+  } else {
+    this._usuarioService.getUserData().subscribe({
+      next: (response) => {
+        this.ofertante = response;
+        this.rellenarForm();
+      },
+      error: (errorData) => { alert(errorData) },
+      complete: () => { console.log("user data ok") }
+    });
   }
-  
+}
+
+
 
   rellenarForm() {
     this.signInForm.patchValue({
+      id: this.ofertante.id,
       nombre: this.ofertante.nombre,
-      apellidos: this.ofertante.apellidos, 
-      userName: this.ofertante.userName, 
+      apellidos: this.ofertante.apellidos,
+      userName: this.ofertante.userName,
       email: this.ofertante.email
     });
   }
-  
+
     /**{
       "apellidos": "Hamilton",
       "email": "alex@example.com",
@@ -75,27 +91,27 @@ export class PerfilOferComponent implements OnInit{
       "role": "x",
       "userName": "AlexH."
   } */
-  
+
     hide = true;
     clickEvent(event: MouseEvent) {
       this.hide = !this.hide;
       event.stopPropagation();
     }
-  
+
     onSubmit() {
       let resp: {mensaje: string};
-      if (this.signInForm.valid) {      
+      if (this.signInForm.valid) {
         this._alertService
           .confirmBox("Editar datos", "¿Está seguro de editar su datos personales?")
           .then((result) => {
             if (result.value) {
-              this._usuarioService.putUpdateData(this.signInForm.value as User).subscribe({
+              this._usuarioService.putUpdateDataAdmin(this.signInForm.value as User).subscribe({
                 next: (response) => {
                   resp = response
                 },
                 error: (error) => {alert(error)},
-                complete: () => 
-                  { 
+                complete: () =>
+                  {
                     this._alertService.alertWithSuccess(resp.mensaje);
                     this.location.back();
                   }

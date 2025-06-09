@@ -36,6 +36,21 @@ export class UsuarioService {
     )
   }
 
+    putUpdateDataAdmin(usuario: User)
+  {
+    console.log("sdfsdf",usuario.id);
+    const id = usuario.id;
+    return this._http.put<{mensaje: string}>(this._URL+'usuarios/'+id, usuario).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  deleteUsuarioDataAdmin(id: number){
+    return this._http.delete<{mensaje: string}>(this._URL+'usuarios/').pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error:HttpErrorResponse){
     if(error.status===0){
       console.error('Se ha produció un error ', error.error);

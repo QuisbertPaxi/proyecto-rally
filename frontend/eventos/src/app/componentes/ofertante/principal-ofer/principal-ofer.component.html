@@ -8,8 +8,8 @@
           <img mat-card-image [src]="foto.link" [alt]="foto.titulo" class="image-placeholder"/>
           <div class="photo-details">
             <mat-form-field>
-              <mat-label>ESTADO</mat-label>
-              <mat-select [(ngModel)]="foto.estado">
+              <mat-label>EVALUAR</mat-label>
+              <mat-select [value]="foto.estado" (selectionChange)="cambiarEstadoFoto(foto, $event.value)">
                 @for (estado of estados; track $index) {
                   <mat-option class="option" [value]="estado">{{ estado }}</mat-option>
                 }
@@ -17,6 +17,8 @@
             </mat-form-field>
             <div class="descripcion-label">Descripción</div>
             <div class="descripcion-text">{{ foto.descripcion }}</div>
+            <div class="descripcion-label">Estado Actual</div>
+            <div class="descripcion-text">{{ foto.estado }} --No devuelve estado</div>
         </div>
       </div>
     </mat-card>
