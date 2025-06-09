@@ -16,13 +16,13 @@
 
       <mat-card *ngIf="ganador" class="ganador-container">
         <mat-card-header>
-          <mat-card-title class="titulo">{{ ganador.titulo }}</mat-card-title>
+          <mat-card-title class="titulo"><h3>{{ ganador.titulo }}</h3></mat-card-title>
         </mat-card-header>
     
         <mat-card-content>
           <img mat-card-image [src]="ganador.link" alt="Foto ganadora" />
-          <p>{{ ganador.descripcion }}</p>
-          <p><strong>Votos:</strong> {{ ganador.cantidadVotos }}</p>
+          <h5>{{ ganador.descripcion }}</h5>
+          <h1><strong>Votos:</strong> {{ ganador.cantidadVotos }}</h1>
         </mat-card-content>
       </mat-card>
     </div>

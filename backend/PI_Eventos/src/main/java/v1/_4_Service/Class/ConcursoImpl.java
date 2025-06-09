@@ -45,7 +45,8 @@ public class ConcursoImpl implements ConcursoService {
                 concursoDTO.getFechaFinEnvio() == null ||
                 concursoDTO.getFechaInicioVotacion() == null ||
                 concursoDTO.getFechaFinVotacion() == null ||
-                concursoDTO.getFechaAnuncio() == null) {
+                concursoDTO.getFechaAnuncio() == null ||
+                concursoDTO.getNumeroFotografias() == null) {
 
             return ResponseEntity.badRequest().body("No esta bien los datos");
         }
@@ -55,6 +56,7 @@ public class ConcursoImpl implements ConcursoService {
         concurso.setFechaInicioVotacion(concursoDTO.getFechaInicioVotacionAsDate());
         concurso.setFechaFinVotacion(concursoDTO.getFechaFinVotacionAsDate());
         concurso.setFechaAnuncio(concursoDTO.getFechaAnuncioAsDate());
+        concurso.setNumeroFotografias(concursoDTO.getNumeroFotografias());
         concurso.setUsuarioModificacion(user.getUserName());
         concurso.setFechaModificacion(new Timestamp(new Date().getTime()));
         System.out.println("---------------------------antes de guardar: -------------------------------");

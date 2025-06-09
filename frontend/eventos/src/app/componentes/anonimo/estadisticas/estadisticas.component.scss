@@ -7,6 +7,7 @@
 }
 .chart-container {
     width: 100%;
+    max-width: 100%; /* Asegura que no se pase del contenedor */
     margin: 0 auto;
 }
 h2 {
@@ -19,6 +20,27 @@ h2 {
     text-align: center;
     font-size: 10cap;
     color: #262539;
+}
+
+h3{
+    font-weight: 700;
+    font-family: Averta, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 16px;
+    
+}
+
+h5{
+  font-size: 1rem;
+}
+
+h5,h3{
+    color: #282652;
+}
+h1{
+    color: rgba(0, 124, 207, 0.603);
+}
+mat-card{
+    background-color: #94b0d4;
 }
 
 .mat-headline{
@@ -67,9 +89,14 @@ mat-card-content img {
     grid-template-columns: 1fr;
     }
 
-    
-    mat-card-image{
-        height: 150px;
+    .item-main{
+        width: 90%;
+        max-width: 350px;
+        margin: 10px auto;
+    }
+
+    mat-card-image {
+    height: 150px;
     }
 
     mat-card-title {
@@ -79,6 +106,7 @@ mat-card-content img {
 
 .item {
     flex: 1 1 500px; /* Tamaño base: mínimo 300px, crecer si hay espacio */
+    width: 100%;
     //max-width: 800px; /* Opcional: no más ancho que esto */
     display: flex;
     flex-direction: column;

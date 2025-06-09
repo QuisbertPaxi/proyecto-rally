@@ -19,12 +19,16 @@
           <input type="file" (change)="onFileSelected($event)" class="input-file" accept=".jpg,.jpeg,.png"/>
 
         <div class="button-row">
-          <button mat-raised-button class="boton" type="button" (click)="onSubmit()" [disabled]="!fotoForm.valid || !selectedFile || !puedeEnviar">
-            {{texto_boton}}
-          </button>
-          <button mat-raised-button class="boton" type="button" (click)="cancelar()">
-            Cancelar
-          </button>
+          <div id="inner">
+            <div id="grip">
+            <button mat-raised-button class="boton" type="button" (click)="onSubmit()" [disabled]="!fotoForm.valid || !selectedFile || !puedeEnviar">
+              {{texto_boton}}
+            </button>
+            <button mat-raised-button class="boton" type="button" (click)="cancelar()">
+              Cancelar
+            </button>
+          </div>
+          </div>
         </div>
       </form>
     </mat-card-content>

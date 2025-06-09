@@ -67,6 +67,14 @@
       
   }
 
+   button {
+  border-radius: 7px;
+  letter-spacing: 0.07rem;
+  font-family:  "AvertaStd-Regular",-apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol;
+  font-weight: 700;
+}
+ 
+
   .btn{
     background-color: #2e78b0!important;
     color: #c5c4e3!important;
@@ -84,6 +92,10 @@
   background-color: #6e93c2!important;
   transform: scale(1.05)!important;
 }
+  }
+
+  #color{
+    background-color: #856abb!important;
   }
   
   
