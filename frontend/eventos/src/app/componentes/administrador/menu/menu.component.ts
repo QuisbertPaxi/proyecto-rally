@@ -17,7 +17,7 @@ import { User } from '../../../modelos/user';
   selector: 'app-menu',
   standalone: true,
   imports: [
-    MatToolbarModule, 
+    MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
@@ -29,34 +29,33 @@ import { User } from '../../../modelos/user';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
-export class MenuConsuComponent {
+export class MenuComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly _tokenService = inject(TokenService)
   private readonly route = inject(Router)
   private readonly _usuarioService = inject(UsuarioService)
-  participanteDatos: User = {} as User;
+  adminDatos: User = {} as User;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
-  );
+    );
 
-  ngOnInit(): void {
-    this._usuarioService.getUserData().subscribe({
-      next: (us: User) => {
-        this.participanteDatos = us;
-      },
-      error: err => {
-        console.error('Error al obtener participante:', err);
-        alert('No se pudo obtener el participante.');
-      }
-    });
-  }
+    ngOnInit(): void {
+      this._usuarioService.getUserData().subscribe({
+        next: (us: User) => {
+          this.adminDatos = us;
+        },
+        error: err => {
+          alert('No se pudo obtener el participante.');
+        }
+      });
+    }
 
-  logout():void
-  {
-    this._tokenService.removeToken()
-    this.route.navigateByUrl("/")
-  }
+    logout():void
+    {
+      this._tokenService.removeToken()
+      this.route.navigateByUrl("/")
+    }
 }

@@ -17,18 +17,14 @@ export class UsuarioService {
 
   getUserData()
   {
-    // http://localhost:19090/api/v1/usuarios/{{id}}
     const id = this._rolService.getUsuarioId();
     return this._http.get<User>(this._URL+'usuarios/'+id)
   }
 
   getUsuarioData(idOf: number| null | undefined)
   {
-    // http://localhost:19090/api/v1/usuarios/{{id}}
     return this._http.get<User>(this._URL+'usuarios/'+idOf)
   }
-
-  // PUT http://localhost:19090/api/v1/usuarios/{{id}}
 
   putUpdateData(usuario: User)
   {
@@ -38,9 +34,8 @@ export class UsuarioService {
     )
   }
 
-    putUpdateDataAdmin(usuario: User)
+  putUpdateDataAdmin(usuario: User)
   {
-    console.log("sdfsdf",usuario.id);
     const id = usuario.id;
     return this._http.put<{mensaje: string}>(this._URL+'usuarios/'+id, usuario).pipe(
       catchError(this.handleError)
@@ -79,5 +74,4 @@ export class UsuarioService {
     }
     return throwError(()=> new Error('Algo falló. Por favor intente nuevamente.'));
   }
-
 }

@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -8,17 +7,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { AlertService } from '../../../servicios/alert.service';
-import { RouterLink, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core'; // Asegúrate de importar MatNativeDateModule
 import { FotografiaService } from '../../../servicios/fotografia/fotografia.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponseFotografia } from '../../../modelos/api-response-fotografia';
-import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { User } from '../../../modelos/user';
-import { ConsursoService } from '../../../servicios/consurso/consurso.service';
+import { ConsursoService } from '../../../servicios/concurso/concurso.service';
 
 @Component({
   selector: 'app-add-fotografia',
@@ -30,8 +28,6 @@ import { ConsursoService } from '../../../servicios/consurso/consurso.service';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    AsyncPipe,
-    RouterLink,
     MatCardModule,
     ReactiveFormsModule,
     MatNativeDateModule
@@ -66,7 +62,8 @@ export class AddFotografiaComponent {
 
   selectedFile: File | null = null;
 
-  constructor(private router: Router, private route: ActivatedRoute,){}
+  constructor(private readonly router: Router, 
+              private readonly route: ActivatedRoute,){}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -126,7 +123,7 @@ export class AddFotografiaComponent {
 
   onFileSelected(event: any): void {
     const input = event.target as HTMLInputElement;
-    const file: File = event.target.files[0] || null;
+    const file: File = event.target.files[0] ?? null;
     if (!file) return;
   
     const maxSizeMB = 0.5;
@@ -154,7 +151,6 @@ export class AddFotografiaComponent {
   
     // Si pasa las validaciones, guarda el archivo
     this.selectedFile = file;
-    console.log('Archivo válido:', file);
   }
   
 

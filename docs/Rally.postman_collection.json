@@ -1,0 +1,603 @@
+{
+	"info": {
+		"_postman_id": "96c8776f-f8ca-4707-b691-516f1de9a1d3",
+		"name": "Rally",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26465032"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "getUsuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiYWRtaW5pc3RyYWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTE1NjY1MiwiZXhwIjoxNzQ5MTU4MDkyfQ.apC87uZDEjUsrhvmjViRJp_-7uYUuOWoXaH3t7RTztY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:19090/api/v1/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "19090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiYWRtaW5pc3RyYWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTE1NjY1MiwiZXhwIjoxNzQ5MTU4MDkyfQ.apC87uZDEjUsrhvmjViRJp_-7uYUuOWoXaH3t7RTztY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"usuario1234\",\r\n  \"password\": \"12345\",\r\n  \"email\": \"usuario4@example.com\",\r\n  \"nombre\": \"Juan\",\r\n  \"apellidos\": \"Pérez Gómez\",\r\n  \"role\": \"USER\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:19090/api/v1/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "19090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUsuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiYWRtaW5pc3RyYWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTE1ODI0OCwiZXhwIjoxNzQ5MTU5Njg4fQ.p3VQ00My1zCvDjaHWhImjZ_7QQe3Zyb-jwrBThvaXAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:19090/api/v1/usuarios/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "19090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Votos",
+			"item": [
+				{
+					"name": "countVotosFotografia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:19090/votos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "19090",
+							"path": [
+								"votos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "votar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idFotografia\": 11,\r\n    \"ip\": \"192.168.1.15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:19090/votos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "19090",
+							"path": [
+								"votos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"jperez\",\r\n    \"email\": \"leinadcastilq@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:19090/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFotografia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiY29uc3VtaWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTA3MzQzNywiZXhwIjoxNzQ5MDc0ODc3fQ.yJyVgxs7p4h2d85ojLwwFWYmsLoVc0_qai7G_cX11eI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addFotografia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiY29uc3VtaWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTA3NDAxNSwiZXhwIjoxNzQ5MDc1NDU1fQ.wPyozY9CUD5YyAjuuVyF3SXeDsSbeZlg_GcdX6PBZlw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"descripcion\": \"dcastillo\",\r\n    \"idParticipante\": 1,\r\n    \"link\": \"12345\",\r\n    \"titulo\": \"12345\",\r\n    \"usuCre\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/Participantes/Add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"Participantes",
+						"Add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateFotografia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiY29uc3VtaWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTA3NjAxNiwiZXhwIjoxNzQ5MDc3NDU2fQ.jjlJ3MRJIQ9ZNGQF6IPwu7s1KcrGm0G5_gYvf_JA1iA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 6,\r\n    \"descripcion\": \"dcastillo cambiado\",\r\n    \"idParticipante\": 1,\r\n    \"link\": \"12345 cambiado\",\r\n    \"titulo\": \"12345 cambiado\",\r\n    \"usuMod\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/Participantes/Update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"Participantes",
+						"Update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteFotografia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTUsInJvbGVzIjoicGFydGljaXBhbnRlIiwic3ViIjoianBlcmV6IiwiaWF0IjoxNzQ5MzAzODYzLCJleHAiOjE3NDkzMDUzMDN9.irB3dLTfcUSqSVxAKoOwRoUNCnLvlrozYAB2LKT4ZrM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 8,\r\n    \"usuMod\": \"jperez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/Participantes/Delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"Participantes",
+						"Delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllFotografias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/All",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"All"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFotografiasParticipante",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiY29uc3VtaWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTA4OTEyNCwiZXhwIjoxNzQ5MDkwNTY0fQ.fnxphVI1pYxh490ptoclhpQjnqs0gb_lRnHk0Ok2SAM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/Participantes/All/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"Participantes",
+						"All",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFotografiasPorEstadoADMIN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiYWRtaW5pc3RyYWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTA5MjMxMCwiZXhwIjoxNzQ5MDkzNzUwfQ._BJs8mlHzm88o5c5uYqK8cQ6Ds0-zm8LcLL7tjE1ZfA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/State/11/PENDIENTE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"State",
+						"11",
+						"PENDIENTE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFotografiaPorTituloODescripcion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/All/ca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"All",
+						"ca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getConcurso",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/concurso",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"concurso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateConcurso",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiYWRtaW5pc3RyYWRvciIsInN1YiI6ImRjYXN0aWxsbyIsImlhdCI6MTc0OTE0Nzk0NiwiZXhwIjoxNzQ5MTQ5Mzg2fQ.vThKOOLonRdU7v1Q_5nJbF4GwCZ6T8mmHHDH3fHK2bs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"descripcion\": \"Concurso de fotografía paisajística\",\r\n  \"fechaInicioEnvio\": \"2025-06-01\",\r\n  \"fechaFinEnvio\": \"2025-06-10\",\r\n  \"fechaInicioVotacion\": \"2025-06-11\",\r\n  \"fechaFinVotacion\": \"2025-06-20\",\r\n  \"fechaAnuncio\": \"2025-06-22\",\r\n  \"numeroFotografias\": 3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:19090/concurso/Update/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"concurso",
+						"Update",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "aprobarFotografia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsInJvbGVzIjoiYWRtaW4iLCJzdWIiOiJkY2FzdGlsbG8iLCJpYXQiOjE3NDk0MDI4NjgsImV4cCI6MTc0OTQwNDMwOH0.F9ix1_gLiZPOKS70Z-xdSuujDkGHX1Q1jyKzAH86Sw0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/Aprobar/13/17/false",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"Aprobar",
+						"13",
+						"17",
+						"false"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContarFotografiasSubidas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTUsInJvbGVzIjoicGFydGljaXBhbnRlIiwic3ViIjoianBlcmV6IiwiaWF0IjoxNzQ5NDEyNzIxLCJleHAiOjE3NDk0MTQxNjF9.CLOZz1xJ03xNxAAegRV-N9u7BIFDqqK4jEJkqYJcQGA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:19090/api/v1/fotografias/Contar/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19090",
+					"path": [
+						"api",
+						"v1",
+						"fotografias",
+						"Contar",
+						"15"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

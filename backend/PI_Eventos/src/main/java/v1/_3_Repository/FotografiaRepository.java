@@ -3,15 +3,12 @@ package v1._3_Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import v1._1_Model.Fotografia;
-import v1._1_Model.Usuario;
 import v1._2_DTO.FotografiaDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface FotografiaRepository extends JpaRepository<Fotografia, Long> {
     List<Fotografia> findByParticipanteId(Long participanteId); // Método para encontrar todas las fotografias por id del participante
-    List<Fotografia> findByTituloContainingIgnoreCase(String titulo); // Encuentra las fotografias que contenga en su titulo la cadena solicitada
 
     @Query("""
             SELECT new v1._2_DTO.FotografiaDTO(

@@ -54,6 +54,7 @@ export class GaleriaComponent {
           this._votoService.postVotar(voto).subscribe({
             next: (response) => {
               this._alertService.alertWithSuccess("Se registró su voto. ¡Gracias por participar!");
+              this.cargarFotografias();
               localStorage.setItem(`voto`, 'true');
               this.yaVoto = true;
             },
@@ -72,10 +73,6 @@ export class GaleriaComponent {
       console.warn('Usted ya emitió su voto anteriormente (desde localstorage)');
       this._alertService.alertWithError("No se registró su voto. Usted ya emitió su voto anteriormente");
     }
-
-  }
-
-  buscarFotografias(){
 
   }
 

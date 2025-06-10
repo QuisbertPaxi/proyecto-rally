@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
-import { TokenService } from '../jwt/token.service';
 import { environment } from '../../../environments/environment.development';
 
 export interface VotoDTO {
@@ -15,7 +14,6 @@ export interface VotoDTO {
 export class VotoService {
 
   private readonly _http = inject(HttpClient);
-  private readonly _tokenService = inject(TokenService);
   private readonly _URL = environment.HOST_URL;
 
   postVotar(voto: VotoDTO): Observable<any> {

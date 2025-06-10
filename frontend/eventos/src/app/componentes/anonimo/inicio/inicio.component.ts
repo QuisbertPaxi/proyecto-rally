@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterLink } from '@angular/router';
-import { ConsursoService } from '../../../servicios/consurso/consurso.service';
+import { ConsursoService } from '../../../servicios/concurso/concurso.service';
 
 export interface Tile {
   color: string;
@@ -39,7 +39,7 @@ export class InicioComponent {
   fVotoFin: any;
   fGanadores: any;
 
-  constructor( private concursoService: ConsursoService){}
+  constructor( private readonly concursoService: ConsursoService){}
 
   ngOnInit(): void {
     this.concursoService.getConcurso().subscribe(data => {

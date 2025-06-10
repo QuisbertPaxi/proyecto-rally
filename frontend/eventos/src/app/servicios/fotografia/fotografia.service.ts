@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 import { TokenService } from '../jwt/token.service';
-import { ApiResponseFotografia } from '../../modelos/api-response-fotografia';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({

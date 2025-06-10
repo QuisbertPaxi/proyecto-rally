@@ -1,0 +1,18 @@
+descargar del repo
+crear la db llama rally
+Ejecutar el script CreacionDB.sql
+abrir el front
+--> npm install
+abrir el back
+ajustar en properties las credenciales de la conexión a la db: puerto, username, password
+mvn clean
+mvn install
+
+--> ejecutar PiEventosApplication para el back
+--> escribir ng serve para el front
+
+abrir en el navegador localhost:4200
+
+credenciales usuario admin:
+usuario: admin
+pass: 12345

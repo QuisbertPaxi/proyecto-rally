@@ -57,11 +57,11 @@ public class Fotografia {
     private Set<Voto> votos = new HashSet<>();
 
 
-    public Fotografia(FotografiaDTO FotografiaDTO) {
-        this.setTitulo(FotografiaDTO.getTitulo());
-        this.setDescripcion(FotografiaDTO.getDescripcion());
-        this.setLink(FotografiaDTO.getLink());
-        this.setUsuarioCreacion(FotografiaDTO.getUsuCre());
+    public Fotografia(FotografiaDTO fotografiaDTO) {
+        this.setTitulo(fotografiaDTO.getTitulo());
+        this.setDescripcion(fotografiaDTO.getDescripcion());
+        this.setLink(fotografiaDTO.getLink());
+        this.setUsuarioCreacion(fotografiaDTO.getUsuCre());
         this.setFechaCreacion(new Timestamp(new Date().getTime()));
         this.setEstado("PENDIENTE");
     }

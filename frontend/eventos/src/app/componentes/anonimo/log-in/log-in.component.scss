@@ -1,65 +1,57 @@
 .full-width {
-    width: 100%;
-  }
+  width: 100%;
+}
 
 
-  #h2{
-    color: #c5c4e3;
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.5em;
-    line-height: 1.2;
-    text-align: center;
-  }
+#h2 {
+  color: #c5c4e3;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.5em;
+  line-height: 1.2;
+  text-align: center;
+}
 
-  .marginbot{
-    margin-bottom: 2em;
-  }
+.marginbot {
+  margin-bottom: 2em;
+}
 
-  .mat-radio-button {
-    display: block;
-    margin: 5px 0;
-  }
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
 
-  .row {
-    display: flex;
-    flex-direction: row;
-  }
+.row {
+  display: flex;
+  flex-direction: row;
+}
 
-  .col {
-    flex: 1;
-    margin-right: 20px;
-  }
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
 
-  .col:last-child {
-    margin-right: 0;
-  }
+.col:last-child {
+  margin-right: 0;
+}
 
-  .outer {
-    display: grid;
-    place-items: center; /* Centra tanto horizontal como verticalmente */
-    height: 100%; /* Para demostrar centrado vertical, opcional */
-  }
+.outer {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
 
-  .inner {
-   padding: 20px; /* Opcional, para contenido */
-  }
-  .grip{
+.inner {
+  padding: 20px;
+}
 
-    display: grid;
+.grip {
 
-    /* Espaciado entre columnas */
-    grid-column-gap: 0.75rem; /* Equivalente a 3px */
+  display: grid;
+  grid-column-gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-row-gap: 0;
 
-    /* Espaciado entre filas */
-    grid-row-gap: 0.5rem; /* Equivalente a 2px */
-
-    /* Número de columnas en la vista pequeña (sm) */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    /* Espaciado entre filas en la vista pequeña (sm) */
-    grid-row-gap: 0; /* Sin espacio entre filas */
-
-  }
+}
 
 .login-container {
   display: flex;
@@ -97,6 +89,7 @@
   padding: 3rem;
   position: relative;
 }
+
 form {
   width: 100%;
   max-width: 400px;
@@ -110,21 +103,23 @@ form {
   z-index: 10;
 }
 
-#center{
+#center {
   display: flex;
-  justify-content: center; // Centra el enlace horizontalmente
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   padding: 1em;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
 a {
   color: #04559b;
-  text-decoration: none;  
+  text-decoration: none;
   word-spacing: 0.1rem;
   font-size: 0.9em;
-  transition: color 0.3s, transform 0.3s; 
+  transition: color 0.3s, transform 0.3s;
+
   &:visited {
-    color: #5c7dba;  // Color de enlace visitado (puedes cambiarlo)
+    color: #5c7dba;
   }
 }

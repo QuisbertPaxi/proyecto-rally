@@ -1,10 +1,6 @@
 package v1._2_DTO;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class FotografiaDTO {
 

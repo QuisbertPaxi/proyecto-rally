@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 import { environment } from '../../../environments/environment.development';
-import { C } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolService {
 
-  constructor(private tokenService: TokenService) { }
+  constructor(private readonly tokenService: TokenService) { }
 
   getUsuarioRol(): string 
   {
@@ -17,7 +16,7 @@ export class RolService {
     if (!token) { return "" }
 
     const tokenPayload = environment.decodeToken(token);
-    return tokenPayload.roles || "";
+    return tokenPayload.roles ?? "";
 
   }
 

@@ -29,7 +29,7 @@ import { AlertService } from '../../../servicios/alert.service';
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
-  private fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
   private readonly _loginService = inject(LoginService);
   private readonly _alertService = inject(AlertService);
   private readonly _router = inject(Router)

@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment.development';
 export class TokenService {
 
   // se usa como clave para almacenar y recuperar el token JWT del localStorage
-  private tokenKey: string = "token";
+  private readonly tokenKey: string = "token";
 
   constructor() { }
 

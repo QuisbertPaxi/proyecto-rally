@@ -1,16 +1,18 @@
 // //PARTE 1
 .container {
-    background-color: #c5c4e3;
+  background-color: #c5c4e3;
   display: flex;
   min-height: 100vh;
   flex-wrap: wrap;
+
   .column1 {
-    flex: 0 0 50%; // La primera columna ocupa el 60% del ancho
-    padding: 20px; // Espacio de relleno
+    flex: 0 0 50%;
+    padding: 20px;
   }
+
   .column2 {
-    flex: 1; // La segunda columna ocupa el espacio restante
-    padding: 20px; // Espacio de relleno
+    flex: 1;
+    padding: 20px;
   }
 }
 
@@ -20,9 +22,9 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding-left: 1.25rem; /* px-5 */
-  padding-right: 1.25rem; /* px-5 */
-  padding-top: 0.5rem; /* pt-8 */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.5rem;
   color: #143252;
   height: 100%;
   width: 100%;
@@ -32,44 +34,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // width: 100%;
   cursor: default;
   font-weight: bold;
-   max-width: 850px;
-    font-size: 2.2em;
-    line-height: 1.1;
-    text-align: center;
+  max-width: 850px;
+  font-size: 2.2em;
+  line-height: 1.1;
+  text-align: center;
 
-    h1{
-        margin-top: 0;
-    }
-  
+  h1 {
+    margin-top: 0;
+  }
+
 }
 
-
 .main-content {
-    text-align: center;
+  text-align: center;
   display: flex;
   flex-direction: column;
   font-size: 22px;
   line-height: 1.2;
-  margin-top: 1rem; /* <-- Agregado */
+  margin-top: 1rem;
 }
 
 .text {
-     text-align: center;
-    font-size: 1em;
-    letter-spacing: 0px;
-    font-weight: 600;
-    line-height: 1.2;
+  text-align: center;
+  font-size: 1em;
+  letter-spacing: 0px;
+  font-weight: 600;
+  line-height: 1.2;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-//PARTE 2
-
 .fechas-grid {
   display: grid;
-  grid-template-columns: 1fr; /* Por defecto: 1 columna */
+  grid-template-columns: 1fr;
   gap: 16px;
   background-color: #586db4;
   color: #c5c4e3;
@@ -88,11 +86,11 @@
   font-weight: bold;
 }
 
-.fechas-grid .etiqueta{
+.fechas-grid .etiqueta {
   font-size: 1.2rem;
 }
 
-.fechas-grid .fecha{
+.fechas-grid .fecha {
   font-size: 1.6rem;
 }
 
@@ -102,11 +100,11 @@
 
 @media (min-width: 768px) {
   .fechas-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas desde tablets hacia arriba */
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .fechas-grid .titulo {
-    grid-column: 1 / 4; /* Ocupa las 3 columnas */
+    grid-column: 1 / 4;
   }
 }
 
@@ -127,48 +125,36 @@
     max-width: 100%;
   }
 }
+
 @media (min-width: 768px) {
-  /* md */
   .main-container {
     display: flex;
-    padding-left: 1.5rem; /* px-6 */
-    padding-right: 1.5rem; /* px-6 */
-    padding-top: 22px; /* py-[22px] */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 22px;
   }
 }
 
-
-//PARTE 3
-
 .text-wrapper {
   color: #143252;
-  max-width: 100%;
   padding: 1rem;
   font-size: 19px;
   line-height: 1.2;
+  max-width: 90%;
+  text-align: left;
 }
 
 .content-container {
-  // margin-top: -1rem; /* -mt-4 */
   width: 100%;
-  padding-right: 1rem; /* pr-5 */
+  padding-right: 1rem;
 }
 
 
 .grip {
   display: grid;
-
-  /* Espaciado entre columnas */
-  grid-column-gap: 0.75rem; /* Equivalente a 3px */
-
-  /* Espaciado entre filas */
-  grid-row-gap: 0.5rem; /* Equivalente a 2px */
-
-  /* Número de columnas en la vista pequeña (sm) */
+  grid-column-gap: 0.75rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  /* Espaciado entre filas en la vista pequeña (sm) */
-  grid-row-gap: 0; /* Sin espacio entre filas */
+  grid-row-gap: 0;
 }
 
 .image-list {
@@ -199,23 +185,18 @@
   color: #333;
 }
 
-.column1, .column2 {
+.column1,
+.column2 {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-/* Para el texto */
-.text-wrapper {
-  max-width: 90%;
-  text-align: left;
-}
 
-/* Para hacer la imagen más pequeña */
+
 .image-small {
   max-width: 80%;
   height: auto;
   border-radius: 8px;
 }
-
