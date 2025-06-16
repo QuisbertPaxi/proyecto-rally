@@ -131,9 +131,11 @@ public class UsuarioImpl implements UsuarioService {
             return false;
         }
 
-        u.setEstado("ELIMINADO");
-        u.setFechaModificacion(new Timestamp(new Date().getTime()));
-        usuarioRepository.save(u);
+         // u.setEstado("ELIMINADO");
+        // u.setFechaModificacion(new Timestamp(new Date().getTime()));
+        // usuarioRepository.save(u);
+        fotografiaRepository.eliminarFotografiasPorUsuario(u.getId());
+        usuarioRepository.delete(u);
         return true;
     }
 
