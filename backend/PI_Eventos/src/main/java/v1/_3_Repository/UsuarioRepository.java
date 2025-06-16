@@ -27,4 +27,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         """)
     List<UsuarioDTO> findByEstadoNot();
 
+      @Modifying
+    @Query("DELETE FROM Usuario u WHERE u.id = :usuarioId")
+    void eliminarUsuarioPorId(Long usuarioId);
+
 }
