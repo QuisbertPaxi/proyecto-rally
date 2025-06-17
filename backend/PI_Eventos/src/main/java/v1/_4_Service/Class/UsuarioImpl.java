@@ -8,11 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import v1.Security.JWT.JWTService;
 import v1.Security.JWT.TokenResponse;
+import v1._1_Model.Fotografia;
 import v1._1_Model.Usuario;
 import v1._2_DTO.InicioSesionDTO;
 import v1._2_DTO.UsuarioDTO;
 import v1._3_Repository.FotografiaRepository;
 import v1._3_Repository.UsuarioRepository;
+import v1._3_Repository.VotoRepository;
 import v1._4_Service.Interface.UsuarioService;
 
 import java.sql.Timestamp;
@@ -34,6 +36,12 @@ public class UsuarioImpl implements UsuarioService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    FotografiaRepository fotografiaRepository;
+
+    @Autowired
+    VotoRepository votoRepository;
 
     String roleAdmin = "admin";
 
@@ -135,7 +143,16 @@ public class UsuarioImpl implements UsuarioService {
          // u.setEstado("ELIMINADO");
         // u.setFechaModificacion(new Timestamp(new Date().getTime()));
         // usuarioRepository.save(u);
-        fotografiaRepository.eliminarFotografiasPorUsuario(u.getId());
+
+        List<Fotografia> fotografias = fotografiaRepository.findByParticipanteId(id);
+
+        if (fotografias != null || !fotografias.isEmpty()){
+            for (Fotografia  f:
+                    fotografias) {
+                votoRepository.eliminarVotosPorFotografia(f.getId());
+            }
+            fotografiaRepository.eliminarFotografiasPorUsuario(u.getId());
+        }
         usuarioRepository.delete(u);
         return true;
     }

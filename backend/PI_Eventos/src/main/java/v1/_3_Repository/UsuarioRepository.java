@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import v1._1_Model.Usuario;
 import v1._2_DTO.UsuarioDTO;
 
@@ -29,6 +30,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<UsuarioDTO> findByEstadoNot();
 
       @Modifying
+      @Transactional
     @Query("DELETE FROM Usuario u WHERE u.id = :usuarioId")
     void eliminarUsuarioPorId(Long usuarioId);
 
